@@ -231,8 +231,8 @@ function App() {
 
       <Route path="/csi/sdg" element={<SDGPage />}></Route>
       <Route path="/vcsi/sdg" element={<SDGPage />}></Route>
-      <Route path="/csi/admin" element={<AdminPage />}></Route>
-      <Route path="/vcsi/admin" element={<AdminPage />}></Route>
+      <Route path="/csi/aqi" element={<AdminPage />}></Route>
+      <Route path="/vcsi/aqi" element={<AdminPage />}></Route>
       <Route path="/csi/weather" element={<WeatherApi />}></Route>
       <Route path="/vcsi/weather" element={<WeatherApi />}></Route>
       <Route path="/csi/aqi" element={<AqiPage />}></Route>

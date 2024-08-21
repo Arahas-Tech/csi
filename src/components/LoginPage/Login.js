@@ -62,7 +62,7 @@ const Login = () => {
     ) {
       setLoading(true);
       setTimeout(() => {
-        navigate("/csi/admin");
+        navigate("/csi/aqi");
       }, 1000);
     } else {
       setLoading(false);
@@ -105,7 +105,7 @@ const Login = () => {
         } else if (department === "Urban_heritage") {
           navigate("/csi/urban-heritage");
         } else if (department === "Environment") {
-          navigate("/csi/admin");
+          navigate("/csi/aqi");
         } else {
           navigate("/csi/tourism");
         }

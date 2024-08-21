@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import arahas_logo from "../assets/arahas_logo.png";
 import NewUserRegistrationDialog from "../NewRegistrationDialogBox";
 import "./LoginModule.css";
+import { NavLink } from "react-router-dom";
 
 const LoginHeader = ({ toggleLogin }) => {
   const [visible, setVisible] = useState(false);
@@ -21,12 +22,20 @@ const LoginHeader = ({ toggleLogin }) => {
 
   const end = (
     <div className="flex justify-content-end gap-5">
-      <Button
+      {/* <Button
         label="Know Your City"
         icon="pi pi-question-circle"
         size="small"
         onClick={() => setVisible(true)}
+      /> */}
+      <NavLink to="/csi/aqi">
+      <Button
+        label="AQI Module"
+        icon="pi pi-objects-column"
+        size="small"
       />
+      </NavLink>
+      
       <Button
         label="Login"
         icon="pi pi-user"
