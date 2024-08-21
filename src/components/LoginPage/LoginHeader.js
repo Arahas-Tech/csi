@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
-import arahas_logo from "../images/arahas-logo.webp";
+import arahas_logo from "../assets/arahas_logo.png";
 import NewUserRegistrationDialog from "../NewRegistrationDialogBox";
 import "./LoginModule.css";
 

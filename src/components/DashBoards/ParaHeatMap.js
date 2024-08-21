@@ -12,9 +12,9 @@ import { Style, Fill, Stroke, Icon } from "ol/style";
 import { Feature } from "ol";
 import Point from "ol/geom/Point";
 import Overlay from "ol/Overlay";
-import ayodhya_villages from "../images/ayodhya_village.json";
-import ayodhya from "../images/ayodhya.json";
-import waste_map from "../images/waste_map.png";
+import ayodhya_villages from "../assets/ayodhya_village.json";
+import ayodhya from "../assets/ayodhya.json";
+import waste_map from "../assets/waste_map.png";
 import axios from "axios";
 
 const ParaHeatMap = ({ Parameter,startDate, endDate} ) => {

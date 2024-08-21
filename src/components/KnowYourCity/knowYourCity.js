@@ -21,12 +21,12 @@ import ram_mandir from "./KnowImages/ram.jpg";
 import school from "./KnowImages/education.png"
 import ADA from "./KnowImages/ADA.jpg";
 import ayo_ghat from "./KnowImages/ayo-ghat.jpg";
-import water_one from "../images/water1.json";
-import water_three from "../images/water3.json";
-import cleaning from "../images/clean.json";
-import house_ani from "../images/house_ani.json";
-import garbage from "../images/garbage.json";
-import CT from "../images/PT.json";
+import water_one from "../assets/water1.json";
+import water_three from "../assets/water3.json";
+import cleaning from "../assets/clean.json";
+import house_ani from "../assets/house_ani.json";
+import garbage from "../assets/garbage.json";
+import CT from "../assets/PT.json";
 import FeedbackForm from "./FeedbackForm";
 const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState("demographics");

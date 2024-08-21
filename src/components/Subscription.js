@@ -5,12 +5,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import './Subscription.css';
 import Lottie from "lottie-react";
-import gold from "./images/gold.json";
-import bronze from "./images/bronze.json";
-import silver from "./images/silver.json";
-import free from "./images/free.json";
+import gold from "./assets/gold.json";
+import bronze from "./assets/bronze.json";
+import silver from "./assets/silver.json";
+import free from "./assets/free.json";
 import Header from './Header';
-import payLoading from './images/payLoad.mp4';
+import payLoading from './assets/payLoad.mp4';
 
 const Subscription = () => {
   const dailyPrice = 400;

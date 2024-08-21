@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import inc from "./images/arrows.svg";
-import dec from "./images/arrow.svg";
+import inc from "./assets/arrows.svg";
+import dec from "./assets/arrow.svg";
 import { Link } from "react-router-dom";
 
 const SdgCard = ({ sdg }) => {

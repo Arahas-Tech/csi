@@ -252,7 +252,7 @@
   padding: 1vw;
   margin-top: 1vw;
   box-shadow: 0 0 12px -4px rgba(0, 0, 0, 0.9);
-  background-image: url("./images/wave.svg");
+  background-image: url("./assets/wave.svg");
   background-repeat: no-repeat;
   background-position: bottom;
   border-radius: 10px;
@@ -295,7 +295,7 @@
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 0 0 12px -4px rgba(0, 0, 0, 0.8);
-  background-image: url("./images/wave.svg");
+  background-image: url("./assets/wave.svg");
   background-position: bottom;
   background-repeat: no-repeat;
 }

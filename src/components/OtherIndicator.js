@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BarChart, PieChart, LineChart } from "./GraphVisuals";
 import "./OtherIndicators.css";
-import renewable from "./images/renewable-energy.png";
-import genderimg from "./images/gender.png";
-import arrowpos from "./images/arrow.svg";
+import renewable from "./assets/renewable-energy.png";
+import genderimg from "./assets/gender.png";
+import arrowpos from "./assets/arrow.svg";
 
 const OtherIndicator = ({ departmentName }) => {
   const [electricity, setElectricity] = useState([]);

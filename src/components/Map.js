@@ -8,8 +8,8 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import ayodhya from "./images/ayodhya.json";
-import ayodhya_villages from "./images/ayodhya_village.json";
+import ayodhya from "./assets/ayodhya.json";
+import ayodhya_villages from "./assets/ayodhya_village.json";
 
 const p1 = [26.764028, 82.133778];
 const p2 = [26.777265, 82.185866];

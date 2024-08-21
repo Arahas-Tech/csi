@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom"; // Import Link and useLocation from react-router-dom
 import "./Header.css";
-import CompanyLogo from "./images/arahas-logo.webp";
+import CompanyLogo from "./assets/arahas_logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import LogoutIcon from "@mui/icons-material/Logout";

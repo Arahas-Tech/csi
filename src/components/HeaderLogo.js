@@ -1,6 +1,6 @@
 import React from 'react'
 import './Logo.css';
-import ComapanyLogo from "./images/arahas-logo.webp";
+import ComapanyLogo from "./assets/arahas_logo.png";
 const HeaderLogo = () => {
     const handleToggleSideBar=()=>{
         document.body.classList.toggle('toggle-sidebar');

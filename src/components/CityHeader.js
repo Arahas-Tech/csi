@@ -14,14 +14,14 @@ import {
 } from "@mui/icons-material";
 import MovingIcon from '@mui/icons-material/Moving';
 import "./CityHeader.css";
-import CompanyLogo from "./images/arahas-logo.webp";
+import CompanyLogo from "./assets/arahas_logo.png";
 import { TabView, TabPanel } from "primereact/tabview";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import SidebarDivider from "./SidebarDivider";
 import Admin from "./Admin"; // Import the Admin component
 import ReportMap from "./ReportMap"; // Import the ReportMap component
 import VillaIcon from "@mui/icons-material/Villa";
-import bg_video from "./images/bg_video_csi.mp4";
+import bg_video from "./assets/bg_video_csi.mp4";
 import ReportPrint from "./ReportPrint";
 import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
 import GenerateCityReport from "./GenerateCityReport";

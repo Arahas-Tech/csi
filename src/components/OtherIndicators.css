@@ -1,6 +1,6 @@
 
 .other-main-container{
-    background-image: url(./images/bg_image-cube.png);
+    background-image: url(./assets/bg_image-cube.png);
     
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -157,7 +157,7 @@
     background-color: rgba(255, 255, 255, 0.8); 
     padding: 1vw;
     box-shadow: 0 0 12px -4px rgba(0,0,0,0.9);
-    background-image: url("./images/wave.svg");
+    background-image: url("./assets/wave.svg");
     background-repeat: no-repeat;
     background-position: bottom;
     border-radius: 10px;

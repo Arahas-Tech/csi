@@ -16,8 +16,8 @@ import {
 } from "@mui/material";
 import Lottie from "lottie-react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import sample from "../images/bg_video_csi.mp4";
-import logo from "../images/arahas-logo.webp";
+import sample from "../assets/bg_video_csi.mp4";
+import logo from "../assets/arahas_logo.png";
 import loding_ani from "../animations/loading.json";
 import "./LoginModule.css";
 import RegisterModal from "../RegisterModel";

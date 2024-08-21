@@ -4,9 +4,9 @@ import Button from '@mui/material/Button';
 import "./OverallScore.css";
 import Header from './Header';
 import Lottie from 'lottie-react';
-import n from "./images/Nature.json";
-import s from "./images/Society.json";
-import a from "./images/Administation.json";
+import n from "./assets/Nature.json";
+import s from "./assets/Society.json";
+import a from "./assets/Administation.json";
 
 const OverallScore = () => {
   const navigate = useNavigate();
