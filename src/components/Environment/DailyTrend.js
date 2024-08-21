@@ -16,7 +16,7 @@ const DailyTrend = ({
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [drilldownChartData, setDrilldownChartData] = useState([]);
-  console.log(fifteenDaysData);
+  // console.log(fifteenDaysData);
   useEffect(() => {
     
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({

@@ -16,6 +16,8 @@ import AqiReport from "../Environment/AqiReport"
 import AQIChart from '../Environment/AQIChart';
 import PollutantChart from './PollutantChart';
 import { CustomBarChart, DonutChart } from '../GraphVisuals';
+import FileUploadPopup from "../upload-popup/FileUploadPopup";
+import { Button } from 'primereact/button';
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
@@ -43,6 +45,8 @@ const AqiDashboard = ({ onDataChange, show, pSelectedLocation, pSelectedStartDat
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedAction, setSelectedAction] = useState("");
   
   const handleLocationChange = (e) => {
     if (show) {
@@ -50,7 +54,23 @@ const AqiDashboard = ({ onDataChange, show, pSelectedLocation, pSelectedStartDat
       setLoading(true); // Start loading when location changes 
     }
   };
+  const handleUpload = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
 
+      await axios.post("https://api-csi.arahas.com/upload/environment", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      
+    }
+  };
+ 
 
   useEffect(() => {
    
@@ -185,6 +205,19 @@ const AqiDashboard = ({ onDataChange, show, pSelectedLocation, pSelectedStartDat
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
+  {showPopup && (
+    <FileUploadPopup
+      onClose={() => setShowPopup(false)}
+      onUpload={handleUpload}
+      department={"environment"}
+      action={selectedAction}
+      subCategory={"Aqi"}
+    />
+  )}
+  const handleActionSelect = (action) => {
+    setSelectedAction(action);
+    setShowPopup(true);
+  };
 
   useEffect(() => {
     if (!show && pSelectedStartDate) {
@@ -271,6 +304,13 @@ const AqiDashboard = ({ onDataChange, show, pSelectedLocation, pSelectedStartDat
     <>
     {show && (
       <>
+        
+      {/* <Button
+        label="Upload"
+        icon="pi pi-question-circle"
+        size="small"
+        onClick={() => handleActionSelect("upload")}
+      /> */}
       <div className="flex align-items-center justify-content-between flex-row m-1">
         <div className="p-field text-sm">
           <label htmlFor="location">Location : </label>

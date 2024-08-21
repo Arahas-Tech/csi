@@ -5,7 +5,6 @@ import AqiMap from "./Maps/AqiMap";
 import "./AqiReport.css";
 
 const AqiReport = ({ selectedLocation, startDate, endDate, averageAQI }) => {
-  console.log(averageAQI)
   const formatDateToDDMMYYYY = (date) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
@@ -16,7 +15,6 @@ const AqiReport = ({ selectedLocation, startDate, endDate, averageAQI }) => {
   const start = formatDateToDDMMYYYY(startDate);
   const end = formatDateToDDMMYYYY(endDate);
   
-  console.log(start, end);
   const [avgAqi, setAvgAqi] = useState([]);
   const [locationData, setLocationData] = useState([]);
 
@@ -31,13 +29,13 @@ const AqiReport = ({ selectedLocation, startDate, endDate, averageAQI }) => {
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}`
       );
       const data = response.data.data;
-      console.log(data);
+      // console.log(data);
 
       // Process the data
       const processedData = processAqiData(data);
       // Set the processed data to state
       setLocationData(processedData.locationData);
-      console.log(processedData.averageAQI)
+      // console.log(processedData.averageAQI)
       setAvgAqi(processedData.averageAQI);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -93,7 +91,7 @@ const AqiReport = ({ selectedLocation, startDate, endDate, averageAQI }) => {
           tvoc: item.tvoc, 
           date: itemDateTime
         });
-        console.log(locationData)
+        // console.log(locationData)
       }
     });
   
@@ -109,7 +107,7 @@ const AqiReport = ({ selectedLocation, startDate, endDate, averageAQI }) => {
       };
     });
   
-    console.log(averageAQI);
+    // console.log(averageAQI);
     return { locationData, averageAQI };
   };
   

@@ -34,7 +34,7 @@ import GenerateAqiReport from "./DashBoards/GenerateAQIReport";
 import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import DefaultHeader from "./DefaultHeader";
-
+import TempDashboard from "./DashBoards/TempDashboard";
 function CityHeader({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -91,7 +91,7 @@ function CityHeader({ pageName }) {
         <div style={{ 
           marginLeft: "7rem"
            }}>
-            <DefaultHeader/>
+            {/* <DefaultHeader/> */}
           <TabView className="w-90 ">
             <TabPanel
               header="Performance"
@@ -102,6 +102,13 @@ function CityHeader({ pageName }) {
                 <>
                 
                 <AqiDashboard onDataChange={handleAqiData} show={true} />
+                
+                </>
+              )}
+              {selectedParameter==="temp" && (
+                <>
+                
+                <TempDashboard onDataChange={handleAqiData} show={true} />
                 
                 </>
               )}
@@ -149,7 +156,7 @@ function CityHeader({ pageName }) {
         <div style={{ 
           marginLeft: "7rem"
            }}>
-            <DefaultHeader/>
+            {/* <DefaultHeader/> */}
           <TabView className="w-90 ">
             <TabPanel
               header="Performance"
@@ -163,6 +170,7 @@ function CityHeader({ pageName }) {
 {/*                 
                 </>
               )} */}
+              
                {/* {selectedParameter!=="aqi" && (
                 <ReportMap parameter={selectedParameter} />
               )} */}

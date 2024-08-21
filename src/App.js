@@ -19,6 +19,7 @@ import "primereact/resources/themes/lara-light-teal/theme.css";
 import "primeicons/primeicons.css";
 import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
+import TempDashboard from "./components/DashBoards/TempDashboard";
 
 function App() {
   return (
@@ -243,7 +244,7 @@ function App() {
       <Route path="/vcsi/overall-score" element={<OverallScore />}></Route>
       <Route path="/csi/subscription" element={<Subscription />}></Route>
       <Route path="/csi/payment" element={<PaymentForm />}></Route>
-      <Route path="/csi/eDash" element={<EDash />}></Route>
+      <Route path="/csi/temp" element={<TempDashboard />}></Route>
       <Route path="/csi/aqi-dashboard" element={<AqiDashboard />}></Route>
     </Routes>
   );

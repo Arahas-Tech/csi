@@ -36,12 +36,12 @@ const LoginHeader = ({ toggleLogin }) => {
       />
       </NavLink>
       
-      <Button
+      {/* <Button
         label="Login"
         icon="pi pi-user"
         size="small"
         onClick={toggleLogin}
-      />
+      /> */}
     </div>
   );
 
