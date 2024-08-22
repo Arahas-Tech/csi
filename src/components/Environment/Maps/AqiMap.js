@@ -1,45 +1,44 @@
-import React, { useEffect, useRef } from 'react';
-import 'ol/ol.css';
-import { Map, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
-import GeoJSON from 'ol/format/GeoJSON';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import { Style, Fill, Stroke, Icon } from 'ol/style';
-import { Feature } from 'ol';
-import Point from 'ol/geom/Point';
-import Overlay from 'ol/Overlay';
+import React, { useEffect, useRef } from "react";
+import "ol/ol.css";
+import { Map, View } from "ol";
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
+import { fromLonLat } from "ol/proj";
+import GeoJSON from "ol/format/GeoJSON";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import { Style, Fill, Stroke, Icon } from "ol/style";
+import { Feature } from "ol";
+import Point from "ol/geom/Point";
+import Overlay from "ol/Overlay";
 import airport from "../../assets/airport.webp";
 import railway from "../../assets/railway.avif";
 import school from "../../assets/tiny-school.jpg";
 import temple from "../../../components/KnowYourCity/KnowImages/ram.jpg";
 import Shahadat from "../../assets/shahadat.jpeg";
 import AQI from "../../assets/AQI.png";
-import ADABoundary from './ADA_Boundary.json';
+import ADABoundary from "./ADA_Boundary.json";
 
 const AqiMap = ({ averageAQI, selectedLocation }) => {
   const mapRef = useRef();
 
   const getAqiIconColor = (aqi) => {
-      if (aqi > 0 && aqi <= 100) return 'rgba(0, 255, 0, 1)'; // Green
-      if (aqi > 100 && aqi <= 200) return 'rgba(255, 255, 0, 1)'; // Yellow
-      if (aqi > 200 && aqi <= 300) return 'rgba(255, 0, 0, 1)'; // Red
-      if (aqi > 300 && aqi <= 400) return 'rgba(255, 165, 0, 1)'; // Orange
-      if (aqi > 400) return 'rgba(128, 0, 128, 1)'; // Purple
-    return 'black';
+    if (aqi > 0 && aqi <= 100) return "green"; // Green
+    if (aqi > 100 && aqi <= 200) return "yellow"; // Yellow
+    if (aqi > 200 && aqi <= 300) return "orange"; // Red
+    if (aqi > 300 && aqi <= 400) return "red"; // Orange
+    if (aqi > 400) return "purple"; // Purple
+    return "black";
   };
 
   const getAqiBackgroundColor = (aqi) => {
-    if (aqi > 0 && aqi <= 100) return 'rgba(0, 255, 0, 0.8)'; // Green
-    if (aqi > 100 && aqi <= 200) return 'rgba(255, 255, 0, 0.8)'; // Yellow
-    if (aqi > 200 && aqi <= 300) return 'rgba(255, 0, 0, 0.8)'; // Red
-    if (aqi > 300 && aqi <= 400) return 'rgba(255, 165, 0, 0.8)'; // Orange
-    if (aqi > 400) return 'rgba(128, 0, 128, 0.8)'; // Purple
-    return 'white'; // Default color
+    if (aqi > 0 && aqi <= 100) return "rgba(0, 255, 0, 0.8)"; // Green
+    if (aqi > 100 && aqi <= 200) return "rgba(255, 255, 0, 0.8)"; // Yellow
+    if (aqi > 200 && aqi <= 300) return "rgba(255, 0, 0, 0.8)"; // Red
+    if (aqi > 300 && aqi <= 400) return "rgba(255, 165, 0, 0.8)"; // Orange
+    if (aqi > 400) return "rgba(128, 0, 128, 0.8)"; // Purple
+    return "white"; // Default color
   };
-  
 
   useEffect(() => {
     const map = new Map({
@@ -49,6 +48,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
           source: new OSM(),
         }),
       ],
+      attribution: false,
       view: new View({
         center: fromLonLat([82.144132, 26.783869]),
         zoom: 11,
@@ -57,7 +57,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
 
     const geojsonSource = new VectorSource({
       features: new GeoJSON().readFeatures(ADABoundary, {
-        featureProjection: 'EPSG:3857',
+        featureProjection: "EPSG:3857",
       }),
     });
 
@@ -65,11 +65,11 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       source: geojsonSource,
       style: new Style({
         stroke: new Stroke({
-          color: '#00a269',
+          color: "#00a269",
           width: 2,
         }),
         fill: new Fill({
-          color: 'rgba(169, 243, 224, 0.3)',
+          color: "rgba(169, 243, 224, 0.3)",
         }),
       }),
     });
@@ -109,7 +109,9 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       },
     ];
 
-    const filteredMarker = markers.find(marker => marker.location === selectedLocation);
+    const filteredMarker = markers.find(
+      (marker) => marker.location === selectedLocation
+    );
 
     const markerSource = new VectorSource();
     if (filteredMarker) {
@@ -118,7 +120,9 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       const backgroundColor = getAqiBackgroundColor(aqi);
 
       const feature = new Feature({
-        geometry: new Point(fromLonLat([filteredMarker.lon, filteredMarker.lat])),
+        geometry: new Point(
+          fromLonLat([filteredMarker.lon, filteredMarker.lat])
+        ),
         name: filteredMarker.default_message,
         aqi,
         backgroundColor,
@@ -143,48 +147,68 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
 
     map.addLayer(markerLayer);
 
-    const overlayContainerElement = document.createElement('div');
-    overlayContainerElement.className = 'popup-overlay';
+    const overlayContainerElement = document.createElement("div");
+    overlayContainerElement.className = "popup-overlay";
     document.body.appendChild(overlayContainerElement);
 
-    const popupContent = document.createElement('div');
-    popupContent.className = 'custom-popup';
+    const popupContent = document.createElement("div");
+    popupContent.className = "custom-popup";
 
-    const popupBody = document.createElement('div');
-    popupBody.className = 'popup-body';
+    const popupBody = document.createElement("div");
+    popupBody.className = "popup-body";
 
     popupContent.appendChild(popupBody);
 
     const overlay = new Overlay({
       element: popupContent,
-      positioning: 'bottom-center',
+      positioning: "bottom-center",
       stopEvent: false,
       offset: [100, 20],
     });
 
     map.addOverlay(overlay);
 
-    popupContent.style.padding = '0.3vw';
+    popupContent.style.padding = "0.3vw";
     popupContent.style.fontSize = "0.7vw";
 
-    map.on('pointermove', function (event) {
+    map.on("pointermove", function (event) {
       const feature = map.getFeaturesAtPixel(event.pixel)[0];
-      if (feature && feature.get('name')) {
+      if (feature && feature.get("name")) {
         const coordinate = feature.getGeometry().getCoordinates();
         overlay.setPosition(coordinate);
 
-        const name = feature.get('name') || '';
-        const aqi = feature.get('aqi') || '';
-        const backgroundColor = feature.get('backgroundColor') || '';
-        const location = feature.get('location') || '';
+        const name = feature.get("name") || "";
+        const aqi = feature.get("aqi") || "";
+        const backgroundColor = feature.get("backgroundColor") || "";
+        const location = feature.get("location") || "";
 
         let popupHTML = `
           <div>
-            ${location === 'Ayodhya - Civil line,Tiny tots' ? `<img src="${school}" alt="School" style="width: 100%; height: 5vw;"/>` : ''}
-            ${location === 'Ayodhya - Shahadat Ganj' ? `<img src="${Shahadat}" alt="Shahadat" style="width: 100%; height: 5vw;"/>` : ''}
-            ${location === 'Ayodhya-Bank colony' ? `<img src="${railway}" alt="Railway" style="width: 100%; height: 5vw;"/>` : ''}
-            ${location === ' Ayodhya-near Airport' ? `<img src="${airport}" alt="Airport" style="width: 100%; height: 6vw;"/>` : ''}
-            ${location === 'Ayodhya-Ranopali' ? `<img src="${temple}" alt="Temple" style="width: 100%; height: 5vw;"/>` : ''}
+            ${
+              location === "Ayodhya - Civil line,Tiny tots"
+                ? `<img src="${school}" alt="School" style="width: 100%; height: 5vw;"/>`
+                : ""
+            }
+            ${
+              location === "Ayodhya - Shahadat Ganj"
+                ? `<img src="${Shahadat}" alt="Shahadat" style="width: 100%; height: 5vw;"/>`
+                : ""
+            }
+            ${
+              location === "Ayodhya-Bank colony"
+                ? `<img src="${railway}" alt="Railway" style="width: 100%; height: 5vw;"/>`
+                : ""
+            }
+            ${
+              location === " Ayodhya-near Airport"
+                ? `<img src="${airport}" alt="Airport" style="width: 100%; height: 6vw;"/>`
+                : ""
+            }
+            ${
+              location === "Ayodhya-Ranopali"
+                ? `<img src="${temple}" alt="Temple" style="width: 100%; height: 5vw;"/>`
+                : ""
+            }
             <p><strong>${location}</strong></p>
             <p><strong>AQI Level:</strong> ${aqi}</p>
           </div>
@@ -192,9 +216,9 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
 
         popupBody.innerHTML = popupHTML;
         popupContent.style.backgroundColor = backgroundColor;
-        popupContent.style.display = 'block';
+        popupContent.style.display = "block";
       } else {
-        popupContent.style.display = 'none';
+        popupContent.style.display = "none";
       }
     });
 
@@ -202,19 +226,18 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       map.setTarget(null);
       document.body.removeChild(overlayContainerElement);
     };
-  }, [averageAQI, selectedLocation]);
+  }, [averageAQI]);
 
   return (
-
-    <div style={{ position: 'relative' }}>
+    <div className="w-full">
       <div
         ref={mapRef}
         style={{
-          width: '35rem',
-          height: '15rem',
-          overflow: 'hidden',
+          width: "30rem",
+          height: "15rem",
+          overflow: "hidden",
         }}
-      ></div>
+      />
     </div>
   );
 };

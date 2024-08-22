@@ -65,10 +65,11 @@ const AQIChart = ({
     }, []);
 
     // Remove duplicates and sort by time
-    const uniqueData = Array.from(new Set(selectedDateData.map(item => item.time)))
-      .map(time => {
-        return selectedDateData.find(item => item.time === time);
-      });
+    const uniqueData = Array.from(
+      new Set(selectedDateData.map((item) => item.time))
+    ).map((time) => {
+      return selectedDateData.find((item) => item.time === time);
+    });
 
     return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
   };
@@ -78,8 +79,12 @@ const AQIChart = ({
       return [];
     }
 
-    const selectedDateParts = selectedDate.split('-').map(Number);
-    const selectedDateObj = new Date(selectedDateParts[0], selectedDateParts[1] - 1, selectedDateParts[2]);
+    const selectedDateParts = selectedDate.split("-").map(Number);
+    const selectedDateObj = new Date(
+      selectedDateParts[0],
+      selectedDateParts[1] - 1,
+      selectedDateParts[2]
+    );
 
     // Calculate date 15 days ago
     const fifteenDaysAgo = new Date(selectedDateObj);
@@ -104,8 +109,15 @@ const AQIChart = ({
     }, []);
 
     // Remove duplicates and sort by date and time
-    const uniqueData = Array.from(new Map(filteredData.map(item => [`${item.date}_${item.time}`, item])).values());
-    uniqueData.sort((a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`));
+    const uniqueData = Array.from(
+      new Map(
+        filteredData.map((item) => [`${item.date}_${item.time}`, item])
+      ).values()
+    );
+    uniqueData.sort(
+      (a, b) =>
+        new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+    );
     return uniqueData;
   };
 
@@ -117,13 +129,13 @@ const AQIChart = ({
     const selectedYear = getSelectedYear(); // Define selectedYear
     const sortedData = sortDataByDate(); // Ensure data is sorted by date
 
-    const filteredData = sortedData.filter(item =>
+    const filteredData = sortedData.filter((item) =>
       item.date.startsWith(`${selectedYear}-${selectedMonth}`)
     );
 
     const weeklyAveragesData = Array.from({ length: 4 }, () => []);
 
-    filteredData.forEach(item => {
+    filteredData.forEach((item) => {
       const date = new Date(item.date);
       const week = Math.ceil(date.getDate() / 7);
       const aqi = item.aqi;

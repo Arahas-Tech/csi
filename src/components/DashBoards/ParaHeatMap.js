@@ -17,7 +17,7 @@ import ayodhya from "../assets/ayodhya.json";
 import waste_map from "../assets/waste_map.png";
 import axios from "axios";
 
-const ParaHeatMap = ({ Parameter,startDate, endDate} ) => {
+const ParaHeatMap = ({ Parameter, startDate, endDate }) => {
   const mapRef = useRef();
   // const [startDate, setStartDate] = useState(new Date("2024-01-08"));
   // const [endDate, setEndDate] = useState(new Date("2024-02-28"));
@@ -250,7 +250,6 @@ const ParaHeatMap = ({ Parameter,startDate, endDate} ) => {
     };
   }, [data, Parameter]);
 
-
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -336,18 +335,15 @@ const ParaHeatMap = ({ Parameter,startDate, endDate} ) => {
       ) : (
         <div
         //  className="full-map-container"
-         >
-         
+        >
           {Parameter === "waste" && <img src={waste_map} />}
           {["aqi", "temp", "rainfall"].includes(Parameter) && (
             <div>
-            <div ref={mapRef} className="para-map"></div>
-            
+              <div ref={mapRef} className="para-map"></div>
             </div>
           )}
 
           {renderLegend()}
-          
         </div>
       )}
       <div>{}</div>

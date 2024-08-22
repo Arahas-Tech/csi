@@ -1,20 +1,19 @@
 import React, { useState, useRef } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import AqiDashboard from "./AqiDashboard";
 import AQIRecommendations from "./Recommendations/AQIRecommendations";
 
 export default function AQIReportPrint({
-  show,
+  visible,
+  toggleModalVisibility,
   selectedLocation,
   startDate,
   endDate,
 }) {
-  const [visible, setVisible] = useState(false);
   const contentRef = useRef(null);
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25Value] = useState(null);
@@ -24,11 +23,11 @@ export default function AQIReportPrint({
     setPM25Value(data.pm25Value);
     setPM10Value(data.pm10Value);
   };
-  
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const handlePrint = useReactToPrint({
+    content: () => contentRef.current,
+    bodyClass: "p-2",
+  });
 
   const handleExport = async () => {
     if (contentRef.current) {
@@ -67,46 +66,20 @@ export default function AQIReportPrint({
   };
 
   return (
-    <div className="flex justify-content-center">
-      {show === true && (
-        <Button
-          label="Generate"
-          icon="pi pi-file-pdf"
-          size="small"
-          onClick={() => setVisible(true)}
-        />
-      )}
-      {show === false && (
-        <Button label="Generate" icon="pi pi-file-pdf" size="small" disabled />
-      )}
-
-      <Dialog
-        header=""
-        visible={visible}
-        className="m-4"
-        onHide={() => setVisible(false)}
-      >
-        <div
-          className="p-mb-4"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        ></div>
-        <div ref={contentRef} className="p-3 ">
-          <div
-            style={{
-              textAlign: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <h1 style={{ color: "#00a269" }}>City Sustainability Index 2024</h1>
-            <h4>{selectedLocation}</h4>
-            <h4>
-              Ayodhya , Uttar Pradesh
-            </h4>
-            <h3 style={{ boder: "1px solid #00a269" }}>Nature (AQI Score) : 60 </h3>
+    <Dialog
+      header=""
+      visible={visible}
+      style={{ width: "90vw" }}
+      onHide={toggleModalVisibility}
+    >
+      <div ref={contentRef}>
+        <div className="w-full print-container">
+          <div className="flex flex-column gap-2 align-items-center w-full">
+            <h1 style={{ color: "#00a269" }} className="m-0 p-0 text-center">
+              City Sustainability Index 2024
+            </h1>
+            <h4 className="m-0 p-0">{selectedLocation}</h4>
+            <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
 
             <div className="flex align-items-center justify-content-center flex-row">
               <p>
@@ -115,32 +88,40 @@ export default function AQIReportPrint({
               </p>
             </div>
           </div>
-          <div >
-          <AqiDashboard onDataChange={handleAqiData}  show={false} pSelectedLocation={selectedLocation} pSelectedStartDate={startDate} pSelectedEndDate={endDate}/>
+          <div className="w-full">
+            <AqiDashboard
+              onDataChange={handleAqiData}
+              show={false}
+              pSelectedLocation={selectedLocation}
+              pSelectedStartDate={startDate}
+              pSelectedEndDate={endDate}
+            />
           </div>
-          <div >
-          <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value}/>
+          <div className="w-full">
+            <AQIRecommendations
+              aqi={aqiValue}
+              pm25={pm25Value}
+              pm10={pm10Value}
+            />
           </div>
-
-          
         </div>
-        <div className="flex align-items-center justify-content-end p-2">
-          <Button
-            label="Print"
-            icon="pi pi-print"
-            size="small"
-            className="p-button-secondary mr-2"
-            onClick={handlePrint}
-          />
-          <Button
-            label="Export as PDF"
-            icon="pi pi-file-export"
-            size="small"
-            className="p-button-success"
-            onClick={handleExport}
-          />
-        </div>
-      </Dialog>
-    </div>
+      </div>
+      <div className="flex align-items-center justify-content-end p-2 w-full">
+        <Button
+          label="Print"
+          icon="pi pi-print"
+          size="small"
+          className="p-button-secondary mr-2"
+          onClick={handlePrint}
+        />
+        <Button
+          label="Export as PDF"
+          icon="pi pi-file-export"
+          size="small"
+          className="p-button-success"
+          onClick={handleExport}
+        />
+      </div>
+    </Dialog>
   );
 }

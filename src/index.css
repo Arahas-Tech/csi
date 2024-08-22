@@ -15,3 +15,8 @@ body {
 .react-tel-input .form-control {
   width: 100% !important;
 }
+@media print{
+  .print-container{
+    padding: 0.5rem;
+  }
+}

@@ -28,20 +28,20 @@ const LoginHeader = ({ toggleLogin }) => {
         size="small"
         onClick={() => setVisible(true)}
       /> */}
-      <NavLink to="/csi/aqi">
+      {/* <NavLink to="/csi/aqi">
       <Button
         label="AQI Module"
         icon="pi pi-objects-column"
         size="small"
       />
-      </NavLink>
+      </NavLink> */}
       
-      {/* <Button
+      <Button
         label="Login"
         icon="pi pi-user"
         size="small"
         onClick={toggleLogin}
-      /> */}
+      />
     </div>
   );
 

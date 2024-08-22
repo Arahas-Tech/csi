@@ -18,7 +18,6 @@ const DailyTrend = ({
   const [drilldownChartData, setDrilldownChartData] = useState([]);
   // console.log(fifteenDaysData);
   useEffect(() => {
-    
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({
       label: date,
       x: new Date(date.split("-").join("-")),
@@ -35,8 +34,7 @@ const DailyTrend = ({
           type: "area",
           indexLabelFontColor: "red",
           dataPoints: dataPoints,
-          color:"#40A2E3",
-        
+          color: "#40A2E3",
         },
       ],
     };
@@ -72,13 +70,11 @@ const DailyTrend = ({
   const baseChartDrilldownHandler = (e) => {
     setSelectedDate(e.dataPoint.label);
     setIsDrilldown(true);
-    
   };
 
   const backButtonClickHandler = () => {
     setIsDrilldown(false);
     setShowTable(false);
-
   };
   const lastFifteenClickHandler = () => {
     setShowTable(true);
@@ -95,16 +91,16 @@ const DailyTrend = ({
     //   fontWeight: 600,
     // },
     height: 200,
-    width:1130,
+    // width: 1100,
     legend: {
       fontSize: 10,
     },
-      title:{
-text:"AQI Trend", 
-fontSize:15,
- fontFamily:"DM Sans",
-      fontWeight:"800"
-      },
+    title: {
+      text: "AQI Trend",
+      fontSize: 15,
+      fontFamily: "DM Sans",
+      fontWeight: "800",
+    },
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -122,8 +118,8 @@ fontSize:15,
           value: 300,
           thickness: 1,
           color: "rgb(93, 92, 92)",
-              lineDashType: "dash",
-              label:"Safe limits (400)",
+          lineDashType: "dash",
+          label: "Safe limits (400)",
         },
       ],
     },
@@ -224,7 +220,6 @@ fontSize:15,
       fontSize: 15,
     },
     height: 170,
-    width:1130,
     theme: "light2",
     axisX: {
       labelFontColor: "#717171",
@@ -243,8 +238,8 @@ fontSize:15,
           value: 300,
           thickness: 1,
           color: "rgb(93, 92, 92)",
-              lineDashType: "dash",
-              label:"Safe limits (400)",
+          lineDashType: "dash",
+          label: "Safe limits (400)",
         },
       ],
     },
@@ -265,64 +260,57 @@ fontSize:15,
   return (
     <div>
       <div className="main-graph">
-        <div className="btn-container" >
-      <button
-                className={backButtonClassName}
-                onClick={backButtonClickHandler}
-                style={{
-                  borderRadius: "10px",
-                  padding: "0.5vw",
-                  border: "none",
-                  fontSize: "0.8vw",
-                  backgroundColor: "#2eacd1",
-                  color: "white",
-                  cursor: "pointer",
-                  margin:"0.5vw ",
-                width:"10rem"
-                }}
-              >
-                &lt; Back
-              </button>
-              <button
-                className={backButtonClassName}
-                onClick={lastFifteenClickHandler}
-                style={{
-                  borderRadius: "10px",
-                  padding: "0.5vw",
-                  border: "none",
-                  fontSize: "0.8vw",
-                  backgroundColor: "#2eacd1",
-                  color: "white",
-                  cursor: "pointer",
-                  margin:"0.5vw",
-                  width:"10rem"
-                }}
-              >
-                View Last 15 days Trend
-                </button>
-                </div>
-      <CanvasJSChart
-    options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-    
-/>
-
-              
+        <div className="btn-container">
+          <button
+            className={backButtonClassName}
+            onClick={backButtonClickHandler}
+            style={{
+              borderRadius: "10px",
+              padding: "0.5vw",
+              border: "none",
+              fontSize: "0.8vw",
+              backgroundColor: "#2eacd1",
+              color: "white",
+              cursor: "pointer",
+              margin: "0.5vw ",
+              width: "10rem",
+            }}
+          >
+            &lt; Back
+          </button>
+          <button
+            className={backButtonClassName}
+            onClick={lastFifteenClickHandler}
+            style={{
+              borderRadius: "10px",
+              padding: "0.5vw",
+              border: "none",
+              fontSize: "0.8vw",
+              backgroundColor: "#2eacd1",
+              color: "white",
+              cursor: "pointer",
+              margin: "0.5vw",
+              width: "10rem",
+            }}
+          >
+            View Last 15 days Trend
+          </button>
+        </div>
+        <CanvasJSChart
+          options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+        />
+      </div>
+      {showTable === true && (
+        <div className="main-graph">
+          <div className="graph-big">
+            <div className="graph">
+              <div className="graph-container">
+                <HeatMap data={fifteenDaysData} />
               </div>
-              {showTable===true && (
-                <div className="main-graph">
-        <div className="graph-big">
-          <div className="graph">
-            <div className="graph-container">
-              
-              
-             
             </div>
-            <HeatMap data={fifteenDaysData} />
           </div>
         </div>
-      </div>
-              )}
-      
+      )}
     </div>
   );
 };
