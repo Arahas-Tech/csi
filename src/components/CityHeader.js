@@ -83,6 +83,9 @@ function CityHeader({ pageName }) {
     setPM25Value(data.pm25Value);
     setPM10Value(data.pm10Value);
   };
+  const handleWorkInProgress = () => {
+    alert("Work in Progress");
+  };
   // Render Admin component or ReportMap component based on conditions
   const renderTabContent = () => {
     if (showReportMap) {
@@ -271,6 +274,7 @@ function CityHeader({ pageName }) {
               <div
                 className="nav-section-header"
                 // onClick={() => handleTabClick("cityReportCard")}
+                onClick={() => handleWorkInProgress()}
               >
                 <Apartment className="icon-section" />
                 <span>City Report Card</span>
@@ -341,6 +345,7 @@ function CityHeader({ pageName }) {
                     activeSubTab === "temp" ? "sub-active" : ""
                   }`}
                   // onClick={() => handleTabClick("report", "temp")}
+                  onClick={() => handleWorkInProgress()}
                 >
                   <ThermostatIcon className="icon-sub" />
                   <span>Temperature</span>
@@ -348,6 +353,7 @@ function CityHeader({ pageName }) {
                 <div
                   className={`link 
                     ${activeSubTab === "rain" ? "sub-active" : ""}`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report", "rainfall")}
                 >
                   <ThunderstormIcon className="icon-sub" />
@@ -358,6 +364,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "waste" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report", "waste")}
                 >
                   <DeleteSweepIcon className="icon-sub" />
@@ -367,6 +374,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "water" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report", "water")}
                 >
                   <WaterDropIcon className="icon-sub" />
@@ -376,6 +384,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "land" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report", "land")}
                 >
                   <VillaIcon className="icon-sub" />
@@ -389,6 +398,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "dashboard" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("dashboard")}
                 >
                   <Dashboard className="icon-sub" />
@@ -398,6 +408,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "report" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report")}
                 >
                   <Assessment className="icon-sub" />
@@ -407,6 +418,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "recommendations" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("recommendations")}
                 >
                   <EmojiObjects className="icon-sub" />
@@ -420,6 +432,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "dashboard" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("dashboard")}
                 >
                   <Dashboard className="icon-sub" />
@@ -429,6 +442,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "report" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("report")}
                 >
                   <Assessment className="icon-sub" />
@@ -438,6 +452,7 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "recommendations" ? "sub-active" : ""
                   }`}
+                  onClick={() => handleWorkInProgress()}
                   // onClick={() => handleTabClick("recommendations")}
                 >
                   <EmojiObjects className="icon-sub" />
