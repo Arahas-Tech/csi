@@ -150,7 +150,7 @@ function CityHeader({ pageName }) {
             marginLeft: "6rem",
           }}
         >
-          {/* <DefaultHeader/> */}
+          <DefaultHeader />
           <TabView className="w-90 ">
             <TabPanel
               header="Performance"
