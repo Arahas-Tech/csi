@@ -10,9 +10,8 @@ import {
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
   Spa,
-  
 } from "@mui/icons-material";
-import MovingIcon from '@mui/icons-material/Moving';
+import MovingIcon from "@mui/icons-material/Moving";
 import "./CityHeader.css";
 import CompanyLogo from "./assets/arahas_logo.png";
 import { TabView, TabPanel } from "primereact/tabview";
@@ -88,43 +87,40 @@ function CityHeader({ pageName }) {
   const renderTabContent = () => {
     if (showReportMap) {
       return (
-        <div style={{ 
-          marginLeft: "7rem"
-           }}>
-            {/* <DefaultHeader/> */}
+        <div
+          style={{
+            marginLeft: "6rem",
+          }}
+        >
+          <DefaultHeader />
           <TabView className="w-90 ">
             <TabPanel
               header="Performance"
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {selectedParameter==="aqi" && (
+              {selectedParameter === "aqi" && (
                 <>
-                
-                <AqiDashboard onDataChange={handleAqiData} show={true} />
-                
+                  <AqiDashboard onDataChange={handleAqiData} show={true} />
                 </>
               )}
-              {selectedParameter==="temp" && (
+              {selectedParameter === "temp" && (
                 <>
-                
-                <TempDashboard onDataChange={handleAqiData} show={true} />
-                
+                  <TempDashboard onDataChange={handleAqiData} show={true} />
                 </>
               )}
-               {selectedParameter!=="aqi" && (
+              {selectedParameter !== "aqi" && (
                 <ReportMap parameter={selectedParameter} />
               )}
-              
             </TabPanel>
             <TabPanel
               header="Recommendations"
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {selectedParameter==="aqi" && (
+              {selectedParameter === "aqi" && (
                 <>
-                <AQIRecommendations
+                  <AQIRecommendations
                     aqi={aqiValue}
                     pm25={pm25Value}
                     pm10={pm10Value}
@@ -133,18 +129,14 @@ function CityHeader({ pageName }) {
               )}
             </TabPanel>
 
-            <TabPanel
-              header="Report"
-              headerClassName="text-green-500"
-            >
-              {selectedParameter==="aqi" && (
+            <TabPanel header="Report" headerClassName="text-green-500">
+              {selectedParameter === "aqi" && (
                 <>
-                <GenerateAqiReport/>
+                  <GenerateAqiReport />
                 </>
               )}
             </TabPanel>
           </TabView>
-          
         </div>
       );
     } else if (!expandedSection && !activeSubTab) {
@@ -153,10 +145,12 @@ function CityHeader({ pageName }) {
         // <div className="video-container">
         //   <video src={bg_video} className="video-bg" autoPlay loop muted />
         // </div>
-        <div style={{ 
-          marginLeft: "7rem"
-           }}>
-            {/* <DefaultHeader/> */}
+        <div
+          style={{
+            marginLeft: "6rem",
+          }}
+        >
+          {/* <DefaultHeader/> */}
           <TabView className="w-90 ">
             <TabPanel
               header="Performance"
@@ -165,16 +159,15 @@ function CityHeader({ pageName }) {
             >
               {/* {selectedParameter==="aqi" && (
                 <> */}
-                
-                <AqiDashboard onDataChange={handleAqiData} show={true} />
-{/*                 
+
+              <AqiDashboard onDataChange={handleAqiData} show={true} />
+              {/*                 
                 </>
               )} */}
-              
-               {/* {selectedParameter!=="aqi" && (
+
+              {/* {selectedParameter!=="aqi" && (
                 <ReportMap parameter={selectedParameter} />
               )} */}
-              
             </TabPanel>
             <TabPanel
               header="Recommendations"
@@ -183,27 +176,23 @@ function CityHeader({ pageName }) {
             >
               {/* {selectedParameter==="aqi" && (
                 <> */}
-                <AQIRecommendations
-                    aqi={aqiValue}
-                    pm25={pm25Value}
-                    pm10={pm10Value}
-                  />
-                {/* </>
+              <AQIRecommendations
+                aqi={aqiValue}
+                pm25={pm25Value}
+                pm10={pm10Value}
+              />
+              {/* </>
               )} */}
             </TabPanel>
 
-            <TabPanel
-              header="Report"
-              headerClassName="text-green-500"
-            >
+            <TabPanel header="Report" headerClassName="text-green-500">
               {/* {selectedParameter==="aqi" && (
                 <> */}
-                <GenerateAqiReport/>
-                {/* </>
+              <GenerateAqiReport />
+              {/* </>
               )} */}
             </TabPanel>
           </TabView>
-          
         </div>
       );
     }
@@ -213,8 +202,8 @@ function CityHeader({ pageName }) {
   const renderAdminComponent = () => {
     if (showAdminComponent) {
       return (
-        <div style={{ marginLeft: "6rem",  backgroundColor:"white"}}>
-          <DefaultHeader/>
+        <div style={{ marginLeft: "6rem", backgroundColor: "white" }}>
+          <DefaultHeader />
           <TabView className="w-full p-1">
             <TabPanel
               header="Performance"
@@ -328,10 +317,7 @@ function CityHeader({ pageName }) {
                 <MovingIcon className="icon-section" />
                 <span>Progress</span>
               </div>
-             
-          
             </div>
-            
 
             {/* <ReportPrint /> */}
           </nav>
@@ -361,9 +347,7 @@ function CityHeader({ pageName }) {
                 </div>
                 <div
                   className={`link 
-                    ${
-                    activeSubTab === "rain" ? "sub-active" : ""
-                  }`}
+                    ${activeSubTab === "rain" ? "sub-active" : ""}`}
                   // onClick={() => handleTabClick("report", "rainfall")}
                 >
                   <ThunderstormIcon className="icon-sub" />
