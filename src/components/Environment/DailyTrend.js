@@ -115,7 +115,7 @@ const DailyTrend = ({
       lineThickness: 1,
       stripLines: [
         {
-          value: 300,
+          value: 400,
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",

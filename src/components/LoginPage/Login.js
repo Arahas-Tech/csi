@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Lottie from "lottie-react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import sample from "../assets/bg_video_csi.mp4";
+import sample from "../assets/bg_video_csi.gif";
 import logo from "../assets/arahas_logo.png";
 import loding_ani from "../animations/loading.json";
 import "./LoginModule.css";
@@ -56,7 +56,7 @@ const Login = () => {
   const loginotpuser = () => {
     if (
       name === sampleCredentials.name &&
-      number === sampleCredentials.number 
+      number === sampleCredentials.number
       // &&
       // otp === sampleCredentials.otp
     ) {
@@ -131,14 +131,11 @@ const Login = () => {
     } else {
       try {
         setLoading(true); // Set loading to true during authentication
-        const response = await axios.post(
-          "https://api-csi.arahas.com/login",
-          {
-            email,
-            password,
-            department,
-          }
-        );
+        const response = await axios.post("https://api-csi.arahas.com/login", {
+          email,
+          password,
+          department,
+        });
         handleLoginResponse(response);
       } catch (error) {
         console.error("Login Error:", error);

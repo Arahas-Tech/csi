@@ -137,6 +137,7 @@ const AqiDashboard = ({
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
       const filteredData = response.data.data;
+      console.log(filteredData);
 
       const time = [];
       const formattedDate = [];
