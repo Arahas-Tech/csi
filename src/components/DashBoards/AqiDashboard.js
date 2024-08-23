@@ -520,6 +520,7 @@ const AqiDashboard = ({
                 enviroco2={enviroco2}
                 enviroAQI={enviroAQI}
                 selectedLocation={selectedLocation}
+                startDate={startDate}
               />
             </Card>
           </div>
@@ -527,7 +528,7 @@ const AqiDashboard = ({
         <Panel>
           <div className="flex align-items-center justify-content-between flex-row mt-2">
             <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
-              <Card className="h-15rem w-17rem">
+              <Card className="h-15rem">
                 <PollutantChart
                   envirolocation={envirolocation}
                   envirodate={envirodate}
@@ -538,11 +539,11 @@ const AqiDashboard = ({
                   baseChartColor="#FF5722"
                   drilldownChartColor="#FFC107"
                   height={200}
-                  width={220}
+                  width={500}
                   safeLimit={60}
                 />
               </Card>
-              <Card className="h-15rem w-17rem ">
+              <Card className="h-15rem">
                 <PollutantChart
                   envirolocation={envirolocation}
                   envirodate={envirodate}
@@ -553,11 +554,17 @@ const AqiDashboard = ({
                   baseChartColor="#4DB6AC"
                   drilldownChartColor="#80CBC4"
                   height={200}
-                  width={220}
+                  width={500}
                   safeLimit={100}
                 />
               </Card>
-              <Card className="h-15rem w-17rem">
+            </div>
+          </div>
+        </Panel>
+        <Panel>
+          <div className="flex align-items-center justify-content-between flex-row  w-full ">
+            <div className=" flex align-items-center justify-content-center flex-row gap-1 ">
+              <Card className="h-15rem">
                 <PollutantChart
                   envirolocation={envirolocation}
                   envirodate={envirodate}
@@ -568,11 +575,11 @@ const AqiDashboard = ({
                   baseChartColor="#F44336"
                   drilldownChartColor="#E57373"
                   height={200}
-                  width={220}
+                  width={500}
                   safeLimit={80}
                 />
               </Card>
-              <Card className="h-15rem w-17rem">
+              <Card className="h-15rem">
                 <PollutantChart
                   envirolocation={envirolocation}
                   envirodate={envirodate}
@@ -583,13 +590,14 @@ const AqiDashboard = ({
                   baseChartColor="#FFEB3B"
                   drilldownChartColor="#FFF176"
                   height={200}
-                  width={220}
+                  width={500}
                   safeLimit={80}
                 />
               </Card>
             </div>
           </div>
         </Panel>
+
         {/* {show && (
             <>
               <div className="flex align-items-center justify-content-start flex-row mt-2">

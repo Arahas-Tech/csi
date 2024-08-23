@@ -244,7 +244,7 @@ function App() {
       <Route path="/vcsi/overall-score" element={<OverallScore />}></Route>
       <Route path="/csi/subscription" element={<Subscription />}></Route>
       <Route path="/csi/payment" element={<PaymentForm />}></Route>
-      <Route path="/csi/temp" element={<TempDashboard />}></Route>
+      <Route path="/csi/temp" element={<TempDashboard show={true} />}></Route>
       <Route path="/csi/aqi-dashboard" element={<AqiDashboard />}></Route>
     </Routes>
   );

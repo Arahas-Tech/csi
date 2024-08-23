@@ -44,28 +44,30 @@ const HeatMap = ({ data }) => {
 
   return (
     <div>
-      <table className="table-container">
-        <thead>
-          <tr>
-            <th>Date</th>
-            {timeSlots.map((time, index) => (
-              <th key={index}>{formatTime(time)}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {heatmapData.map((rowData, rowIndex) => (
-            <tr key={rowIndex}>
-              <td>{dates[rowIndex]}</td>
-              {rowData.map((entry, colIndex) => (
-                <td key={colIndex} className={getColorClass(entry.value)}>
-                  {entry.value}
-                </td>
+      {data.length > 0 && (
+        <table className="table-container">
+          <thead>
+            <tr>
+              <th>Date</th>
+              {timeSlots.map((time, index) => (
+                <th key={index}>{formatTime(time)}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {heatmapData.map((rowData, rowIndex) => (
+              <tr key={rowIndex}>
+                <td>{dates[rowIndex]}</td>
+                {rowData.map((entry, colIndex) => (
+                  <td key={colIndex} className={getColorClass(entry.value)}>
+                    {entry.value}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

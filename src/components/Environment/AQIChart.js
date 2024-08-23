@@ -12,6 +12,7 @@ const AQIChart = ({
   enviroAQI,
   enviroNO2,
   enviroco2,
+  startDate,
 }) => {
   const [selectedMonth, setSelectedMonth] = useState("01");
   const [selectedDate, setSelectedDate] = useState("2024-01-01");
@@ -243,6 +244,7 @@ const AQIChart = ({
                 dailyData={dailyData}
                 setSelectedDate={setSelectedDate}
                 fifteenDaysData={fifteenDaysData}
+                startDate={startDate}
               />
             </>
           )}

@@ -11,12 +11,15 @@ const DailyTrend = ({
   dailyData,
   setSelectedDate,
   fifteenDaysData,
+  startDate,
 }) => {
   const [chartData, setChartData] = useState({});
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [drilldownChartData, setDrilldownChartData] = useState([]);
   // console.log(fifteenDaysData);
+  console.log(new Date(startDate), new Date(selectedDate));
+
   useEffect(() => {
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({
       label: date,
@@ -278,34 +281,36 @@ const DailyTrend = ({
           >
             &lt; Back
           </button>
-          <button
-            className={backButtonClassName}
-            onClick={lastFifteenClickHandler}
-            style={{
-              borderRadius: "10px",
-              padding: "0.5vw",
-              border: "none",
-              fontSize: "0.8vw",
-              backgroundColor: "#2eacd1",
-              color: "white",
-              cursor: "pointer",
-              margin: "0.5vw",
-              width: "10rem",
-            }}
-          >
-            View Last 15 days Trend
-          </button>
+          {fifteenDaysData.length > 0 && (
+            <button
+              className={backButtonClassName}
+              onClick={lastFifteenClickHandler}
+              style={{
+                borderRadius: "10px",
+                padding: "0.5vw",
+                border: "none",
+                fontSize: "0.8vw",
+                backgroundColor: "#2eacd1",
+                color: "white",
+                cursor: "pointer",
+                margin: "0.5vw",
+                width: "10rem",
+              }}
+            >
+              View Previous Days Trend
+            </button>
+          )}
         </div>
         <CanvasJSChart
           options={isDrilldown ? drilldownChartOptions : baseChartOptions}
         />
       </div>
-      {showTable === true && (
+      {showTable === true && fifteenDaysData.length > 0 && (
         <div className="main-graph">
           <div className="graph-big">
             <div className="graph">
               <div className="graph-container">
-                <HeatMap data={fifteenDaysData} />
+                <HeatMap data={fifteenDaysData} startDate={startDate} />
               </div>
             </div>
           </div>
