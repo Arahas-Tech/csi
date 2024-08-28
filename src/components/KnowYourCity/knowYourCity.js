@@ -4,7 +4,7 @@ import Map from "../Map";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
-import {DonutChart,  PieChart } from "../GraphVisuals";
+import { DonutChart, PieChart } from "../GraphVisuals";
 import Card from "./Cards";
 import Header from "../Header";
 import monuments from "./KnowImages/monuments.png";
@@ -18,7 +18,7 @@ import park from "./KnowImages/open.png";
 import socio from "./KnowImages/socio.png";
 import Footer from "./Footer";
 import ram_mandir from "./KnowImages/ram.jpg";
-import school from "./KnowImages/education.png"
+import school from "./KnowImages/education.png";
 import ADA from "./KnowImages/ADA.jpg";
 import ayo_ghat from "./KnowImages/ayo-ghat.jpg";
 import water_one from "../assets/water1.json";
@@ -75,48 +75,42 @@ const KnowYourCity = () => {
         "Parks & Open Spaces": {
           value: "1311.6 ha",
         },
-"Water bodies": {
+        "Water bodies": {
           value: 5,
         },
         Ghats: {
           value: 4,
         },
-        
+
         Nallahs: {
           value: 1,
         },
-        
-"Sewage Treatment Plant": {
+
+        "Sewage Treatment Plant": {
           value: "1",
         },
         "Landfills & Dumpsite": {
           value: 0,
         },
-        
-       
-        
+
         "A.P.M.C. Market": {
           value: "2",
         },
         "Lucknow Ayodhya Expressway": {
           value: "252 km",
         },
-        
-        
       },
       marker: {
-        "Hospitals": 188,
-        "Educational Facilities":"252",
+        Hospitals: 188,
+        "Educational Facilities": "252",
         Hotels: 17,
         Dharamshala: 70,
         "Major Attractions": 9,
-        
-        
+
         "Fairs & Festivals": 4,
-        
+
         "Socio-Cultural Facilities": "7",
         Slums: 41,
-  
       },
     },
   };
@@ -158,7 +152,7 @@ const KnowYourCity = () => {
             </div>
           </CustomTooltip>
         )}
-         {obj.key === "Educational Facilities" && (
+        {obj.key === "Educational Facilities" && (
           <CustomTooltip
             content={
               <ul>
@@ -168,7 +162,7 @@ const KnowYourCity = () => {
             }
           >
             <div className="marker-icon">
-              <img src={school}/>
+              <img src={school} />
             </div>
           </CustomTooltip>
         )}
@@ -495,7 +489,6 @@ const KnowYourCity = () => {
                       animationData={CT}
                     />
 
-                    
                     <Card
                       rating={
                         <DonutChart
@@ -507,6 +500,7 @@ const KnowYourCity = () => {
                           ]}
                           series={[238800, 119400, 59700]}
                           height={130}
+                          width={250}
                         />
                       }
                       source="Ayodhya Industrial Dept 2020"
@@ -519,6 +513,7 @@ const KnowYourCity = () => {
                           labels={["Domestic", "Dry", "Sanitary", "Wet"]}
                           series={[5.43, 72.39, 3.62, 99.53]}
                           height={130}
+                          width={250}
                         />
                       }
                       source="Swachh Bharat Mission"
@@ -537,9 +532,10 @@ const KnowYourCity = () => {
                           ]}
                           series={[15343985, 2541529, 144440, 4675, 2100829]}
                           height={130}
+                          width={250}
                         />
                       }
-                      source="Vidhut Vibhag Ayodhya"
+                      source="Vidyut Vibhag Ayodhya"
                       // icon={GFCIcon}
                     />
 

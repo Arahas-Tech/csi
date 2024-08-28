@@ -43,6 +43,8 @@ function CityHeader({ pageName }) {
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25Value] = useState(null);
   const [pm10Value, setPM10Value] = useState(null);
+  const [tempValue, setTempValue] = useState(null);
+  const [humidityValue, setHumidityValue] = useState(null);
 
   const toggleSection = (section) => {
     if (expandedSection === section) {
@@ -83,6 +85,10 @@ function CityHeader({ pageName }) {
     setPM25Value(data.pm25Value);
     setPM10Value(data.pm10Value);
   };
+  const handleTempData = (data) => {
+    setTempValue(data.tempValue);
+    setHumidityValue(data.humidityValue);
+  };
   const handleWorkInProgress = () => {
     alert("Work in Progress");
   };
@@ -109,10 +115,10 @@ function CityHeader({ pageName }) {
               )}
               {selectedParameter === "temp" && (
                 <>
-                  <TempDashboard onDataChange={handleAqiData} show={true} />
+                  <TempDashboard onDataChange={handleTempData} show={true} />
                 </>
               )}
-              {selectedParameter !== "aqi" && (
+              {selectedParameter !== "aqi" && selectedParameter !== "temp" && (
                 <ReportMap parameter={selectedParameter} />
               )}
             </TabPanel>
@@ -160,13 +166,16 @@ function CityHeader({ pageName }) {
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {/* {selectedParameter==="aqi" && (
-                <> */}
-
-              <AqiDashboard onDataChange={handleAqiData} show={true} />
-              {/*                 
+              {selectedParameter === "aqi" && (
+                <>
+                  <AqiDashboard onDataChange={handleAqiData} show={true} />
                 </>
-              )} */}
+              )}
+              {selectedParameter === "temp" && (
+                <>
+                  <TempDashboard onDataChange={handleTempData} show={true} />
+                </>
+              )}
 
               {/* {selectedParameter!=="aqi" && (
                 <ReportMap parameter={selectedParameter} />
@@ -273,8 +282,8 @@ function CityHeader({ pageName }) {
             >
               <div
                 className="nav-section-header"
-                // onClick={() => handleTabClick("cityReportCard")}
-                onClick={() => handleWorkInProgress()}
+                onClick={() => handleTabClick("cityReportCard")}
+                // onClick={() => handleWorkInProgress()}
               >
                 <Apartment className="icon-section" />
                 <span>City Report Card</span>
@@ -344,8 +353,8 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "temp" ? "sub-active" : ""
                   }`}
-                  // onClick={() => handleTabClick("report", "temp")}
-                  onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "temp")}
+                  // onClick={() => handleWorkInProgress()}
                 >
                   <ThermostatIcon className="icon-sub" />
                   <span>Temperature</span>

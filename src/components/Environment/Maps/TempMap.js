@@ -178,7 +178,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
         overlay.setPosition(coordinate);
 
         const name = feature.get("name") || "";
-        const aqi = feature.get("aqi") || "";
+        const temp = feature.get("temp") || "";
         const backgroundColor = feature.get("backgroundColor") || "";
         const location = feature.get("location") || "";
 
@@ -210,7 +210,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
                 : ""
             }
             <p><strong>${location}</strong></p>
-            <p><strong>AQI Level:</strong> ${aqi}</p>
+            <p><strong>AQI Level:</strong> ${temp} °C</p>
           </div>
         `;
 

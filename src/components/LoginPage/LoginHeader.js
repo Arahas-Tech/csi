@@ -35,7 +35,7 @@ const LoginHeader = ({ toggleLogin }) => {
         size="small"
       />
       </NavLink> */}
-      
+
       <Button
         label="Login"
         icon="pi pi-user"

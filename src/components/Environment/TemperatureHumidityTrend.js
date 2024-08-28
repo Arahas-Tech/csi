@@ -4,23 +4,23 @@ import "./AqiReport.css";
 import TempHeatMap from "../Environment/TempHeatMap";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const TemperatureTrend = ({
+const TemperatureHumidityTrend = ({
   selectedDate,
   dailyAverageTemp,
-  dailyAverageCo2,
+  dailyAveragehumidity,
   dailyDataTemp,
-  dailyDataCo2,
+  dailyDatahumidity,
   setSelectedDate,
   fifteenDaysData,
   startDate,
+  dailyAverageFeelsLike,
+  dailyDataFeelsLike,
 }) => {
-  const [chartData, setChartData] = useState({
-    BaseChart: [],
-  });
+  const [chartData, setChartData] = useState({});
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [drilldownChartData, setDrilldownChartData] = useState([]);
-
+  console.log(dailyDataFeelsLike);
   useEffect(() => {
     const tempDataPoints = Object.entries(dailyAverageTemp).map(
       ([date, value]) => ({
@@ -30,7 +30,7 @@ const TemperatureTrend = ({
       })
     );
 
-    const co2DataPoints = Object.entries(dailyAverageCo2).map(
+    const feelsLikeDataPoints = Object.entries(dailyAverageFeelsLike).map(
       ([date, value]) => ({
         label: date,
         x: new Date(date),
@@ -50,16 +50,16 @@ const TemperatureTrend = ({
           color: "#FFA38F",
         },
         {
-          name: "CO2",
+          name: "Feels Like Temperature",
           type: "line",
-          dataPoints: co2DataPoints,
+          dataPoints: feelsLikeDataPoints,
           color: "#2A9D8F",
         },
       ],
     };
 
     setChartData(newChartData);
-  }, [dailyAverageTemp, dailyAverageCo2]);
+  }, [dailyAverageTemp, dailyAveragehumidity]);
 
   useEffect(() => {
     const selectedDateTempData = dailyDataTemp.map(({ time, temp }) => ({
@@ -67,11 +67,18 @@ const TemperatureTrend = ({
       y: parseFloat(temp),
     }));
 
-    const selectedDateCo2Data = dailyDataCo2.map(({ time, co2 }) => ({
-      label: time,
-      y: parseFloat(co2),
-    }));
-
+    const selectedDateHumidityData = dailyDatahumidity.map(
+      ({ time, humid }) => ({
+        label: time,
+        y: parseFloat(humid),
+      })
+    );
+    const selectedDateFeelsLikeData = dailyDataFeelsLike.map(
+      ({ time, feelsLike }) => ({
+        label: time,
+        y: parseFloat(feelsLike),
+      })
+    );
     setDrilldownChartData([
       {
         color: "#FFD18E",
@@ -81,12 +88,18 @@ const TemperatureTrend = ({
       },
       {
         color: "#2A9D8F",
-        name: `CO2 on ${selectedDate}`,
+        name: `Humidity on ${selectedDate}`,
         type: "line",
-        dataPoints: selectedDateCo2Data,
+        dataPoints: selectedDateHumidityData,
+      },
+      {
+        color: "#E76F51",
+        name: `Feels Like Temperature on ${selectedDate}`,
+        type: "line",
+        dataPoints: selectedDateFeelsLikeData,
       },
     ]);
-  }, [selectedDate, dailyDataTemp, dailyDataCo2]);
+  }, [selectedDate, dailyDataTemp, dailyDatahumidity]);
 
   const baseChartDrilldownHandler = (e) => {
     setSelectedDate(e.dataPoint.label);
@@ -103,6 +116,7 @@ const TemperatureTrend = ({
   };
 
   const backButtonClassName = isDrilldown ? "" : "invisible";
+
   const baseChartOptions = {
     animationEnabled: true,
     theme: "lightblue",
@@ -111,7 +125,7 @@ const TemperatureTrend = ({
       fontSize: 10,
     },
     title: {
-      text: "Temperature and CO2 Trend",
+      text: "Temperature and Feels Like Temperature Trend",
       fontSize: 15,
       fontFamily: "DM Sans",
       fontWeight: "800",
@@ -128,33 +142,19 @@ const TemperatureTrend = ({
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,
-      title: "Temperature",
+      //   stripLines: [
+      //     {
+      //       value: 40,
+      //       thickness: 1,
+      //       color: "rgb(93, 92, 92)",
+      //       lineDashType: "dash",
+      //       label: "Safe limits (40)",
+      //     },
+      //   ],
     },
-    axisY2: {
-      gridThickness: 0,
-      includeZero: false,
-      labelFontColor: "#717171",
-      lineColor: "#a2a2a2",
-      tickColor: "#a2a2a2",
-      lineThickness: 1,
-      title: "CO2",
-      stripLines: [
-        {
-          value: 500,
-          thickness: 1,
-          color: "black",
-          lineDashType: "dash",
-          label: "Safe limits (400)",
-        },
-      ],
-    },
-    data: (chartData["BaseChart"] || []).map((series) => ({
-      ...series,
-      axisYType: series.name === "Temperature" ? "primary" : "secondary",
-    })),
+    data: chartData["BaseChart"],
     toolTip: {
       contentFormatter: function (e) {
-        // Set the selectedDate to the hovered date
         setSelectedDate(e.entries[0].dataPoint.label);
 
         const selectedTempDataForDate = dailyDataTemp
@@ -172,10 +172,10 @@ const TemperatureTrend = ({
             return timeA - timeB;
           });
 
-        const selectedCo2DataForDate = dailyDataCo2
-          .map(({ time, co2 }) => ({
+        const selectedHumidityDataForDate = dailyDatahumidity
+          .map(({ time, humid }) => ({
             label: time,
-            y: parseFloat(co2),
+            y: parseFloat(humid),
           }))
           .sort((a, b) => {
             const timeA =
@@ -187,57 +187,92 @@ const TemperatureTrend = ({
             return timeA - timeB;
           });
 
-        const uniqueSelectedTempData = selectedTempDataForDate.filter(
-          (entry, index, self) =>
-            index ===
-            self.findIndex((t) => t.label === entry.label && t.y === entry.y)
+        const selectedFeelsLikeDataForDate = dailyDataFeelsLike
+          .map(({ time, feelsLikeC }) => {
+            // Check if feelsLike is a valid number
+            const feelsLikeValue = isNaN(parseFloat(feelsLikeC))
+              ? null
+              : parseFloat(feelsLikeC);
+
+            // Log invalid entries
+            if (feelsLikeValue === null) {
+              console.warn(
+                `Invalid feelsLike value '${feelsLikeC}' for time '${time}'`
+              );
+            }
+
+            return {
+              label: time,
+              y: feelsLikeValue.toFixed(2),
+            };
+          })
+          .filter((dataPoint) => dataPoint.y !== null) // Filter out invalid data
+          .sort((a, b) => {
+            const timeA =
+              parseInt(a.label.split(":")[0]) * 60 +
+              parseInt(a.label.split(":")[1]);
+            const timeB =
+              parseInt(b.label.split(":")[0]) * 60 +
+              parseInt(b.label.split(":")[1]);
+            return timeA - timeB;
+          });
+
+        console.log(selectedFeelsLikeDataForDate);
+
+        console.log(selectedFeelsLikeDataForDate);
+
+        const humidityMap = selectedHumidityDataForDate.reduce((map, data) => {
+          map[data.label] = data.y;
+          return map;
+        }, {});
+
+        const feelsLikeMap = selectedFeelsLikeDataForDate.reduce(
+          (map, data) => {
+            map[data.label] = data.y;
+            return map;
+          },
+          {}
         );
+        console.log(feelsLikeMap);
 
-        let content = "";
-
-        // Display date and average temp
-        content += `<div style="font-size: 1vw; font-weight: 600; text-align: center; padding: 0.5vw;">`;
-        content += `${selectedDate}<br/>`; // Line break after the date
-        content += `Average Temperature : ${dailyAverageTemp[selectedDate]}</br>`; // Line break after temperature
-        content += `Average CO2 : ${dailyAverageCo2[selectedDate]}`; // Line break after CO2
+        let content = `<div style="font-size: 1vw; font-weight: 600; text-align: center; padding: 0.5vw;">`;
+        content += `${selectedDate}<br/>`;
+        content += `Average Temperature: ${dailyAverageTemp[selectedDate]}<br/>`;
+        content += `Average Humidity: ${dailyAveragehumidity[selectedDate]}<br/>`;
         content += "</div>";
 
-        // Create the first table with inline CSS
         content +=
           "<div style='display: inline-block; margin-left: 1vw; padding: 0.5vw;'>";
         content += "<table style='font-size: 0.6vw; color: black;'>";
         content +=
-          "<tr><th>&nbsp&nbsp&nbspTime&nbsp&nbsp&nbsp&nbsp&nbsp;</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;Temp&nbsp&nbsp&nbsp</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;CO2&nbsp&nbsp&nbsp</th></tr>"; // Added CO2 column
+          "<tr><th>Time</th><th>Temp</th><th>Humidity</th><th>Feels Like Temp</th></tr>";
 
-        // Iterate over unique selected data and add rows to the table
-        uniqueSelectedTempData
-          .slice(0, Math.ceil(uniqueSelectedTempData.length / 2))
-          .forEach((entry, index) => {
+        selectedTempDataForDate
+          .slice(0, Math.ceil(selectedTempDataForDate.length / 2))
+          .forEach((entry) => {
             const colorClass = getColorClass(entry.y);
-            const co2Value = selectedCo2DataForDate[index]?.y || "N/A"; // Get corresponding CO2 value
-            content += `<tr><td class="${colorClass}">&nbsp&nbsp&nbsp${entry.label}&nbsp&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${entry.y}&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${co2Value}&nbsp&nbsp&nbsp</td></tr>`;
+            const humidityValue = humidityMap[entry.label] ?? "N/A";
+            console.log(feelsLikeMap[entry.label]);
+            const feelsLikeValue = feelsLikeMap[entry.label] ?? "N/A";
+            content += `<tr><td class="${colorClass}">${entry.label}</td><td class="${colorClass}">${entry.y}</td><td class="${colorClass}">${humidityValue}</td><td class="${colorClass}">${feelsLikeValue}</td></tr>`;
           });
 
         content += "</table>";
         content += "</div>";
 
-        // Create the second table with inline CSS
         content +=
           "<div style='display: inline-block; margin-left: 2vw; margin-right: 1vw; padding: 0.5vw;'>";
         content += "<table style='font-size: 0.6vw;'>";
         content +=
-          "<tr><th>&nbsp&nbsp&nbspTime&nbsp&nbsp&nbsp&nbsp&nbsp;</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;Temp&nbsp&nbsp&nbsp</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;CO2&nbsp&nbsp&nbsp</th></tr>"; // Added CO2 column
+          "<tr><th>Time</th><th>Temp</th><th>Humidity</th><th>Feels Like Temp</th></tr>";
 
-        // Iterate over unique selected data and add rows to the table
-        uniqueSelectedTempData
-          .slice(Math.ceil(uniqueSelectedTempData.length / 2))
-          .forEach((entry, index) => {
+        selectedTempDataForDate
+          .slice(Math.ceil(selectedTempDataForDate.length / 2))
+          .forEach((entry) => {
             const colorClass = getColorClass(entry.y);
-            const co2Value =
-              selectedCo2DataForDate[
-                index + Math.ceil(uniqueSelectedTempData.length / 2)
-              ]?.y || "N/A"; // Get corresponding CO2 value
-            content += `<tr><td class="${colorClass}">&nbsp&nbsp&nbsp${entry.label}&nbsp&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${entry.y}&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${co2Value}&nbsp&nbsp&nbsp</td></tr>`;
+            const humidityValue = humidityMap[entry.label] ?? "N/A";
+            const feelsLikeValue = feelsLikeMap[entry.label] ?? "N/A";
+            content += `<tr><td class="${colorClass}">${entry.label}</td><td class="${colorClass}">${entry.y}</td><td class="${colorClass}">${humidityValue}</td><td class="${colorClass}">${feelsLikeValue}</td></tr>`;
           });
 
         content += "</table>";
@@ -247,7 +282,6 @@ const TemperatureTrend = ({
       },
     },
   };
-
   function getColorClass(temp) {
     if (temp >= 0 && temp <= 10) {
       return "shade-1";
@@ -268,7 +302,7 @@ const TemperatureTrend = ({
   const drilldownChartOptions = {
     animationEnabled: true,
     title: {
-      text: `Temperature and CO2 Levels for ${selectedDate}`,
+      text: `Temperature and Humidity Trend for ${selectedDate}`,
       fontSize: 15,
     },
     height: 170,
@@ -285,29 +319,24 @@ const TemperatureTrend = ({
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,
-      title: "Temperature",
+      //   stripLines: [
+      //     {
+      //       value: 40,
+      //       thickness: 1,
+      //       color: "rgb(93, 92, 92)",
+      //       lineDashType: "dash",
+      //       label: "Safe limits (40)",
+      //     },
+      //   ],
     },
-    axisY2: {
-      gridThickness: 0,
-      includeZero: false,
-      labelFontColor: "black",
-      lineColor: "#a2a2a2",
-      tickColor: "#a2a2a2",
-      lineThickness: 1,
-      title: "CO2",
-    },
-    data: drilldownChartData.map((series) => ({
-      ...series,
-      axisYType: series.name.includes("Temperature") ? "primary" : "secondary",
-    })),
+    data: drilldownChartData,
     toolTip: {
       contentFormatter: function (e) {
         let content = "";
-        content +=
-          "Temperature at " +
-          e.entries[0].dataPoint.label +
-          " is " +
-          e.entries[0].dataPoint.y;
+        content += `Time : ${e.entries[0].dataPoint.label} </br>`;
+        content += `Temperature :
+          ${e.entries[0].dataPoint.y} </br>`;
+
         return content;
       },
     },
@@ -373,4 +402,4 @@ const TemperatureTrend = ({
   );
 };
 
-export default TemperatureTrend;
+export default TemperatureHumidityTrend;

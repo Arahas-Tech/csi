@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { color } from "framer-motion";
-import "./Admin.css"
+import "./Admin.css";
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -17,17 +17,17 @@ const colors = [
   "#581845", // (Dark Violet)
   "#9b59b6", // (Amethyst Purple)
 ];
-export const DonutChart = ({ title, labels, series, height ,width }) => {
+export const DonutChart = ({ title, labels, series, height, width }) => {
   const options = {
     animationEnabled: true,
     title: {
       text: title,
       fontSize: 12,
-      fontFamily:"DM Sans",
-      fontWeight:"800"
+      fontFamily: "DM Sans",
+      fontWeight: "800",
     },
     height: height,
-    width:width,
+    width: width,
     data: [
       {
         type: "doughnut",
@@ -177,8 +177,8 @@ export const ParetoChart = ({
     title: {
       text: title,
       fontSize: 13,
-      fontWeight:"800",
-      fontFamily:"DM Sans",
+      fontWeight: "800",
+      fontFamily: "DM Sans",
     },
     axisX: {
       title: xtitle,
@@ -435,13 +435,21 @@ export const AreaChart = ({
     </div>
   );
 };
-export const CustomBarChart = ({ title, categories, series, height, width, xtitle, ytitle }) => {
+export const CustomBarChart = ({
+  title,
+  categories,
+  series,
+  height,
+  width,
+  xtitle,
+  ytitle,
+}) => {
   const options = {
     title: {
       text: title,
       fontSize: 12,
       fontFamily: "DM Sans",
-       fontWeight:"800"
+      fontWeight: "800",
     },
     axisX: {
       title: xtitle,
@@ -463,7 +471,7 @@ export const CustomBarChart = ({ title, categories, series, height, width, xtitl
         dataPoints: categories.map((category, index) => ({
           label: category,
           y: series[index].female,
-          color: "rgb(184, 184, 184)" // color for female
+          color: "rgb(184, 184, 184)", // color for female
         })),
       },
       {
@@ -472,12 +480,12 @@ export const CustomBarChart = ({ title, categories, series, height, width, xtitl
         dataPoints: categories.map((category, index) => ({
           label: category,
           y: series[index].male,
-          color: "#00a269" // color for male
+          color: "#00a269", // color for male
         })),
-      }
+      },
     ],
     width,
-    height
+    height,
   };
 
   return (
@@ -486,50 +494,3 @@ export const CustomBarChart = ({ title, categories, series, height, width, xtitl
     </div>
   );
 };
-const DecompositionTree = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const categories = [
-    { label: "Root", y: 100 },
-    { label: "Branch 1", y: 60, parent: "Root" },
-    { label: "Branch 2", y: 40, parent: "Root" },
-    { label: "Leaf 1.1", y: 30, parent: "Branch 1" },
-    { label: "Leaf 1.2", y: 30, parent: "Branch 1" },
-    { label: "Leaf 2.1", y: 40, parent: "Branch 2" },
-  ];
-
-  const filteredCategories = categories.filter(
-    (category) =>
-      category.parent === selectedCategory || (!selectedCategory && !category.parent)
-  );
-
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: "Decomposition Tree",
-    },
-    width:400,
-    data: [
-      {
-        type: "column",
-        dataPoints: filteredCategories.map((category) => ({
-          label: category.label,
-          y: category.y,
-          click: () => setSelectedCategory(category.label),
-        })),
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <button onClick={() => setSelectedCategory(null)}>Reset</button>
-      <CanvasJSChart options={options} />
-    </div>
-  );
-};
-
-export default DecompositionTree;
-
-
-

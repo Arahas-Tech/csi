@@ -89,14 +89,11 @@ const Login_VCSI = () => {
     } else {
       try {
         setLoading(true); // Set loading to true during authentication
-        const response = await axios.post(
-          "https://api-csi.arahas.com/login",
-          {
-            email,
-            password,
-            department,
-          }
-        );
+        const response = await axios.post("https://api-csi.arahas.com/login", {
+          email,
+          password,
+          department,
+        });
         handleLoginResponse(response);
       } catch (error) {
         console.error("Login Error:", error);

@@ -7,11 +7,9 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { ProgressSpinner } from "primereact/progressspinner";
 import "./Dash.css";
-import good from "./DashImages/good.png";
-import moderate from "./DashImages/moderate.png";
-import poor from "./DashImages/poor.png";
+import sunny from "./DashImages/sunny.png";
+import warm from "./DashImages/warm.png";
 import very_poor from "./DashImages/very_poor.png";
-import severe from "./DashImages/severe.png";
 import AqiReport from "../Environment/AqiReport";
 import AQIChart from "../Environment/AQIChart";
 import PollutantChart from "./PollutantChart";
@@ -22,6 +20,7 @@ import { Panel } from "primereact/panel";
 import TableSkeleton from "../ui/skeletons/TableSkeleton";
 import AqiMap from "../Environment/Maps/AqiMap";
 import TempMap from "../Environment/Maps/TempMap";
+import Temperature from "../Environment/Temperature";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -133,7 +132,7 @@ const TempDashboard = ({
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
       const filteredData = response.data.data;
-      console.log(filteredData);
+      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
@@ -155,7 +154,7 @@ const TempDashboard = ({
         temperature.push(item.temp);
         humidity.push(item.humidity);
       });
-
+      // console.log(temperature);
       setEnviroTime(formattedTime);
       setEnviroDate(formattedDate);
       setEnviroco2(co2);
@@ -186,20 +185,20 @@ const TempDashboard = ({
         setTempValue(null);
         setTempStatus({ status: "", color: "", textColor: "", image: null });
       }
-
+      // console.log(filteredData);
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.temp > 40)
         .map((item) => ({
           date: formatDate(new Date(item.time)),
           time: formatTimeToHHMMSS(new Date(item.time)),
-          temp: item.temp,
+          temp: item.temp + ` °C`,
           deviationPercentage: (((item.temp - 40) / 40) * 100).toFixed(2) + "%",
         }));
 
       const uniqueDataTableData = Array.from(
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
-
+      console.log(uniqueDataTableData);
       setDataTableData(uniqueDataTableData);
     } catch (error) {
     } finally {
@@ -249,14 +248,14 @@ const TempDashboard = ({
         // status: "Good",
         color: "green",
         textColor: "white",
-        image: good,
+        image: sunny,
       };
     } else if (temp > 40) {
       return {
         status: "Very Hot",
         color: "red",
         textColor: "white",
-        image: severe,
+        image: warm,
       };
     }
   };
@@ -267,7 +266,7 @@ const TempDashboard = ({
   const handleEndDateChange = (e) => {
     setEndDate(e.value);
   };
-  console.log(startDate, endDate);
+  // console.log(startDate, endDate);
 
   const {
     status: aqiStatusText,
@@ -277,7 +276,7 @@ const TempDashboard = ({
   } = tempStatus;
 
   const rowClassName = (data) => {
-    return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
+    return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
   };
   return (
     <div className="aqi-dashboard flex gap-1 flex-column">
@@ -351,9 +350,9 @@ const TempDashboard = ({
                   <div className="flex align-items-center justify-content-around flex-row">
                     <div>
                       <div className="flex align-items-center justify-content-center flex-column">
-                        <h1 className="text-3xl">
+                        <h1 className="text-sm">
                           {tempValue !== null
-                            ? `${tempValue}`
+                            ? `${tempValue} °C`
                             : "No Data Found."}
                         </h1>
 
@@ -361,15 +360,15 @@ const TempDashboard = ({
                           <img
                             src={aqiImage}
                             alt={aqiStatusText}
-                            style={{ width: "4rem", height: "6rem" }}
+                            style={{ width: "100%" }}
                           />
                         )}
-                        <h1
+                        {/* <h1
                           className={`border-round-xs p-1 text-xs text-white w-6rem`}
                           style={{ backgroundColor: tempStatus.color }}
                         >
                           {tempStatus.status || "No Status"}
-                        </h1>
+                        </h1> */}
                       </div>
                     </div>
                   </div>
@@ -379,7 +378,7 @@ const TempDashboard = ({
             <div className="ml-1 mr-1">
               <Card>
                 {loading ? (
-                  <div className="w-22rem h-15rem">
+                  <div className="w-24rem h-15rem">
                     <TableSkeleton />
                   </div>
                 ) : (
@@ -389,7 +388,7 @@ const TempDashboard = ({
                     scrollable
                     scrollHeight="15rem"
                     style={{
-                      width: "22rem",
+                      width: "24rem",
                       height: "15rem",
                       textAlign: "center",
                     }}
@@ -416,8 +415,8 @@ const TempDashboard = ({
                       }}
                     />
                     <Column
-                      field="aqi"
-                      header="Temperature above 40°C"
+                      field="temp"
+                      header="Temperature > 40°C"
                       className="text-xs"
                       headerStyle={{
                         fontSize: "0.6rem",
@@ -456,18 +455,14 @@ const TempDashboard = ({
         <Panel>
           <div className="flex align-items-center justify-content-between flex-row ">
             <Card>
-              {/* <AQIChart
-                envirolocation={envirolocation}
+              <Temperature
                 enviroDate={envirodate}
                 envirotime={envirotime}
-                enviroPM25={enviropm25}
-                enviroPM10={enviropm10}
-                enviroSO2={enviropm25}
-                enviroNO2={enviroNO2}
+                temperature={temperature}
+                humidity={humidity}
                 enviroco2={enviroco2}
-                enviroAQI={enviroAQI}
-                selectedLocation={selectedLocation}
-              /> */}
+                startDate={startDate}
+              />
             </Card>
           </div>
         </Panel>

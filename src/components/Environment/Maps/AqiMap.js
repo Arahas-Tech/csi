@@ -51,7 +51,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       attribution: false,
       view: new View({
         center: fromLonLat([82.144132, 26.783869]),
-        zoom: 11,
+        zoom: 10,
       }),
     });
 
