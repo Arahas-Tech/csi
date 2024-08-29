@@ -20,6 +20,7 @@ import "primeicons/primeicons.css";
 import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
 import TempDashboard from "./components/DashBoards/TempDashboard";
+import Admin from "./components/CityHeaderNew";
 
 function App() {
   return (
@@ -237,6 +238,7 @@ function App() {
       <Route path="/csi/weather" element={<WeatherApi />}></Route>
       <Route path="/vcsi/weather" element={<WeatherApi />}></Route>
       <Route path="/csi/aqi" element={<AqiPage />}></Route>
+      <Route path="/csi/admin" element={<Admin />}></Route>
       <Route path="/vcsi/aqi" element={<AqiPage />}></Route>
       <Route path="/csi/report-map-page" element={<ReportMap />}></Route>
       <Route path="/vcsi/report-map-page" element={<ReportMap />}></Route>

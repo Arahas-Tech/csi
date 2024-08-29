@@ -31,8 +31,6 @@ function Header({ pageName }) {
                 size="small"
                 label="
                 Home"
-                
-                
               />
             </Link>
           </div>
