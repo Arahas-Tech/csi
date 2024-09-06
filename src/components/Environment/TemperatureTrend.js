@@ -14,6 +14,7 @@ const TemperatureTrend = ({
   fifteenDaysData,
   startDate,
 }) => {
+  console.log(selectedDate);
   const [chartData, setChartData] = useState({
     BaseChart: [],
   });
@@ -121,15 +122,6 @@ const TemperatureTrend = ({
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
     },
-    axisY: {
-      gridThickness: 0,
-      includeZero: false,
-      labelFontColor: "#717171",
-      lineColor: "#a2a2a2",
-      tickColor: "#a2a2a2",
-      lineThickness: 1,
-      title: "Temperature",
-    },
     axisY2: {
       gridThickness: 0,
       includeZero: false,
@@ -140,7 +132,7 @@ const TemperatureTrend = ({
       title: "CO2",
       stripLines: [
         {
-          value: 500,
+          value: 400,
           thickness: 1,
           color: "black",
           lineDashType: "dash",
@@ -148,6 +140,16 @@ const TemperatureTrend = ({
         },
       ],
     },
+    axisY: {
+      gridThickness: 0,
+      includeZero: false,
+      labelFontColor: "#717171",
+      lineColor: "#a2a2a2",
+      tickColor: "#a2a2a2",
+      lineThickness: 1,
+      title: "Temperature",
+    },
+
     data: (chartData["BaseChart"] || []).map((series) => ({
       ...series,
       axisYType: series.name === "Temperature" ? "primary" : "secondary",

@@ -6,6 +6,8 @@ import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
 import LandIcon from "../src/components/assets/waste/land.png";
 import AreaIcon from "../src/components/assets/waste/measurement.png";
+import Above from "../src/components/assets/waste/above.png";
+import Below from "../src/components/assets/waste/below.png";
 //import Tree from "react-d3-tree";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -20,10 +22,15 @@ const Land = () => {
   ];
   const donutChartSeries = [27.88, 26.24, 25.28, 12.49, 8.11];
 
-  const AreaLabels = ["Below Proposed Limit", "Above Proposed Limit"];
-  const AreaSeries = [19364.11, 5599.69];
+  const AboveLabels = [
+    "Transportation",
+    "Industrial",
+    "Publiv and Semi-Public",
+    "Commercial",
+  ];
+  const AboveSeries = [2862.6, 1558.63, 1059.63, 118.53];
 
-  const targetLabels = [
+  const BelowLabels = [
     "Residential",
     "Agricultural",
     "Water Bodies",
@@ -33,7 +40,7 @@ const Land = () => {
     "Vacant Land",
   ];
 
-  const targetSeries = [12835.78, 4542.59, 906.23, 535.84, 293.0, 250.67, 0.0];
+  const BelowSeries = [12835.78, 4542.59, 906.23, 535.84, 293.0, 250.67, 0.0];
 
   const areaChartOptions = {
     animationEnabled: true,
@@ -52,7 +59,7 @@ const Land = () => {
       labelFontSize: 8,
     },
     height: 280,
-    width: 360,
+    width: 380,
     data: [
       {
         type: "area",
@@ -152,7 +159,7 @@ const Land = () => {
       labelFontSize: 8,
     },
     height: 270,
-    width: 500,
+    width: 520,
     data: [
       {
         type: "bar",
@@ -195,7 +202,7 @@ const Land = () => {
         <div className="flex flex-column gap-3 w-full">
           <div className="flex gap-3">
             <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-4">
+              <div className="flex align-items-center gap-3">
                 {/* First column: Image */}
                 <div className="flex-shrink-0">
                   <img
@@ -207,14 +214,14 @@ const Land = () => {
 
                 {/* Second column: Total Area label and value */}
                 <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Total Area</h3>
-                  <span className="text-xs font-bold">24.96K</span>{" "}
+                  <h3 className="m-0 text-xs">Total Area (hA)</h3>
+                  <span className="text-xs font-bold">23963.80</span>{" "}
                 </div>
               </div>
             </Card>
 
             <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-4">
+              <div className="flex align-items-center gap-3">
                 {/* First column: Image */}
                 <div className="flex-shrink-0">
                   <img
@@ -226,46 +233,42 @@ const Land = () => {
 
                 {/* Second column: Total Area label and value */}
                 <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Developed Area</h3>
+                  <h3 className="m-0 text-xs">Developed Area (%)</h3>
                   <span className="text-xs font-bold">91.03</span>{" "}
                 </div>
               </div>
             </Card>
 
             <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-4">
-                {/* First column: Image */}
+              <div className="flex align-items-center gap-3">
                 <div className="flex-shrink-0">
                   <img
-                    src={LandIcon}
-                    alt="Total Area"
-                    style={{ width: "50px", height: "50px" }}
+                    src={Below}
+                    alt="Below"
+                    style={{ width: "40px", height: "40px" }}
                   />
                 </div>
 
-                {/* Second column: Total Area label and value */}
                 <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Total Area</h3>
-                  <span className="text-xs font-bold">24.96K</span>{" "}
+                  <h3 className="m-0 text-xs">Below Proposed Limit (hA)</h3>
+                  <span className="text-xs font-bold">19364.11 </span>{" "}
                 </div>
               </div>
             </Card>
 
             <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-4">
-                {/* First column: Image */}
+              <div className="flex align-items-center gap-3">
                 <div className="flex-shrink-0">
                   <img
-                    src={LandIcon}
-                    alt="Total Area"
+                    src={Above}
+                    alt="Above"
                     style={{ width: "50px", height: "50px" }}
                   />
                 </div>
 
-                {/* Second column: Total Area label and value */}
                 <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Total Area</h3>
-                  <span className="text-xs font-bold">24.96K</span>{" "}
+                  <h3 className="m-0 text-xs">Above Proposed Limit (hA)</h3>
+                  <span className="text-xs font-bold">5599.69</span>{" "}
                 </div>
               </div>
             </Card>
@@ -280,7 +283,7 @@ const Land = () => {
             labels={donutChartLabels}
             series={donutChartSeries}
             height={230}
-            width={250}
+            width={350}
           />
         </Card>
 
@@ -298,19 +301,19 @@ const Land = () => {
         <Panel className="flex-1 border-round bg-white shadow-2 w-3">
           <div className="flex justify-content-center" style={{ gap: "1px" }}>
             <DonutChart
-              title="Total Area"
-              labels={AreaLabels}
-              series={AreaSeries}
+              title="Target Achieved Above Proposed Limit"
+              labels={AboveLabels}
+              series={AboveSeries}
               height={240}
-              width={260}
+              width={270}
             />
 
             <DonutChart
               title="Target Achieved Below Proposed Limit"
-              labels={targetLabels}
-              series={targetSeries}
+              labels={BelowLabels}
+              series={BelowSeries}
               height={240}
-              width={260}
+              width={270}
             />
           </div>
         </Panel>

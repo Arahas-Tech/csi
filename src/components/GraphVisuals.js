@@ -28,6 +28,7 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
     },
     height: height,
     width: width,
+
     data: [
       {
         type: "doughnut",
@@ -79,6 +80,8 @@ export const GroupedBarChart = ({
             horizontalAlign: titleOptions.align || "center",
             padding: titleOptions.padding || { bottom: 10 },
           },
+          height: height,
+          width: width,
           axisX: {
             title: xtitle,
             gridThickness: 0,

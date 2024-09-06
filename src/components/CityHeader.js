@@ -201,6 +201,7 @@ function CityHeader({ pageName }) {
                 </>
               )}
               {selectedParameter === "waste" && <Waste />}
+              {selectedParameter === "land" && <Land />}
               {selectedParameter !== "aqi" && selectedParameter !== "waste" && selectedParameter !== "land" &&(
                 <ReportMap parameter={selectedParameter} />
               )}

@@ -131,3 +131,15 @@ h1 {
   width: 32.5rem;
   flex-wrap: wrap;
 }
+
+.chart-position{
+  width: 100%;
+}
+
+/* .canvasjs-chart-canvas{
+    position: absolute !important;
+
+  }
+  .canvasjs-chart-toolbar{
+    position: relative !important;
+  } */
