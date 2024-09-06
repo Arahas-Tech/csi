@@ -2,32 +2,33 @@ import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { color } from "framer-motion";
-import "./Admin.css"
+import "./Admin.css";
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
   "#00A269",
-  "rgb(184, 184, 184)", // (Rich Purple)
-  "#A9F3E0", // (orange)
-  "grey", // (Strong Blue)
-  "#1abc9c", // (Turquoise Green)
-  "#FFC300", // (Vivid Yellow)
-  "#C70039", // (Strong Red)
-  "#581845", // (Dark Violet)
-  "#9b59b6", // (Amethyst Purple)
+  "rgb(184, 184, 184)",
+  "#A9F3E0",
+  "grey",
+  "#1abc9c",
+  "#FFC300",
+  "#C70039",
+  "#581845",
+  "#9b59b6",
 ];
-export const DonutChart = ({ title, labels, series, height ,width }) => {
+
+export const DonutChart = ({ title, labels, series, height, width }) => {
   const options = {
     animationEnabled: true,
     title: {
       text: title,
       fontSize: 12,
-      fontFamily:"DM Sans",
-      fontWeight:"800"
+      fontFamily: "DM Sans",
+      fontWeight: "800",
     },
     height: height,
-    width:width,
+    width: width,
     data: [
       {
         type: "doughnut",
@@ -55,12 +56,15 @@ export const DonutChart = ({ title, labels, series, height ,width }) => {
 
 export const GroupedBarChart = ({
   title,
+  titleOptions = {},
   categories,
   series,
   height,
   width,
   xtitle,
   ytitle,
+  color,
+  labelFontSize = 8,
 }) => {
   return (
     <div className="z-index-low">
@@ -69,27 +73,40 @@ export const GroupedBarChart = ({
           animationEnabled: true,
           title: {
             text: title,
-            fontSize: 13,
+            fontSize: 12,
+            fontFamily: titleOptions.fontFamily || "Arial",
+            fontWeight: titleOptions.fontWeight || "bold",
+            color: titleOptions.color || "#333",
+            horizontalAlign: titleOptions.align || "center",
+            padding: titleOptions.padding || { bottom: 10 },
           },
           axisX: {
             title: xtitle,
+            gridThickness: 0,
+            labelFontSize: labelFontSize,
           },
           axisY: {
             title: ytitle,
+            gridThickness: 0,
+            labelFontSize: labelFontSize,
           },
+          height: height,
+          width: width,
           data: series.map((data, index) => ({
             type: "column",
             name: categories[index],
-            showInLegend: true,
+            showInLegend: false,
             dataPoints: data.map((value, i) => ({
               y: value,
               label: categories[i],
+              indexLabel: `{y}`, // Show value on each bar
+              indexLabelFontSize: 10, // Font size for the value
+              indexLabelPlacement: "outside", // Position the value inside the bar
+              color: colors[i % colors.length], // Assign color to each bar
             })),
             color: colors[index % colors.length],
           })),
         }}
-        height={height}
-        width={width}
       />
     </div>
   );
@@ -97,12 +114,15 @@ export const GroupedBarChart = ({
 
 export const BarChart = ({
   title,
+  titleOptions = {},
   categories,
   series,
   height,
   width,
   xtitle,
   ytitle,
+  color,
+  labelFontSize = 8, // Add a prop for font size
 }) => {
   return (
     <div className="z-index-low">
@@ -111,27 +131,40 @@ export const BarChart = ({
           animationEnabled: true,
           title: {
             text: title,
-            fontSize: 13,
+            fontSize: 12,
+            fontFamily: titleOptions.fontFamily || "Arial",
+            fontWeight: titleOptions.fontWeight || "bold",
+            color: titleOptions.color || "#333",
+            horizontalAlign: titleOptions.align || "center",
+            padding: titleOptions.padding || { bottom: 10 },
           },
           axisX: {
             title: xtitle,
+            gridThickness: 0,
+            labelFontSize: labelFontSize, // Set the font size for category labels
           },
+          height: height,
+          width: width,
           axisY: {
             title: ytitle,
+            gridThickness: 0,
+            labelFontSize: labelFontSize,
           },
           data: series.map((data, index) => ({
             type: "bar",
             name: categories[index],
-            showInLegend: true,
+            showInLegend: false,
             dataPoints: data.map((value, i) => ({
               y: value,
               label: categories[i],
+              indexLabel: `{y}`, // Show value on each bar
+              indexLabelFontSize: 10, // Font size for the value
+              indexLabelPlacement: "outside", // Position the value outside the bar
+              color: colors[i % colors.length], // Assign color to each bar
             })),
             color: colors[index % colors.length],
           })),
         }}
-        height={height}
-        width={width}
       />
     </div>
   );
@@ -177,8 +210,8 @@ export const ParetoChart = ({
     title: {
       text: title,
       fontSize: 13,
-      fontWeight:"800",
-      fontFamily:"DM Sans",
+      fontWeight: "800",
+      fontFamily: "DM Sans",
     },
     axisX: {
       title: xtitle,
@@ -435,13 +468,21 @@ export const AreaChart = ({
     </div>
   );
 };
-export const CustomBarChart = ({ title, categories, series, height, width, xtitle, ytitle }) => {
+export const CustomBarChart = ({
+  title,
+  categories,
+  series,
+  height,
+  width,
+  xtitle,
+  ytitle,
+}) => {
   const options = {
     title: {
       text: title,
       fontSize: 12,
       fontFamily: "DM Sans",
-       fontWeight:"800"
+      fontWeight: "800",
     },
     axisX: {
       title: xtitle,
@@ -463,7 +504,7 @@ export const CustomBarChart = ({ title, categories, series, height, width, xtitl
         dataPoints: categories.map((category, index) => ({
           label: category,
           y: series[index].female,
-          color: "rgb(184, 184, 184)" // color for female
+          color: "rgb(184, 184, 184)", // color for female
         })),
       },
       {
@@ -472,12 +513,12 @@ export const CustomBarChart = ({ title, categories, series, height, width, xtitl
         dataPoints: categories.map((category, index) => ({
           label: category,
           y: series[index].male,
-          color: "#00a269" // color for male
+          color: "#00a269", // color for male
         })),
-      }
+      },
     ],
     width,
-    height
+    height,
   };
 
   return (
@@ -500,7 +541,8 @@ const DecompositionTree = () => {
 
   const filteredCategories = categories.filter(
     (category) =>
-      category.parent === selectedCategory || (!selectedCategory && !category.parent)
+      category.parent === selectedCategory ||
+      (!selectedCategory && !category.parent)
   );
 
   const options = {
@@ -508,7 +550,7 @@ const DecompositionTree = () => {
     title: {
       text: "Decomposition Tree",
     },
-    width:400,
+    width: 400,
     data: [
       {
         type: "column",
@@ -530,6 +572,3 @@ const DecompositionTree = () => {
 };
 
 export default DecompositionTree;
-
-
-

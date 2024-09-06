@@ -20,9 +20,12 @@ import "primeicons/primeicons.css";
 import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
 import TempDashboard from "./components/DashBoards/TempDashboard";
+import Waste from "./WasteDashboard";
+import Land from "./LandDashboard";
 
 function App() {
   return (
+    <div>
     <Routes>
       <Route path="/csi" element={<Login />} />
       <Route path="/vcsi" element={<Login_VCSI />} />
@@ -246,7 +249,12 @@ function App() {
       <Route path="/csi/payment" element={<PaymentForm />}></Route>
       <Route path="/csi/temp" element={<TempDashboard show={true} />}></Route>
       <Route path="/csi/aqi-dashboard" element={<AqiDashboard />}></Route>
+      <Route path="/waste" element={<Waste />}></Route>
+      <Route path="/land" element={<Land />}></Route>
     </Routes>
+    
+    
+    </div>
   );
 }
 

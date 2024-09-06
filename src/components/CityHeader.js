@@ -34,6 +34,13 @@ import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import DefaultHeader from "./DefaultHeader";
 import TempDashboard from "./DashBoards/TempDashboard";
+import Waste from "../WasteDashboard";
+import Land from "../LandDashboard";
+import GenerateLandReport from "../GenerateLandReport";
+import GenerateWasteReport from "../GenerateWasteReport"
+import LandRecommendations from "../LandRecommendations";
+import WasteRecommendations from "../WasteRecommendations";
+
 function CityHeader({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -112,7 +119,9 @@ function CityHeader({ pageName }) {
                   <TempDashboard onDataChange={handleAqiData} show={true} />
                 </>
               )}
-              {selectedParameter !== "aqi" && (
+              {selectedParameter === "waste" && <Waste />}
+              {selectedParameter === "land" && <Land />}
+              {selectedParameter !== "aqi" && selectedParameter !== "waste" && selectedParameter !== "land" &&(
                 <ReportMap parameter={selectedParameter} />
               )}
             </TabPanel>
@@ -130,12 +139,32 @@ function CityHeader({ pageName }) {
                   />
                 </>
               )}
+              {selectedParameter === "land" && (
+                <>
+                  <LandRecommendations/>
+                </>
+              )}
+              {selectedParameter === "waste" && (
+                <>
+                  <WasteRecommendations/>
+                </>
+              )}
             </TabPanel>
 
             <TabPanel header="Report" headerClassName="text-green-500">
               {selectedParameter === "aqi" && (
                 <>
                   <GenerateAqiReport />
+                </>
+              )}
+              {selectedParameter === "waste" && (
+                <>
+                  <GenerateWasteReport />
+                </>
+              )}
+               {selectedParameter === "land" && (
+                <>
+                  <GenerateLandReport />
                 </>
               )}
             </TabPanel>
@@ -160,17 +189,15 @@ function CityHeader({ pageName }) {
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {/* {selectedParameter==="aqi" && (
-                <> */}
-
-              <AqiDashboard onDataChange={handleAqiData} show={true} />
-              {/*                 
+              {selectedParameter === "aqi" && (
+                <>
+                  <AqiDashboard onDataChange={handleAqiData} show={true} />
                 </>
-              )} */}
-
-              {/* {selectedParameter!=="aqi" && (
+              )}
+              {selectedParameter === "waste" && <Waste />}
+              {selectedParameter !== "aqi" && selectedParameter !== "waste" && selectedParameter !== "land" &&(
                 <ReportMap parameter={selectedParameter} />
-              )} */}
+              )}
             </TabPanel>
             <TabPanel
               header="Recommendations"
@@ -364,12 +391,13 @@ function CityHeader({ pageName }) {
                   className={`link ${
                     activeSubTab === "waste" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "waste")}
+                  // onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "waste")}
                 >
                   <DeleteSweepIcon className="icon-sub" />
                   <span>Waste Management</span>
                 </div>
+
                 <div
                   className={`link ${
                     activeSubTab === "water" ? "sub-active" : ""
@@ -380,12 +408,13 @@ function CityHeader({ pageName }) {
                   <WaterDropIcon className="icon-sub" />
                   <span>Water Conservation & Preservation</span>
                 </div>
+                
                 <div
                   className={`link ${
                     activeSubTab === "land" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "land")}
+                //  onClick={() => handleWorkInProgress()}
+                 onClick={() => handleTabClick("report", "land")}
                 >
                   <VillaIcon className="icon-sub" />
                   <span>Land Usage</span>
