@@ -42,6 +42,12 @@ import GenerateRainReport from "./DashBoards/GenerateRainReport";
 import WaterDashboard from "./DashBoards/WaterDashboard";
 import WaterRecommendations from "./DashBoards/Recommendations/WaterRecommendations";
 import GenerateWaterReport from "./DashBoards/GenerateWaterReport";
+import Waste from "../WasteDashboard";
+import Land from "../LandDashboard";
+import WasteRecommendations from "../WasteRecommendations";
+import LandRecommendations from "../LandRecommendations";
+import GenerateWasteReport from "../GenerateWasteReport";
+import GenerateLandReport from "../GenerateLandReport";
 function CityHeaderNew({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -136,6 +142,16 @@ function CityHeaderNew({ pageName }) {
                   <WaterDashboard />
                 </>
               )}
+              {selectedParameter === "waste" && (
+                <>
+                  <Waste />
+                </>
+              )}
+              {selectedParameter === "land" && (
+                <>
+                  <Land />
+                </>
+              )}
             </TabPanel>
             <TabPanel
               header="Recommendations"
@@ -169,6 +185,16 @@ function CityHeaderNew({ pageName }) {
                   <WaterRecommendations />
                 </>
               )}
+              {selectedParameter === "waste" && (
+                <>
+                  <WasteRecommendations />
+                </>
+              )}
+              {selectedParameter === "land" && (
+                <>
+                  <LandRecommendations />
+                </>
+              )}
             </TabPanel>
 
             <TabPanel header="Report" headerClassName="text-green-500">
@@ -190,6 +216,16 @@ function CityHeaderNew({ pageName }) {
               {selectedParameter === "water" && (
                 <>
                   <GenerateWaterReport />
+                </>
+              )}
+              {selectedParameter === "waste" && (
+                <>
+                  <GenerateWasteReport />
+                </>
+              )}
+              {selectedParameter === "land" && (
+                <>
+                  <GenerateLandReport />
                 </>
               )}
             </TabPanel>
@@ -421,8 +457,8 @@ function CityHeaderNew({ pageName }) {
                   className={`link ${
                     activeSubTab === "waste" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "waste")}
+                  // onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "waste")}
                 >
                   <DeleteSweepIcon className="icon-sub" />
                   <span>Waste Management</span>
@@ -441,8 +477,8 @@ function CityHeaderNew({ pageName }) {
                   className={`link ${
                     activeSubTab === "land" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "land")}
+                  // onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "land")}
                 >
                   <VillaIcon className="icon-sub" />
                   <span>Land Usage</span>
