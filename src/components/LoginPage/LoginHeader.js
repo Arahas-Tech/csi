@@ -22,12 +22,12 @@ const LoginHeader = ({ toggleLogin }) => {
 
   const end = (
     <div className="flex justify-content-end gap-5">
-      {/* <Button
+      <Button
         label="Know Your City"
         icon="pi pi-question-circle"
         size="small"
         onClick={() => setVisible(true)}
-      /> */}
+      />
       {/* <NavLink to="/csi/aqi">
       <Button
         label="AQI Module"
@@ -35,7 +35,7 @@ const LoginHeader = ({ toggleLogin }) => {
         size="small"
       />
       </NavLink> */}
-      
+
       <Button
         label="Login"
         icon="pi pi-user"

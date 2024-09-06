@@ -1,37 +1,149 @@
 import React, { useState, useEffect } from "react";
 import { Select, MenuItem } from "@mui/material";
-import "./AqiReport.css";
+import DailyTrend from "./DailyTrend";
 import TemperatureTrend from "./TemperatureTrend";
+import TemperatureHumidityTrend from "./TemperatureHumidityTrend";
 
 const Temperature = ({
-  templocation, tempdate, temptime, temperature, humidity
+  enviroDate,
+  envirotime,
+  temperature,
+  humidity,
+  enviroco2,
+  startDate,
 }) => {
-  const [selectedLocation, setSelectedLocation] = useState(templocation[0]);
-  const [selectedDate, setSelectedDate] = useState("01-01-2024");
-  const [filteredTemperature, setFilteredTemperature] = useState([]);
-  const [dailyAverageTemp, setDailyAverageTemp] = useState({});
-  const [dailyData, setDailyData] = useState([]);
-  const [fifteenDaysData, setFifteenDaysData] = useState([]);
-  console.log(humidity);
+  const [selectedMonth, setSelectedMonth] = useState("01");
+  const [selectedDate, setSelectedDate] = useState("2024-01-01");
+  const [chartData, setChartData] = useState([]);
+  const [weeklyAverages, setWeeklyAverages] = useState(null);
+  const [dailyAverage, setDailyAverage] = useState(null);
+  const [dailyData, setDailyData] = useState(null);
+  const [dailyAverageco2, setDailyAverageco2] = useState(null);
+  const [dailyDataco2, setDailyDataco2] = useState(null);
+  const [dailyAveragehumidity, setDailyAveragehumidity] = useState(null);
+  const [dailyDatahumidity, setDailyDatahumidity] = useState(null);
+  const [fifteenDaysData, setFifteenDaysData] = useState(null);
+  const [dailyFeelsLike, setDailyFeelsLike] = useState(null);
+  const [dailyFeelsLikeData, setDailyFeelsLikeData] = useState(null);
 
-  // Function to filter temperature data based on selected location
-  const filterTemperatureData = () => {
-    if (templocation && templocation.length > 0) {
-      return templocation.reduce((acc, location, index) => {
-        if (location === selectedLocation) {
-          acc.push({ date: tempdate[index], time: temptime[index], temp: temperature[index] });
-        }
-        return acc;
-      }, []);
+  // Helper to convert Celsius to Fahrenheit
+  const celsiusToFahrenheit = (celsius) => (celsius * 9) / 5 + 32;
+
+  // Helper to convert Fahrenheit to Celsius
+  const fahrenheitToCelsius = (fahrenheit) => ((fahrenheit - 32) * 5) / 9;
+
+  // Function to calculate Feels Like temperature using Heat Index Formula
+  const calculateFeelsLikeTemp = (tempF, rh) => {
+    // Constants from the Heat Index formula
+    const C1 = -42.379;
+    const C2 = 2.04901523;
+    const C3 = 10.14333127;
+    const C4 = -0.22475541;
+    const C5 = -6.83783 * Math.pow(10, -3);
+    const C6 = -5.481717 * Math.pow(10, -2);
+    const C7 = 1.22874 * Math.pow(10, -3);
+    const C8 = 8.5282 * Math.pow(10, -4);
+    const C9 = -1.99 * Math.pow(10, -6);
+
+    // Calculate heat index without correction factor
+    let HI =
+      C1 +
+      C2 * tempF +
+      C3 * rh +
+      C4 * tempF * rh +
+      C5 * tempF ** 2 +
+      C6 * rh ** 2 +
+      C7 * tempF ** 2 * rh +
+      C8 * tempF * rh ** 2 +
+      C9 * tempF ** 2 * rh ** 2;
+
+    // Apply correction factor if necessary
+    let CF = 0;
+    if (tempF >= 80 && tempF <= 112 && rh <= 13) {
+      CF = -((13 - rh) / 4) * Math.sqrt((17 - Math.abs(tempF - 95)) / 17);
+    } else if (tempF >= 80 && tempF <= 87 && rh > 85) {
+      CF = 0.02 * (rh - 85) * (87 - tempF);
     }
-    return [];
+
+    HI += CF;
+
+    // Convert back to Celsius
+    return fahrenheitToCelsius(HI);
   };
 
-  // Function to calculate daily average temperatures
-  const calculateDailyAverages = (data) => {
+  // Calculate daily feels like temperature averages
+  const calculateDailyFeelsLikeAverages = () => {
+    if (!enviroDate || !temperature || !humidity) {
+      return null;
+    }
+
+    const dailyFeelsLikeData = {};
+
+    enviroDate.forEach((date, index) => {
+      const tempC = temperature[index];
+      const rh = humidity[index];
+      const tempF = celsiusToFahrenheit(tempC);
+      const feelsLikeC = calculateFeelsLikeTemp(tempF, rh);
+
+      if (!dailyFeelsLikeData[date]) {
+        dailyFeelsLikeData[date] = [];
+      }
+      dailyFeelsLikeData[date].push(feelsLikeC);
+    });
+
+    const dailyAverages = {};
+    for (const date in dailyFeelsLikeData) {
+      const dailyTemps = dailyFeelsLikeData[date];
+      const sum = dailyTemps.reduce((acc, temp) => acc + temp, 0);
+      const average = sum / dailyTemps.length;
+      dailyAverages[date] = parseFloat(average.toFixed(2));
+    }
+    return dailyAverages;
+  };
+
+  // Get daily feels like data for selected date
+  const getDailyFeelsLikeData = () => {
+    if (!enviroDate || !temperature || !humidity || !envirotime) {
+      return [];
+    }
+
+    const selectedDateData = enviroDate.reduce((acc, date, index) => {
+      const time = envirotime[index];
+      const tempC = temperature[index];
+      const rh = humidity[index];
+      const tempF = celsiusToFahrenheit(tempC);
+      const feelsLikeC = calculateFeelsLikeTemp(tempF, rh);
+
+      if (date === selectedDate) {
+        acc.push({ time, feelsLikeC });
+      }
+      return acc;
+    }, []);
+
+    // Remove duplicates and sort by time
+    const uniqueData = Array.from(
+      new Set(selectedDateData.map((item) => item.time))
+    ).map((time) => {
+      return selectedDateData.find((item) => item.time === time);
+    });
+
+    return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
+  };
+  console.log(getDailyFeelsLikeData());
+
+  const getSelectedYear = () => {
+    return selectedDate.split("-")[0]; // Extract year from selectedDate
+  };
+
+  const calculateDailyAverages = () => {
+    if (!enviroDate || !temperature) {
+      return null;
+    }
+
     const dailyAveragesData = {};
 
-    data.forEach(({ date, temp }) => {
+    enviroDate.forEach((date, index) => {
+      const temp = temperature[index];
       if (!dailyAveragesData[date]) {
         dailyAveragesData[date] = [];
       }
@@ -40,172 +152,320 @@ const Temperature = ({
 
     const dailyAverages = {};
     for (const date in dailyAveragesData) {
-      const dailyTemps = dailyAveragesData[date];
-      const sum = dailyTemps.reduce((acc, temp) => acc + temp, 0);
-      const average = sum / dailyTemps.length;
+      const dailytemp = dailyAveragesData[date];
+      const sum = dailytemp.reduce((acc, temp) => acc + temp, 0);
+      const average = sum / dailytemp.length;
       dailyAverages[date] = parseFloat(average.toFixed(2));
     }
-    console.log(dailyAverages);
+    console.log(dailyAverage);
+    return dailyAverages;
+  };
+  const calculateDailyAveragesco2 = () => {
+    if (!enviroDate || !enviroco2) {
+      return null;
+    }
+
+    const dailyAveragesData = {};
+
+    enviroDate.forEach((date, index) => {
+      const co2 = enviroco2[index];
+      if (!dailyAveragesData[date]) {
+        dailyAveragesData[date] = [];
+      }
+      dailyAveragesData[date].push(co2);
+    });
+
+    const dailyAverages = {};
+    for (const date in dailyAveragesData) {
+      const dailytemp = dailyAveragesData[date];
+      const sum = dailytemp.reduce((acc, temp) => acc + temp, 0);
+      const average = sum / dailytemp.length;
+      dailyAverages[date] = parseFloat(average.toFixed(2));
+    }
+    return dailyAverages;
+  };
+  const calculateDailyAverageshumidity = () => {
+    if (!enviroDate || !humidity) {
+      return null;
+    }
+
+    const dailyAveragesData = {};
+
+    enviroDate.forEach((date, index) => {
+      const humid = humidity[index];
+      if (!dailyAveragesData[date]) {
+        dailyAveragesData[date] = [];
+      }
+      dailyAveragesData[date].push(humid);
+    });
+
+    const dailyAverages = {};
+    for (const date in dailyAveragesData) {
+      const dailytemp = dailyAveragesData[date];
+      const sum = dailytemp.reduce((acc, temp) => acc + temp, 0);
+      const average = sum / dailytemp.length;
+      dailyAverages[date] = parseFloat(average.toFixed(2));
+    }
     return dailyAverages;
   };
 
   const getDailyData = () => {
-    if (!templocation || !tempdate || !temptime || !temperature) {
+    if (!enviroDate || !temperature || !envirotime) {
       return [];
     }
 
-    const selectedDateData = templocation.reduce((acc, location, index) => {
-      const date = tempdate[index];
-      const time = temptime[index];
+    const selectedDateData = enviroDate.reduce((acc, date, index) => {
+      const time = envirotime[index];
       const temp = temperature[index];
-      if (location === selectedLocation && date === selectedDate) {
+      if (date === selectedDate) {
         acc.push({ time, temp });
       }
       return acc;
     }, []);
-    console.log(selectedDateData);
-    return selectedDateData;
-  };
 
-  const getFifteenDaysData = () => {
-    if (!templocation || !tempdate || !temptime || !temperature) {
+    // Remove duplicates and sort by time
+    const uniqueData = Array.from(
+      new Set(selectedDateData.map((item) => item.time))
+    ).map((time) => {
+      return selectedDateData.find((item) => item.time === time);
+    });
+
+    return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
+  };
+  const getDailyDataco2 = () => {
+    if (!enviroDate || !enviroco2 || !envirotime) {
       return [];
     }
 
-    // Parse the selectedDate to extract day, month, and year
-    const [selectedDay, selectedMonth, selectedYear] = selectedDate
-      .split("-")
-      .map(Number);
-
-    // Calculate the day 15 days ago from the selected day
-    let fifteenDaysAgoDay = selectedDay - 15;
-    let fifteenDaysAgoMonth = selectedMonth;
-    let fifteenDaysAgoYear = selectedYear;
-
-    // Adjust the month and year if the day goes below 1
-    while (fifteenDaysAgoDay <= 0) {
-      // Go to the previous month
-      fifteenDaysAgoMonth--;
-      if (fifteenDaysAgoMonth === 0) {
-        // If the month becomes 0 (January), go to December of the previous year
-        fifteenDaysAgoMonth = 12;
-        fifteenDaysAgoYear--;
+    const selectedDateData = enviroDate.reduce((acc, date, index) => {
+      const time = envirotime[index];
+      const co2 = enviroco2[index];
+      if (date === selectedDate) {
+        acc.push({ time, co2 });
       }
+      return acc;
+    }, []);
 
-      // Get the number of days in the previous month
-      const daysInPreviousMonth = new Date(
-        fifteenDaysAgoYear,
-        fifteenDaysAgoMonth,
-        0
-      ).getDate();
+    // Remove duplicates and sort by time
+    const uniqueData = Array.from(
+      new Set(selectedDateData.map((item) => item.time))
+    ).map((time) => {
+      return selectedDateData.find((item) => item.time === time);
+    });
 
-      // Adjust the day to the corresponding day in the previous month
-      fifteenDaysAgoDay += daysInPreviousMonth;
+    return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
+  };
+  const getDailyDatahumidity = () => {
+    if (!enviroDate || !humidity || !envirotime) {
+      return [];
     }
 
-    // Format the date of 15 days ago
-    const formattedFifteenDaysAgo = `${String(fifteenDaysAgoDay).padStart(
-      2,
-      "0"
-    )}-${String(fifteenDaysAgoMonth).padStart(2, "0")}-${fifteenDaysAgoYear}`;
+    const selectedDateData = enviroDate.reduce((acc, date, index) => {
+      const time = envirotime[index];
+      const humid = humidity[index];
+      if (date === selectedDate) {
+        acc.push({ time, humid });
+      }
+      return acc;
+    }, []);
 
-    // Filter the data for the last 15 days
-    const fifteenDaysData = templocation.reduce((acc, location, index) => {
-      const currentDateParts = tempdate[index].split("-").map(Number);
-      const formattedDateParts = formattedFifteenDaysAgo.split("-").map(Number);
+    // Remove duplicates and sort by time
+    const uniqueData = Array.from(
+      new Set(selectedDateData.map((item) => item.time))
+    ).map((time) => {
+      return selectedDateData.find((item) => item.time === time);
+    });
 
-      const currentDate = new Date(
-        currentDateParts[2],
-        currentDateParts[1] - 1,
-        currentDateParts[0]
-      );
-      const formattedDate = new Date(
-        formattedDateParts[2],
-        formattedDateParts[1] - 1,
-        formattedDateParts[0]
-      );
+    return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
+  };
+  const getFifteenDaysData = () => {
+    if (!enviroDate || !temperature || !envirotime) {
+      return [];
+    }
 
-      // Check if the date is within the 15 days range
-      if (
-        location === selectedLocation &&
-        currentDate >= formattedDate &&
-        currentDate <= new Date(selectedYear, selectedMonth - 1, selectedDay)
-      ) {
-        const time = temptime[index];
-        const temp = temperature[index];
+    const selectedDateParts = selectedDate.split("-").map(Number);
+    const selectedDateObj = new Date(
+      selectedDateParts[0],
+      selectedDateParts[1] - 1,
+      selectedDateParts[2]
+    );
 
+    // Calculate date 15 days ago
+    const fifteenDaysAgo = new Date(selectedDateObj);
+
+    fifteenDaysAgo.setDate(selectedDateObj.getDate() - 15);
+    console.log(selectedDateObj.getDate() - 15);
+
+    // Filter data for the last 15 days
+    const filteredData = enviroDate.reduce((acc, date, index) => {
+      const dateObj = new Date(date);
+      if (dateObj >= fifteenDaysAgo && dateObj <= selectedDateObj) {
         acc.push({
-          date: tempdate[index],
-          time,
-          temp
+          date,
+          time: envirotime[index],
+          temp: temperature[index],
+          humidity: humidity[index],
+          co2: enviroco2[index],
         });
       }
       return acc;
     }, []);
 
-    console.log(fifteenDaysData);
-    return fifteenDaysData;
+    // Remove duplicates and sort by date and time
+    const uniqueData = Array.from(
+      new Map(
+        filteredData.map((item) => [`${item.date}_${item.time}`, item])
+      ).values()
+    );
+    uniqueData.sort(
+      (a, b) =>
+        new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+    );
+    return uniqueData;
   };
 
-  // Update filtered temperature data, daily averages, daily data, and 15 days data when selected location or date changes
+  const calculateWeeklyAverages = () => {
+    if (!enviroDate || !temperature) {
+      return null;
+    }
+
+    const selectedYear = getSelectedYear(); // Define selectedYear
+    const sortedData = sortDataByDate(); // Ensure data is sorted by date
+
+    const filteredData = sortedData.filter((item) =>
+      item.date.startsWith(`${selectedYear}-${selectedMonth}`)
+    );
+
+    const weeklyAveragesData = Array.from({ length: 4 }, () => []);
+
+    filteredData.forEach((item) => {
+      const date = new Date(item.date);
+      const week = Math.ceil(date.getDate() / 7);
+      const temp = item.temp;
+      if (week <= 4) {
+        weeklyAveragesData[week - 1].push(temp);
+      }
+    });
+
+    for (let i = 0; i < weeklyAveragesData.length; i++) {
+      if (weeklyAveragesData[i].length > 0) {
+        const sum = weeklyAveragesData[i].reduce((acc, temp) => acc + temp, 0);
+        const average = sum / weeklyAveragesData[i].length;
+        weeklyAveragesData[i] = parseFloat(average.toFixed(2));
+      } else {
+        weeklyAveragesData[i] = null;
+      }
+    }
+    return { weeklyAveragesData };
+  };
+
+  const sortDataByDate = () => {
+    if (!enviroDate || !temperature) {
+      return [];
+    }
+
+    const combinedData = enviroDate.map((date, index) => ({
+      date,
+      time: envirotime[index],
+      temp: temperature[index],
+      humidity: humidity[index],
+      co2: enviroco2[index],
+    }));
+
+    return combinedData.sort((a, b) => new Date(a.date) - new Date(b.date));
+  };
+
   useEffect(() => {
-    const filteredData = filterTemperatureData();
-    setFilteredTemperature(filteredData);
+    fetchYearlyData();
+    setWeeklyAverages(calculateWeeklyAverages());
+    setDailyAverage(calculateDailyAverages());
+    setDailyAveragehumidity(calculateDailyAverageshumidity());
+    setDailyData(getDailyData());
+    setDailyAverageco2(calculateDailyAveragesco2());
+    setDailyDataco2(getDailyDataco2());
+    setDailyDatahumidity(getDailyDatahumidity());
+    setFifteenDaysData(getFifteenDaysData());
+    setDailyFeelsLike(calculateDailyFeelsLikeAverages());
+    setDailyFeelsLikeData(getDailyFeelsLikeData());
+  }, [
+    selectedMonth,
+    selectedDate,
+    enviroDate,
+    temperature,
+    humidity,
+    enviroco2,
+  ]);
 
-    const dailyAverages = calculateDailyAverages(filteredData);
-    setDailyAverageTemp(dailyAverages);
+  const fetchYearlyData = () => {
+    const yearlyData = {};
+    if (enviroDate.length > 0) {
+      enviroDate.forEach((date, index) => {
+        const year = date.split("-")[0];
+        const month = date.split("-")[1];
 
-    const dailyDataForDate = getDailyData();
-    setDailyData(dailyDataForDate);
+        if (!yearlyData[year]) {
+          yearlyData[year] = {};
+        }
 
-    const fifteenDaysDataForDate = getFifteenDaysData();
-    setFifteenDaysData(fifteenDaysDataForDate);
-  }, [selectedLocation, selectedDate, templocation, tempdate, temptime, temperature]);
+        if (!yearlyData[year][month]) {
+          yearlyData[year][month] = [];
+        }
 
-  const handleLocationChange = (e) => {
-    setSelectedLocation(e.target.value);
-  };
+        yearlyData[year][month].push(temperature[index]);
+      });
+    }
 
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
+    const newChartData = Object.keys(yearlyData).map((year) => ({
+      year,
+      months: Object.keys(yearlyData[year]).map((month) => {
+        const monthKey = month;
+        const monthlyData = yearlyData[year][monthKey];
+        const average =
+          monthlyData.reduce((acc, temp) => acc + temp, 0) / monthlyData.length;
+        return {
+          month: `${month < 10 ? "0" : ""}${month}`,
+          average: parseFloat(average.toFixed(2)),
+        };
+      }),
+    }));
+
+    setChartData(newChartData);
   };
 
   return (
     <div>
-        
-        <div className="main-graph-temp">
-            <div className="graph-big-temp">
-                {templocation.length > 0 && (
-                    <>
-                        <Select 
-                            value={selectedLocation} 
-                            onChange={handleLocationChange} 
-                            className="dropdown-menu-temp"
-                            style={{ height: "2vw", fontSize: "0.8vw",  width:"100%"}}>
-                            {Array.from(new Set(templocation)).map((location, index) => (
-                                <MenuItem key={index} value={location}>
-                                    {location}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </>
-                )}
-            </div>
-        </div>
-
-        {templocation.length > 0 && (
-            <TemperatureTrend 
-                selectedLocation={selectedLocation}
+      <div>
+        <div>
+          {chartData.length > 0 && (
+            <>
+              <TemperatureTrend
                 selectedDate={selectedDate}
-                dailyAverage={dailyAverageTemp}
-                dailyData={dailyData}
+                dailyAverageTemp={dailyAverage}
+                dailyAverageCo2={dailyAverageco2}
+                dailyDataTemp={dailyData}
+                dailyDataCo2={dailyDataco2}
                 setSelectedDate={setSelectedDate}
-                fifteenDaysData={fifteenDaysData} 
-            />
-        )}
+                fifteenDaysData={fifteenDaysData}
+                startDate={startDate}
+              />
+              <TemperatureHumidityTrend
+                selectedDate={selectedDate}
+                dailyAverageTemp={dailyAverage}
+                dailyAveragehumidity={dailyAveragehumidity}
+                dailyDataTemp={dailyData}
+                dailyDatahumidity={dailyDatahumidity}
+                setSelectedDate={setSelectedDate}
+                fifteenDaysData={fifteenDaysData}
+                startDate={startDate}
+                dailyAverageFeelsLike={dailyFeelsLike}
+                dailyDataFeelsLike={dailyFeelsLikeData}
+              />
+            </>
+          )}
+        </div>
+      </div>
     </div>
-);
-
+  );
 };
 
 export default Temperature;

@@ -62,7 +62,7 @@ const Login = () => {
     ) {
       setLoading(true);
       setTimeout(() => {
-        navigate("/csi/aqi");
+        navigate("/csi/overall-score");
       }, 1000);
     } else {
       setLoading(false);

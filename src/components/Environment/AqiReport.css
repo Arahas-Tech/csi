@@ -96,29 +96,29 @@ h1 {
 }
 
 .shade-1 {
-  background-color: #ffe8c8; /* Beige */
+  background-color: #FFFED3; /* Beige */
 }
 
 .shade-2 {
-  background-color: #ffc96f; /* Beige */
+  background-color: #F5E7B2; /* Beige */
 }
 
 .shade-3 {
-  background-color: #ffa62f; /* Orange */
+  background-color: #F9D689; /* Orange */
 }
 
 .shade-4 {
-  background-color: #f94c10; /* Orange */
+  background-color: #E9C46A; /* Orange */
 }
 
 .shade-5 {
-  background-color: #c70039; /* Red */
-  color: white;
+  background-color: #F4A261; /* Red */
+
 }
 
 .shade-6 {
-  background-color: #900c3f; /* Red */
-  color: white;
+  background-color: #E76F51; /* Red */
+ 
 }
 .btn-container {
   display: flex;

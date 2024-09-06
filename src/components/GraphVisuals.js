@@ -17,7 +17,6 @@ const colors = [
   "#581845",
   "#9b59b6",
 ];
-
 export const DonutChart = ({ title, labels, series, height, width }) => {
   const options = {
     animationEnabled: true,
