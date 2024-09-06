@@ -10,54 +10,54 @@ const TempRecommendations = ({ temperature, humidity }) => {
       return (
         <>
           <ul>
-            <li>
+            <li className="text-sm">
               Use fans, air coolers, or air conditioning to regulate indoor
               temperatures, especially in living spaces for children and the
               elderly.
             </li>
-            <li>
+            <li className="text-sm">
               Keep windows and curtains closed during the hottest part of the
               day to block out direct sunlight.
             </li>
-            <li>
+            <li className="text-sm">
               Use energy-efficient appliances to reduce overall energy
               consumption and prevent additional heat generation indoors.
             </li>
-            <li>
+            <li className="text-sm">
               Use light-colored, reflective materials for roofs and pavements to
               reduce heat absorption.
             </li>
-            <li>
+            <li className="text-sm">
               {" "}
               Encourage the use of cool paints or coatings that reflect more
               sunlight and absorb less heat.
             </li>
 
-            <li>
+            <li className="text-sm">
               {" "}
               General Public: Plan outdoor activities early in the morning or
               late in the afternoon when temperatures are cooler.
             </li>
-            <li>
+            <li className="text-sm">
               Children and Elderly: Minimize outdoor exposure between 11 AM and
               4 PM when the sun is at its peak.
             </li>
-            <li>
+            <li className="text-sm">
               {" "}
               For those who must be outdoors, try to stay in shaded areas
               whenever possible.
             </li>
 
-            <li>
+            <li className="text-sm">
               {" "}
               Wear loose, light-colored, and breathable clothing made of cotton
               or linen. This will help reflect sunlight and keep the body cool.
             </li>
-            <li>
+            <li className="text-sm">
               Children should wear hats or caps when playing outside to protect
               them from direct sun exposure.
             </li>
-            <li>
+            <li className="text-sm">
               {" "}
               Elderly individuals should avoid tight or layered clothing to
               reduce the risk of overheating.
@@ -79,7 +79,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
             <li className="text-sm">
               Stay Hydrated
               <ul>
-                <li>General Public:</li>
+                <li className="text-sm">General Public:</li>
                 <ul>
                   <li className="text-sm">
                     Drink plenty of water throughout the day, even if you don’t
@@ -115,7 +115,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
             <li className="text-sm">
               Recognize Signs of Heat-Related Illnesses:
               <ul>
-                <li> Know the Symptoms:</li>
+                <li className="text-sm"> Know the Symptoms:</li>
                 <ul>
                   <li className="text-sm">
                     Beaware of signs like dizziness, headache, rapid heartbeat,
@@ -155,7 +155,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
             <li className="text-sm">
               Provide Special Care for Vulnerable Groups
               <ul>
-                <li>Children:</li>
+                <li className="text-sm">Children:</li>
                 <ul>
                   <li className="text-sm">
                     {" "}
@@ -165,7 +165,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
                 </ul>
               </ul>{" "}
               <ul>
-                <li>Elderly:</li>
+                <li className="text-sm">Elderly:</li>
                 <ul>
                   <li className="text-sm">
                     {" "}
@@ -176,7 +176,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
                 </ul>
               </ul>
               <ul>
-                <li>Pregnant Women and Individuals with Health Conditions:</li>
+                <li className="text-sm">Pregnant Women and Individuals with Health Conditions:</li>
                 <ul>
                   <li className="text-sm">
                     These groups should avoid heat exposure and stay hydrated.

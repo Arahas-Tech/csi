@@ -59,7 +59,7 @@ function CityHeaderNew({ pageName }) {
   const [pm10Value, setPM10Value] = useState(null);
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityValue] = useState(null);
-
+ 
   const toggleSection = (section) => {
     if (expandedSection === section) {
       setExpandedSection(null);
@@ -68,29 +68,29 @@ function CityHeaderNew({ pageName }) {
       setActiveSubTab("");
     }
   };
-
+ 
   const handleTabClick = (tab, parameter = null) => {
     if (expandedSection !== null) {
       setActiveSubTab("");
     }
-
+ 
     setActiveSubTab(tab);
     setSelectedParameter(parameter); // Set the selected parameter
-
+ 
     // Toggle Admin component visibility based on tab selection
     if (tab === "cityReportCard") {
       setShowAdminComponent(true); // Show Admin component when dashboard tab is clicked
     } else {
       setShowAdminComponent(false); // Hide Admin component for other tabs
     }
-
+ 
     // Toggle ReportMap visibility based on tab selection
     if (expandedSection === "environment" && tab === "report") {
       setShowReportMap(true); // Show ReportMap component when report tab is clicked
     } else {
       setShowReportMap(false); // Hide ReportMap component for other tabs
     }
-
+ 
     // Collapse the sidebar after selecting a sub-item
     setExpandedSection(null);
   };
@@ -196,7 +196,7 @@ function CityHeaderNew({ pageName }) {
                 </>
               )}
             </TabPanel>
-
+ 
             <TabPanel header="Report" headerClassName="text-green-500">
               {selectedParameter === "aqi" && (
                 <>
@@ -260,7 +260,7 @@ function CityHeaderNew({ pageName }) {
         //           <TempDashboard onDataChange={handleTempData} show={true} />
         //         </>
         //       )}
-
+ 
         //       {/* {selectedParameter!=="aqi" && (
         //         <ReportMap parameter={selectedParameter} />
         //       )} */}
@@ -280,7 +280,7 @@ function CityHeaderNew({ pageName }) {
         //       {/* </>
         //       )} */}
         //     </TabPanel>
-
+ 
         //     <TabPanel header="Report" headerClassName="text-green-500">
         //       {/* {selectedParameter==="aqi" && (
         //         <> */}
@@ -293,7 +293,7 @@ function CityHeaderNew({ pageName }) {
       );
     }
   };
-
+ 
   // Render Admin component only when expandedSection is "cityReportCard" and activeSubTab is "dashboard"
   const renderAdminComponent = () => {
     if (showAdminComponent) {
@@ -337,7 +337,7 @@ function CityHeaderNew({ pageName }) {
                 </li>
               </ul>
             </TabPanel>
-
+ 
             <TabPanel header="Report" headerClassName="text-green-500">
               <GenerateCityReport />
             </TabPanel>
@@ -347,7 +347,7 @@ function CityHeaderNew({ pageName }) {
     }
     return null;
   };
-
+ 
   return (
     <>
       <div className={`head-sidebar ${expandedSection ? "expanded" : ""}`}>
@@ -373,7 +373,7 @@ function CityHeaderNew({ pageName }) {
                 <span>City Report Card</span>
               </div>
             </div>
-
+ 
             <div
               className={`nav-section ${
                 expandedSection === "environment" ? "city-active" : ""
@@ -387,7 +387,7 @@ function CityHeaderNew({ pageName }) {
                 <span>Nature</span>
               </div>
             </div>
-
+ 
             <div
               className={`nav-section ${
                 expandedSection === "social" ? "city-active" : ""
@@ -401,7 +401,7 @@ function CityHeaderNew({ pageName }) {
                 <span>Society</span>
               </div>
             </div>
-
+ 
             <div
               className={`nav-section ${
                 expandedSection === "administration" ? "city-active" : ""
@@ -415,11 +415,11 @@ function CityHeaderNew({ pageName }) {
                 <span>Progress</span>
               </div>
             </div>
-
+ 
             {/* <ReportPrint /> */}
           </nav>
           {expandedSection && <SidebarDivider />}
-
+ 
           {/* Second part of the sidebar */}
           <nav className="second-nav">
             {expandedSection === "environment" && (
@@ -444,13 +444,13 @@ function CityHeaderNew({ pageName }) {
                   <span>Temperature</span>
                 </div>
                 <div
-                  className={`link 
+                  className={`link
                     ${activeSubTab === "rain" ? "sub-active" : ""}`}
                   // onClick={() => handleWorkInProgress()}
                   onClick={() => handleTabClick("report", "rainfall")}
                 >
                   <ThunderstormIcon className="icon-sub" />
-
+ 
                   <span>Rainfall</span>
                 </div>
                 <div
@@ -467,8 +467,8 @@ function CityHeaderNew({ pageName }) {
                   className={`link ${
                     activeSubTab === "water" ? "sub-active" : ""
                   }`}
-                  // onClick={() => handleWorkInProgress()}
-                  onClick={() => handleTabClick("report", "water")}
+                //  onClick={() => handleWorkInProgress()}
+                 onClick={() => handleTabClick("report", "water")}
                 >
                   <WaterDropIcon className="icon-sub" />
                   <span>Water Conservation & Preservation</span>
@@ -581,5 +581,6 @@ function CityHeaderNew({ pageName }) {
     </>
   );
 }
-
+ 
 export default CityHeaderNew;
+ 

@@ -12,7 +12,7 @@ const WaterRecommendations = () => {
           <li className="text-sm">
             Upgrade Water Treatment Plants:
             <ul>
-              <li className="text-xs">
+              <li className="text-sm">
                 Modernize existing water treatment facilities with advanced
                 filtration, chlorination, and disinfection technologies.
                 Introduce membrane filtration, UV treatment, or ozonation to
@@ -22,7 +22,7 @@ const WaterRecommendations = () => {
           </li>
           <li className="text-sm">Decentralized Water Treatment Systems:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Install small-scale, decentralized water treatment systems in
               local communities or housing clusters. This can reduce the load on
               centralized treatment plants and ensure that water is treated
@@ -31,7 +31,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Regular Monitoring of Water Quality:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Implement a robust water quality monitoring program that regularly
               tests water sources for contaminants, including bacteria, heavy
               metals, and chemicals. Publicly share this data to build trust and
@@ -40,7 +40,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Pollution Control Measures:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Strengthen regulations to control industrial discharge and waste
               dumping into water bodies. Ensure strict enforcement of wastewater
               treatment standards for industries and penalize violators to
@@ -49,7 +49,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Rainwater Harvesting:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Mandate the installation of rainwater harvesting systems in all
               new constructions, including residential, commercial, and public
               buildings. Encourage retrofitting existing buildings with similar
@@ -58,7 +58,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Protect and Rejuvenate Water Bodies:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Implement projects to clean, restore, and protect local water
               bodies such as rivers, lakes, and ponds. Remove silt, prevent
               encroachments, and maintain these bodies to enhance their capacity
@@ -67,7 +67,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Groundwater Recharge Initiatives:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Promote artificial recharge techniques, such as recharge wells and
               percolation tanks, especially in areas with declining groundwater
               levels. Ensure that recharge areas are protected from
@@ -76,7 +76,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Implement Efficient Irrigation Practices:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Encourage the use of drip irrigation, sprinkler systems, and other
               water-efficient methods for agricultural purposes. Provide
               subsidies or incentives for farmers who adopt water-saving
@@ -85,7 +85,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Adopt Smart Water Management Tools:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Implement smart technologies like IoT-based water meters, sensors,
               and AI-driven analytics to monitor water usage patterns, detect
               leaks, and manage supply and demand more efficiently.
@@ -93,7 +93,7 @@ const WaterRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Promote Greywater Recycling:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Encourage the installation of greywater recycling systems in
               residential and commercial buildings to treat and reuse water from
               baths, sinks, and washing machines for non-potable purposes like

@@ -12,7 +12,7 @@ const RainRecommendations = () => {
           <li className="text-sm">
             Urban Greenery and Afforestation:
             <ul>
-              <li className="text-xs">
+              <li className="text-sm">
                 Plant more trees, especially indigenous and drought-resistant
                 species, in and around the city to increase moisture retention
                 in the soil and contribute to local microclimatic changes. Green
@@ -23,7 +23,7 @@ const RainRecommendations = () => {
           </li>
           <li className="text-sm">Rainwater Harvesting:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Implement large-scale rainwater harvesting systems in public
               buildings, parks, schools, and residential areas. This can help
               collect rainwater, prevent runoff, recharge groundwater, and
@@ -32,7 +32,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Artificial Recharge and Check Dams:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Construct check dams and artificial recharge structures in areas
               surrounding Ayodhya to help retain rainwater and allow it to
               percolate into the ground, enhancing groundwater levels.
@@ -40,7 +40,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Awareness Campaigns:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Launch city-wide campaigns to educate residents about water
               conservation, rainwater harvesting, and the importance of
               maintaining local water bodies. Promote community participation in
@@ -49,7 +49,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Water Body Restoration:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Rejuvenate and maintain local water bodies such as ponds, lakes,
               and rivers. Ensure these are free from pollution, encroachment,
               and siltation. Healthy water bodies can help in retaining
@@ -58,7 +58,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Sustainable Urban Planning:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Integrate sustainable water management practices into urban
               planning, such as permeable pavements, green roofs, and rain
               gardens, which help reduce runoff and increase water absorption.
@@ -66,7 +66,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Incentives for Green Practices:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Provide incentives for residents and businesses that adopt green
               practices, such as installing rainwater harvesting systems or
               using water-efficient appliances.
@@ -74,7 +74,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Improved Drainage Infrastructure:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Upgrade the city’s drainage infrastructure to prevent waterlogging
               during heavy rains. Efficient drainage systems can help reduce
               urban flooding and ensure that excess rainwater is properly
@@ -83,7 +83,7 @@ const RainRecommendations = () => {
           </ul>{" "}
           <li className="text-sm">Data Collection and Monitoring:</li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Establish a robust weather monitoring system to collect data on
               rainfall patterns, water levels, and usage. Use this data to make
               informed decisions on water management and conservation.
@@ -93,7 +93,7 @@ const RainRecommendations = () => {
             Collaboration with Meteorological Agencies:
           </li>
           <ul>
-            <li className="text-xs">
+            <li className="text-sm">
               Partner with meteorological and environmental agencies to better
               understand rainfall patterns and plan for extreme weather events.
               This can help the city prepare for both droughts and floods

@@ -196,9 +196,10 @@ const Waste = () => {
           {cardData.slice(0, 7).map((card, index) => (
             <Card key={card.value} className="card-dummy">
               <div className="card-content">
-                <img src={card.icon} alt={card.title} className="card-icon" />
+              <p className="p-card-title">{card.title}</p>
+                <img src={card.icon} alt={card.title} className="card-icon-size" />
                 <p className="card-value">{card.value}</p>
-                <p className="p-card-title">{card.title}</p>
+              
               </div>
             </Card>
           ))}
@@ -222,11 +223,11 @@ const Waste = () => {
               </div>
               <div className="flex align-items-center justify-content-center flex-row gap-6">
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-base p-0 m-0">28400</h1>
+                  <h1 className="text-sm p-0 m-0">28400</h1>
                   <h1 className="text-xs p-0 m-0 text-green-500">Functional</h1>
                 </div>
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-base  p-0 m-0">331</h1>
+                  <h1 className="text-sm  p-0 m-0">331</h1>
                   <h1 className="text-xs p-0 m-0 text-green-500">
                     Non-Functional
                   </h1>
@@ -247,7 +248,7 @@ const Waste = () => {
               </div>
               <div className="flex align-items-center justify-content-center flex-row gap-6">
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-base p-0 m-0">223</h1>
+                  <h1 className="text-sm p-0 m-0">223</h1>
                   <h1 className="text-xs p-0 m-0 text-green-300">Under Construction</h1>
                 </div>
               </div>

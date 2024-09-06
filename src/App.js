@@ -20,13 +20,13 @@ import "primeicons/primeicons.css";
 import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
 import TempDashboard from "./components/DashBoards/TempDashboard";
-
+ 
 import Waste from "./WasteDashboard";
 import Land from "./LandDashboard";
-
+ 
 import Admin from "./components/CityHeaderNew";
 import RainDashboard from "./components/DashBoards/RainDashboard";
-
+ 
 function App() {
   return (
     <div>
@@ -35,7 +35,7 @@ function App() {
         <Route path="/vcsi" element={<Login_VCSI />} />
         <Route path="/csi/kyc" element={<KnowYourCity />} />
         <Route path="/vcsi/kyc" element={<KnowYourCity />} />
-
+ 
         <Route
           path="/csi/electricity"
           element={
@@ -236,7 +236,7 @@ function App() {
             />
           }
         ></Route>
-
+ 
         <Route path="/csi/sdg" element={<SDGPage />}></Route>
         <Route path="/vcsi/sdg" element={<SDGPage />}></Route>
         <Route path="/csi/aqi" element={<AdminPage />}></Route>
@@ -260,5 +260,5 @@ function App() {
     </div>
   );
 }
-
+ 
 export default App;
