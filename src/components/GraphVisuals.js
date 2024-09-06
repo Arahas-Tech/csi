@@ -7,10 +7,12 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#00A269",
-  "rgb(184, 184, 184)", // (Rich Purple)
+  "#4CAF50",
+  "#D3D3D3",
+  "grey",
+  // (Rich Purple)
   "#A9F3E0", // (orange)
-  "grey", // (Strong Blue)
+  // (Strong Blue)
   "#1abc9c", // (Turquoise Green)
   "#FFC300", // (Vivid Yellow)
   "#C70039", // (Strong Red)
@@ -28,6 +30,7 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
     },
     height: height,
     width: width,
+
     data: [
       {
         type: "doughnut",
@@ -71,11 +74,14 @@ export const GroupedBarChart = ({
             text: title,
             fontSize: 13,
           },
+          height: height,
+          width: width,
           axisX: {
             title: xtitle,
           },
           axisY: {
             title: ytitle,
+            gridThickness: 0,
           },
           data: series.map((data, index) => ({
             type: "column",
@@ -88,8 +94,6 @@ export const GroupedBarChart = ({
             color: colors[index % colors.length],
           })),
         }}
-        height={height}
-        width={width}
       />
     </div>
   );

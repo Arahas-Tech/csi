@@ -34,6 +34,8 @@ import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import DefaultHeader from "./DefaultHeader";
 import TempDashboard from "./DashBoards/TempDashboard";
+import TempRecommendations from "./DashBoards/Recommendations/TempRecommendations";
+import GenerateTempReport from "./DashBoards/GenerateTempReport";
 function CityHeader({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -166,16 +168,16 @@ function CityHeader({ pageName }) {
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {/* {selectedParameter === "aqi" && (
-                <> */}
-              <AqiDashboard onDataChange={handleAqiData} show={true} />
-              {/* </>
-              )} */}
-              {/* {selectedParameter === "temp" && (
+              {selectedParameter === "aqi" && (
+                <>
+                  <AqiDashboard onDataChange={handleAqiData} show={true} />
+                </>
+              )}
+              {selectedParameter === "temp" && (
                 <>
                   <TempDashboard onDataChange={handleTempData} show={true} />
                 </>
-              )} */}
+              )}
 
               {/* {selectedParameter!=="aqi" && (
                 <ReportMap parameter={selectedParameter} />
@@ -186,23 +188,36 @@ function CityHeader({ pageName }) {
               className="m-0 "
               headerClassName="text-teal-600"
             >
-              {/* {selectedParameter==="aqi" && (
-                <> */}
-              <AQIRecommendations
-                aqi={aqiValue}
-                pm25={pm25Value}
-                pm10={pm10Value}
-              />
-              {/* </>
-              )} */}
+              {selectedParameter === "aqi" && (
+                <>
+                  <AQIRecommendations
+                    aqi={aqiValue}
+                    pm25={pm25Value}
+                    pm10={pm10Value}
+                  />
+                </>
+              )}
+              {selectedParameter === "temp" && (
+                <>
+                  <TempRecommendations
+                    temperature={tempValue}
+                    humidityValue={humidityValue}
+                  />
+                </>
+              )}
             </TabPanel>
 
             <TabPanel header="Report" headerClassName="text-green-500">
-              {/* {selectedParameter==="aqi" && (
-                <> */}
-              <GenerateAqiReport />
-              {/* </>
-              )} */}
+              {selectedParameter === "aqi" && (
+                <>
+                  <GenerateAqiReport />
+                </>
+              )}
+              {selectedParameter === "temp" && (
+                <>
+                  <GenerateTempReport />
+                </>
+              )}
             </TabPanel>
           </TabView>
         </div>

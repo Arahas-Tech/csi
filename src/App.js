@@ -21,6 +21,7 @@ import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
 import TempDashboard from "./components/DashBoards/TempDashboard";
 import Admin from "./components/CityHeaderNew";
+import RainDashboard from "./components/DashBoards/RainDashboard";
 
 function App() {
   return (
@@ -246,7 +247,7 @@ function App() {
       <Route path="/vcsi/overall-score" element={<OverallScore />}></Route>
       <Route path="/csi/subscription" element={<Subscription />}></Route>
       <Route path="/csi/payment" element={<PaymentForm />}></Route>
-      <Route path="/csi/temp" element={<TempDashboard show={true} />}></Route>
+      <Route path="/csi/rain" element={<RainDashboard />}></Route>
       <Route path="/csi/aqi-dashboard" element={<AqiDashboard />}></Route>
     </Routes>
   );

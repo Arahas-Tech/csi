@@ -34,6 +34,14 @@ import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import DefaultHeader from "./DefaultHeader";
 import TempDashboard from "./DashBoards/TempDashboard";
+import TempRecommendations from "./DashBoards/Recommendations/TempRecommendations";
+import GenerateTempReport from "./DashBoards/GenerateTempReport";
+import RainDashboard from "./DashBoards/RainDashboard";
+import RainRecommendations from "./DashBoards/Recommendations/RainRecommendations";
+import GenerateRainReport from "./DashBoards/GenerateRainReport";
+import WaterDashboard from "./DashBoards/WaterDashboard";
+import WaterRecommendations from "./DashBoards/Recommendations/WaterRecommendations";
+import GenerateWaterReport from "./DashBoards/GenerateWaterReport";
 function CityHeaderNew({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -118,8 +126,15 @@ function CityHeaderNew({ pageName }) {
                   <TempDashboard onDataChange={handleTempData} show={true} />
                 </>
               )}
-              {selectedParameter !== "aqi" && selectedParameter !== "temp" && (
-                <ReportMap parameter={selectedParameter} />
+              {selectedParameter === "rainfall" && (
+                <>
+                  <RainDashboard />
+                </>
+              )}
+              {selectedParameter === "water" && (
+                <>
+                  <WaterDashboard />
+                </>
               )}
             </TabPanel>
             <TabPanel
@@ -136,12 +151,45 @@ function CityHeaderNew({ pageName }) {
                   />
                 </>
               )}
+              {selectedParameter === "temp" && (
+                <>
+                  <TempRecommendations
+                    temperature={tempValue}
+                    humidity={humidityValue}
+                  />
+                </>
+              )}
+              {selectedParameter === "rainfall" && (
+                <>
+                  <RainRecommendations />
+                </>
+              )}
+              {selectedParameter === "water" && (
+                <>
+                  <WaterRecommendations />
+                </>
+              )}
             </TabPanel>
 
             <TabPanel header="Report" headerClassName="text-green-500">
               {selectedParameter === "aqi" && (
                 <>
                   <GenerateAqiReport />
+                </>
+              )}
+              {selectedParameter === "temp" && (
+                <>
+                  <GenerateTempReport />
+                </>
+              )}
+              {selectedParameter === "rainfall" && (
+                <>
+                  <GenerateRainReport />
+                </>
+              )}
+              {selectedParameter === "water" && (
+                <>
+                  <GenerateWaterReport />
                 </>
               )}
             </TabPanel>
@@ -362,8 +410,8 @@ function CityHeaderNew({ pageName }) {
                 <div
                   className={`link 
                     ${activeSubTab === "rain" ? "sub-active" : ""}`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "rainfall")}
+                  // onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "rainfall")}
                 >
                   <ThunderstormIcon className="icon-sub" />
 
@@ -383,8 +431,8 @@ function CityHeaderNew({ pageName }) {
                   className={`link ${
                     activeSubTab === "water" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report", "water")}
+                  // onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "water")}
                 >
                   <WaterDropIcon className="icon-sub" />
                   <span>Water Conservation & Preservation</span>
