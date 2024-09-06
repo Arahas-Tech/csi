@@ -118,7 +118,7 @@ function CityHeaderNew({ pageName }) {
                   <TempDashboard onDataChange={handleTempData} show={true} />
                 </>
               )}
-              {selectedParameter !== "aqi" && selectedParameter !== "temp" && (
+              {selectedParameter !== "aqi" && selectedParameter !== "temp" && selectedParameter !== "land" && selectedParameter !== "waste"(
                 <ReportMap parameter={selectedParameter} />
               )}
             </TabPanel>

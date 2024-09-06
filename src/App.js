@@ -20,12 +20,9 @@ import "primeicons/primeicons.css";
 import "/node_modules/primeflex/primeflex.css";
 import AqiDashboard from "./components/DashBoards/AqiDashboard";
 import TempDashboard from "./components/DashBoards/TempDashboard";
-<<<<<<< HEAD
 import Waste from "./WasteDashboard";
 import Land from "./LandDashboard";
-=======
-import Admin from "./components/CityHeaderNew";
->>>>>>> 1b52deea58c0de3740ee3ce11d33a4d19e80e625
+import Admin from "./components/CityHeaderNew"
 
 function App() {
   return (
