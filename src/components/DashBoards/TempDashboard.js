@@ -40,7 +40,6 @@ const TempDashboard = ({
   const [endDate, setEndDate] = useState(
     pSelectedEndDate ?? new Date("2024-08-13")
   );
-  const [aqiData, setAqiData] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
   );

@@ -11,6 +11,7 @@ import {
   KeyboardDoubleArrowRight,
   Spa,
 } from "@mui/icons-material";
+import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
 import MovingIcon from "@mui/icons-material/Moving";
 import "./CityHeader.css";
 import CompanyLogo from "./assets/arahas_logo.png";
@@ -48,6 +49,7 @@ import WasteRecommendations from "../WasteRecommendations";
 import LandRecommendations from "../LandRecommendations";
 import GenerateWasteReport from "../GenerateWasteReport";
 import GenerateLandReport from "../GenerateLandReport";
+import TransportDashboard from "../components/DashBoards/Transport/TransportDashboard";
 function CityHeaderNew({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -59,7 +61,7 @@ function CityHeaderNew({ pageName }) {
   const [pm10Value, setPM10Value] = useState(null);
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityValue] = useState(null);
- 
+
   const toggleSection = (section) => {
     if (expandedSection === section) {
       setExpandedSection(null);
@@ -68,29 +70,29 @@ function CityHeaderNew({ pageName }) {
       setActiveSubTab("");
     }
   };
- 
+
   const handleTabClick = (tab, parameter = null) => {
     if (expandedSection !== null) {
       setActiveSubTab("");
     }
- 
+
     setActiveSubTab(tab);
     setSelectedParameter(parameter); // Set the selected parameter
- 
+
     // Toggle Admin component visibility based on tab selection
     if (tab === "cityReportCard") {
       setShowAdminComponent(true); // Show Admin component when dashboard tab is clicked
     } else {
       setShowAdminComponent(false); // Hide Admin component for other tabs
     }
- 
+
     // Toggle ReportMap visibility based on tab selection
-    if (expandedSection === "environment" && tab === "report") {
+    if (expandedSection && tab === "report") {
       setShowReportMap(true); // Show ReportMap component when report tab is clicked
     } else {
       setShowReportMap(false); // Hide ReportMap component for other tabs
     }
- 
+
     // Collapse the sidebar after selecting a sub-item
     setExpandedSection(null);
   };
@@ -152,6 +154,11 @@ function CityHeaderNew({ pageName }) {
                   <Land />
                 </>
               )}
+              {selectedParameter === "transport" && (
+                <>
+                  <TransportDashboard />
+                </>
+              )}
             </TabPanel>
             <TabPanel
               header="Recommendations"
@@ -196,7 +203,7 @@ function CityHeaderNew({ pageName }) {
                 </>
               )}
             </TabPanel>
- 
+
             <TabPanel header="Report" headerClassName="text-green-500">
               {selectedParameter === "aqi" && (
                 <>
@@ -260,7 +267,7 @@ function CityHeaderNew({ pageName }) {
         //           <TempDashboard onDataChange={handleTempData} show={true} />
         //         </>
         //       )}
- 
+
         //       {/* {selectedParameter!=="aqi" && (
         //         <ReportMap parameter={selectedParameter} />
         //       )} */}
@@ -280,7 +287,7 @@ function CityHeaderNew({ pageName }) {
         //       {/* </>
         //       )} */}
         //     </TabPanel>
- 
+
         //     <TabPanel header="Report" headerClassName="text-green-500">
         //       {/* {selectedParameter==="aqi" && (
         //         <> */}
@@ -293,7 +300,7 @@ function CityHeaderNew({ pageName }) {
       );
     }
   };
- 
+
   // Render Admin component only when expandedSection is "cityReportCard" and activeSubTab is "dashboard"
   const renderAdminComponent = () => {
     if (showAdminComponent) {
@@ -337,7 +344,7 @@ function CityHeaderNew({ pageName }) {
                 </li>
               </ul>
             </TabPanel>
- 
+
             <TabPanel header="Report" headerClassName="text-green-500">
               <GenerateCityReport />
             </TabPanel>
@@ -347,7 +354,7 @@ function CityHeaderNew({ pageName }) {
     }
     return null;
   };
- 
+
   return (
     <>
       <div className={`head-sidebar ${expandedSection ? "expanded" : ""}`}>
@@ -373,7 +380,7 @@ function CityHeaderNew({ pageName }) {
                 <span>City Report Card</span>
               </div>
             </div>
- 
+
             <div
               className={`nav-section ${
                 expandedSection === "environment" ? "city-active" : ""
@@ -387,7 +394,7 @@ function CityHeaderNew({ pageName }) {
                 <span>Nature</span>
               </div>
             </div>
- 
+
             <div
               className={`nav-section ${
                 expandedSection === "social" ? "city-active" : ""
@@ -401,7 +408,7 @@ function CityHeaderNew({ pageName }) {
                 <span>Society</span>
               </div>
             </div>
- 
+
             <div
               className={`nav-section ${
                 expandedSection === "administration" ? "city-active" : ""
@@ -415,11 +422,11 @@ function CityHeaderNew({ pageName }) {
                 <span>Progress</span>
               </div>
             </div>
- 
+
             {/* <ReportPrint /> */}
           </nav>
           {expandedSection && <SidebarDivider />}
- 
+
           {/* Second part of the sidebar */}
           <nav className="second-nav">
             {expandedSection === "environment" && (
@@ -450,7 +457,7 @@ function CityHeaderNew({ pageName }) {
                   onClick={() => handleTabClick("report", "rainfall")}
                 >
                   <ThunderstormIcon className="icon-sub" />
- 
+
                   <span>Rainfall</span>
                 </div>
                 <div
@@ -467,8 +474,8 @@ function CityHeaderNew({ pageName }) {
                   className={`link ${
                     activeSubTab === "water" ? "sub-active" : ""
                   }`}
-                //  onClick={() => handleWorkInProgress()}
-                 onClick={() => handleTabClick("report", "water")}
+                  //  onClick={() => handleWorkInProgress()}
+                  onClick={() => handleTabClick("report", "water")}
                 >
                   <WaterDropIcon className="icon-sub" />
                   <span>Water Conservation & Preservation</span>
@@ -489,33 +496,12 @@ function CityHeaderNew({ pageName }) {
               <div className="sub-items">
                 <div
                   className={`link ${
-                    activeSubTab === "dashboard" ? "sub-active" : ""
+                    activeSubTab === "transport" ? "sub-active" : ""
                   }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("dashboard")}
+                  onClick={() => handleTabClick("report", "transport")}
                 >
-                  <Dashboard className="icon-sub" />
-                  <span>Dashboard</span>
-                </div>
-                <div
-                  className={`link ${
-                    activeSubTab === "report" ? "sub-active" : ""
-                  }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("report")}
-                >
-                  <Assessment className="icon-sub" />
-                  <span>Report</span>
-                </div>
-                <div
-                  className={`link ${
-                    activeSubTab === "recommendations" ? "sub-active" : ""
-                  }`}
-                  onClick={() => handleWorkInProgress()}
-                  // onClick={() => handleTabClick("recommendations")}
-                >
-                  <EmojiObjects className="icon-sub" />
-                  <span>Recommendations</span>
+                  <EmojiTransportationIcon className="icon-sub" />
+                  <span>Transport</span>
                 </div>
               </div>
             )}
@@ -581,6 +567,5 @@ function CityHeaderNew({ pageName }) {
     </>
   );
 }
- 
+
 export default CityHeaderNew;
- 
