@@ -13,7 +13,6 @@ a:hover {
   text-decoration: none;
 }
 
-
 /* DropDown menus */
 .dropdown-menu {
   border-radius: 4px;
@@ -56,7 +55,23 @@ a:hover {
 .dropdown-menu .dropdown-item:hover {
   background-color: #ffffff;
 }
+
+.p-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  width: "100%";
+}
+
+.p-card-body {
+  width: "100%";
+}
 @media (min-width: 768px) {
+  .p-card-content {
+    flex-wrap: wrap;
+  }
   .dropdown-menu-arrow::before {
     content: "";
     width: 1.3rem;

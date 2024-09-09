@@ -261,12 +261,29 @@ const DailyTrend = ({
   };
 
   return (
-    <div>
-      <div className="main-graph">
-        <div className="btn-container">
+    <>
+      <div className="btn-container">
+        <button
+          className={backButtonClassName}
+          onClick={backButtonClickHandler}
+          style={{
+            borderRadius: "10px",
+            padding: "0.5vw",
+            border: "none",
+            fontSize: "0.8vw",
+            backgroundColor: "#2eacd1",
+            color: "white",
+            cursor: "pointer",
+            margin: "0.5vw ",
+            width: "10rem",
+          }}
+        >
+          &lt; Back
+        </button>
+        {fifteenDaysData.length > 0 && (
           <button
             className={backButtonClassName}
-            onClick={backButtonClickHandler}
+            onClick={lastFifteenClickHandler}
             style={{
               borderRadius: "10px",
               padding: "0.5vw",
@@ -275,36 +292,18 @@ const DailyTrend = ({
               backgroundColor: "#2eacd1",
               color: "white",
               cursor: "pointer",
-              margin: "0.5vw ",
+              margin: "0.5vw",
               width: "10rem",
             }}
           >
-            &lt; Back
+            View Previous Days Trend
           </button>
-          {fifteenDaysData.length > 0 && (
-            <button
-              className={backButtonClassName}
-              onClick={lastFifteenClickHandler}
-              style={{
-                borderRadius: "10px",
-                padding: "0.5vw",
-                border: "none",
-                fontSize: "0.8vw",
-                backgroundColor: "#2eacd1",
-                color: "white",
-                cursor: "pointer",
-                margin: "0.5vw",
-                width: "10rem",
-              }}
-            >
-              View Previous Days Trend
-            </button>
-          )}
-        </div>
-        <CanvasJSChart
-          options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-        />
+        )}
       </div>
+      <CanvasJSChart
+        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+        containerProps={{ width: "100%" }}
+      />
       {showTable === true && fifteenDaysData.length > 0 && (
         <div className="main-graph">
           <div className="graph-big">
@@ -315,8 +314,8 @@ const DailyTrend = ({
             </div>
           </div>
         </div>
-      )}
-    </div>
+      )}{" "}
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import LandIcon from "../src/components/assets/waste/land.png";
 import AreaIcon from "../src/components/assets/waste/measurement.png";
 import Above from "../src/components/assets/waste/above.png";
 import Below from "../src/components/assets/waste/below.png";
+import { width } from "@mui/system";
 //import Tree from "react-d3-tree";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -58,8 +59,6 @@ const Land = () => {
       gridThickness: 0,
       labelFontSize: 8,
     },
-    height: 280,
-    width: 380,
     data: [
       {
         type: "area",
@@ -158,8 +157,6 @@ const Land = () => {
       gridThickness: 0,
       labelFontSize: 8,
     },
-    height: 270,
-    width: 520,
     data: [
       {
         type: "bar",
@@ -198,136 +195,124 @@ const Land = () => {
 
   return (
     <div className="flex flex-column gap-2 align-items-center w-full">
-      <div className="flex gap-2 w-full justify-content-center">
-        <div className="flex flex-column gap-3 w-full">
-          <div className="flex gap-3">
-            <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-3">
-                {/* First column: Image */}
-                <div className="flex-shrink-0">
-                  <img
-                    src={LandIcon}
-                    alt="Total Area"
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </div>
-
-                {/* Second column: Total Area label and value */}
-                <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Total Area (hA)</h3>
-                  <span className="text-xs font-bold">23963.80</span>{" "}
-                </div>
+      <div className="flex flex-column gap-3 w-full">
+        <div className="flex gap-3">
+          <Card className="flex-1 border-round bg-white">
+            <div className="flex align-items-center gap-3">
+              {/* First column: Image */}
+              <div className="flex-shrink-0">
+                <img
+                  src={LandIcon}
+                  alt="Total Area"
+                  style={{ width: "50px", height: "50px" }}
+                />
               </div>
-            </Card>
 
-            <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-3">
-                {/* First column: Image */}
-                <div className="flex-shrink-0">
-                  <img
-                    src={AreaIcon}
-                    alt="Developed Area(%)"
-                    style={{ width: "40px", height: "40px" }}
-                  />
-                </div>
-
-                {/* Second column: Total Area label and value */}
-                <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Developed Area (%)</h3>
-                  <span className="text-xs font-bold">91.03</span>{" "}
-                </div>
+              {/* Second column: Total Area label and value */}
+              <div className="flex flex-column align-items-center">
+                <h3 className="m-0 text-xs">Total Area (hA)</h3>
+                <span className="text-xs font-bold">23963.80</span>{" "}
               </div>
-            </Card>
+            </div>
+          </Card>
 
-            <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-3">
-                <div className="flex-shrink-0">
-                  <img
-                    src={Below}
-                    alt="Below"
-                    style={{ width: "40px", height: "40px" }}
-                  />
-                </div>
-
-                <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Below Proposed Limit (hA)</h3>
-                  <span className="text-xs font-bold">19364.11 </span>{" "}
-                </div>
+          <Card className="flex-1 border-round bg-white">
+            <div className="flex align-items-center gap-3">
+              {/* First column: Image */}
+              <div className="flex-shrink-0">
+                <img
+                  src={AreaIcon}
+                  alt="Developed Area(%)"
+                  style={{ width: "40px", height: "40px" }}
+                />
               </div>
-            </Card>
 
-            <Card className="flex-1 border-round bg-white">
-              <div className="flex align-items-center gap-3">
-                <div className="flex-shrink-0">
-                  <img
-                    src={Above}
-                    alt="Above"
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </div>
-
-                <div className="flex flex-column align-items-center">
-                  <h3 className="m-0 text-xs">Above Proposed Limit (hA)</h3>
-                  <span className="text-xs font-bold">5599.69</span>{" "}
-                </div>
+              {/* Second column: Total Area label and value */}
+              <div className="flex flex-column align-items-center">
+                <h3 className="m-0 text-xs">Developed Area (%)</h3>
+                <span className="text-xs font-bold">91.03</span>{" "}
               </div>
-            </Card>
-          </div>
+            </div>
+          </Card>
+
+          <Card className="flex-1 border-round bg-white">
+            <div className="flex align-items-center gap-3">
+              <div className="flex-shrink-0">
+                <img
+                  src={Below}
+                  alt="Below"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+
+              <div className="flex flex-column align-items-center">
+                <h3 className="m-0 text-xs">Below Proposed Limit (hA)</h3>
+                <span className="text-xs font-bold">19364.11 </span>{" "}
+              </div>
+            </div>
+          </Card>
+
+          <Card className="flex-1 border-round bg-white">
+            <div className="flex align-items-center gap-3">
+              <div className="flex-shrink-0">
+                <img
+                  src={Above}
+                  alt="Above"
+                  style={{ width: "50px", height: "50px" }}
+                />
+              </div>
+
+              <div className="flex flex-column align-items-center">
+                <h3 className="m-0 text-xs">Above Proposed Limit (hA)</h3>
+                <span className="text-xs font-bold">5599.69</span>{" "}
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
-      {/* <div className="flex-1 border-round p-3 bg-white"> */}
-      <div className="flex gap-2 w-full justify-content-center">
-        <Card className="flex border-round bg-white shadow-2 w-5">
+
+      <Panel className="w-full">
+        <div className="flex flex-row gap-2 flex-wrap md:flex-nowrap">
           <DonutChart
             title="Green Area Cover Distribution"
             labels={donutChartLabels}
             series={donutChartSeries}
             height={230}
-            width={350}
           />
-        </Card>
 
-        {/* <div id="treeWrapper" style={{ width: "100%", height: "332px" }}>
-                       <Tree
-                data={treeData}
-               zoomable={false}
-                translate={{ x: 50, y: 150 }}
-                orientation="horizontal"
-                renderCustomNodeElement={customNode}
-                branchNodeClassName="text-node-normal"
-              /> 
-              </div>  */}
+          <DonutChart
+            title="Target Achieved Above Proposed Limit"
+            labels={AboveLabels}
+            series={AboveSeries}
+            height={240}
+          />
 
-        <Panel className="flex-1 border-round bg-white shadow-2 w-3">
-          <div className="flex justify-content-center" style={{ gap: "1px" }}>
-            <DonutChart
-              title="Target Achieved Above Proposed Limit"
-              labels={AboveLabels}
-              series={AboveSeries}
-              height={240}
-              width={270}
+          <DonutChart
+            title="Target Achieved Below Proposed Limit"
+            labels={BelowLabels}
+            series={BelowSeries}
+            height={240}
+          />
+        </div>
+      </Panel>
+
+      <Panel className="w-full">
+        <div className="flex flex-row gap-2 flex-wrap md:flex-nowrap">
+          <Card className="w-full">
+            <CanvasJSChart
+              options={areaChartOptions}
+              containerProps={{ height: 200, width: "100%" }}
             />
+          </Card>
 
-            <DonutChart
-              title="Target Achieved Below Proposed Limit"
-              labels={BelowLabels}
-              series={BelowSeries}
-              height={240}
-              width={270}
+          <Card className="w-full">
+            <CanvasJSChart
+              options={tornadoChartOptions}
+              containerProps={{ height: 200, width: "100%" }}
             />
-          </div>
-        </Panel>
-      </div>
-
-      <div className="flex gap-2 w-full justify-content-center">
-        <Card className="flex border-round bg-white shadow-2 w-5">
-          <CanvasJSChart options={areaChartOptions} />
-        </Card>
-
-        <Card className="flex-1 border-round bg-white shadow-2">
-          <CanvasJSChart options={tornadoChartOptions} />
-        </Card>
-      </div>
+          </Card>
+        </div>
+      </Panel>
     </div>
   );
 };

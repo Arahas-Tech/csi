@@ -335,272 +335,254 @@ const AqiDashboard = ({
   ];
   const NO2Impactseries = [1090, 815, 345, 245];
   return (
-    <div className="aqi-dashboard flex gap-1 flex-column">
-      <>
-        {show && (
-          <Panel toggleable header="Filter By">
-            <div className="flex flex-column align-items-end w-full gap-3">
-              <div className="flex align-items-center justify-content-between w-full gap-3">
-                <div className="flex flex-column">
-                  <label htmlFor="location" className="font-semibold">
-                    Location
+    <div className="aqi-dashboard flex gap-1 flex-column w-full">
+      {show && (
+        <Panel toggleable header="Filter By">
+          <div className="flex flex-column align-items-end w-full gap-3">
+            <div className="flex align-items-center justify-content-between w-full gap-3">
+              <div className="flex flex-column">
+                <label htmlFor="location" className="font-semibold">
+                  Location
+                </label>
+                <Dropdown
+                  value={selectedLocation}
+                  options={locations}
+                  optionLabel="label"
+                  optionValue="value"
+                  onChange={(e) => setSelectedLocation(e.value)}
+                  placeholder="Select Location"
+                />
+              </div>
+              <div className="w-full">
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="start-date" className="font-semibold">
+                    Start Date
                   </label>
-                  <Dropdown
-                    value={selectedLocation}
-                    options={locations}
-                    optionLabel="label"
-                    optionValue="value"
-                    onChange={(e) => setSelectedLocation(e.value)}
-                    placeholder="Select Location"
+                  <Calendar
+                    id="start-date"
+                    value={startDate}
+                    onChange={handleStartDateChange}
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select a start date"
+                    minDate={new Date("2024-01-01")} // Set the minimum selectable date
+                    maxDate={endDate} // Ensure the start date does not go beyond the end date
                   />
                 </div>
-                <div className="w-full">
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="start-date" className="font-semibold">
-                      Start Date
-                    </label>
-                    <Calendar
-                      id="start-date"
-                      value={startDate}
-                      onChange={handleStartDateChange}
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select a start date"
-                      minDate={new Date("2024-01-01")} // Set the minimum selectable date
-                      maxDate={endDate} // Ensure the start date does not go beyond the end date
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="end-date" className="font-semibold">
-                      End Date{" "}
-                    </label>
-                    <Calendar
-                      id="end-date"
-                      value={endDate}
-                      onChange={handleEndDateChange}
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select an end date"
-                      minDate={startDate} // Ensure the end date does not go before the start date
-                      maxDate={new Date("2024-08-13")} // Set the maximum selectable date
-                    />
-                  </div>
+              </div>
+              <div className="w-full">
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="end-date" className="font-semibold">
+                    End Date{" "}
+                  </label>
+                  <Calendar
+                    id="end-date"
+                    value={endDate}
+                    onChange={handleEndDateChange}
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select an end date"
+                    minDate={startDate} // Ensure the end date does not go before the start date
+                    maxDate={new Date("2024-08-13")} // Set the maximum selectable date
+                  />
                 </div>
               </div>
-              <Button
-                severity="success"
-                label="Filter"
-                icon="pi pi-search"
-                onClick={handleSearch}
-              />
             </div>
-          </Panel>
-        )}
-        <Panel>
-          <div className="flex flex-row align-items-end w-full gap-3 mt-2">
-            {selectedLocation && (
+            <Button
+              severity="success"
+              label="Filter"
+              icon="pi pi-search"
+              onClick={handleSearch}
+            />
+          </div>
+        </Panel>
+      )}
+      <Card className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-3 mt-2">
+        {selectedLocation && (
+          <Card title="Air Quality Index" className="text-xs h-17rem">
+            <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
               <div>
-                <Card title="Air Quality Index" className="text-xs h-17rem">
-                  <div className="flex align-items-center justify-content-around flex-row">
-                    <div>
-                      <div className="flex align-items-center justify-content-center flex-column">
-                        <h1 className="text-3xl">
-                          {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-                        </h1>
+                <div className="flex align-items-center justify-content-center flex-column">
+                  <h1 className="text-3xl">
+                    {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+                  </h1>
 
-                        {aqiImage && (
-                          <img
-                            src={aqiImage}
-                            alt={aqiStatusText}
-                            style={{ width: "4rem", height: "6rem" }}
-                          />
-                        )}
-                        <h1
-                          className={`border-round-xs p-1 text-xs text-white w-6rem`}
-                          style={{ backgroundColor: aqiStatus.color }}
-                        >
-                          {aqiStatus.status || "No Status"}
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )}
-            <div className="ml-1 mr-1">
-              <Card>
-                {loading ? (
-                  <div className="w-22rem h-15rem">
-                    <TableSkeleton />
-                  </div>
-                ) : (
-                  <DataTable
-                    value={dataTableData}
-                    rowClassName={rowClassName}
-                    scrollable
-                    scrollHeight="15rem"
-                    style={{
-                      width: "22rem",
-                      height: "15rem",
-                      textAlign: "center",
-                    }}
-                    emptyMessage="No Outliear Days Found."
-                  >
-                    <Column
-                      field="date"
-                      header="Date"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                    <Column
-                      field="time"
-                      header="Time"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
+                  {aqiImage && (
+                    <img
+                      src={aqiImage}
+                      alt={aqiStatusText}
+                      style={{ width: "4rem", height: "6rem" }}
                     />
-                    <Column
-                      field="aqi"
-                      header="AQI above 400"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                    <Column
-                      field="deviationPercentage"
-                      header="Outlier %"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                  </DataTable>
-                )}
-              </Card>
+                  )}
+                  <h1
+                    className={`border-round-xs p-1 text-xs text-white w-6rem`}
+                    style={{ backgroundColor: aqiStatus.color }}
+                  >
+                    {aqiStatus.status || "No Status"}
+                  </h1>
+                </div>
+              </div>
             </div>
-            <Card>
-              {/* <AqiReport
+          </Card>
+        )}
+        <div className="ml-1 mr-1">
+          <Card>
+            {loading ? (
+              <div className="w-22rem h-15rem">
+                <TableSkeleton />
+              </div>
+            ) : (
+              <DataTable
+                value={dataTableData}
+                rowClassName={rowClassName}
+                scrollable
+                scrollHeight="15rem"
+                style={{
+                  width: "22rem",
+                  height: "15rem",
+                  textAlign: "center",
+                }}
+                emptyMessage="No Outliear Days Found."
+              >
+                <Column
+                  field="date"
+                  header="Date"
+                  className="text-xs"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#00a269",
+                    color: "white",
+                  }}
+                ></Column>
+                <Column
+                  field="time"
+                  header="Time"
+                  className="text-xs"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#00a269",
+                    color: "white",
+                  }}
+                />
+                <Column
+                  field="aqi"
+                  header="AQI above 400"
+                  className="text-xs"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#00a269",
+                    color: "white",
+                  }}
+                ></Column>
+                <Column
+                  field="deviationPercentage"
+                  header="Outlier %"
+                  className="text-xs"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#00a269",
+                    color: "white",
+                  }}
+                ></Column>
+              </DataTable>
+            )}
+          </Card>
+        </div>
+        <Card>
+          {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
               endDate={endDate}
               averageAQI={aqiValue}
             /> */}
-              <AqiMap
-                averageAQI={aqiValue}
-                selectedLocation={selectedLocation}
-              />
-            </Card>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="flex align-items-center justify-content-between flex-row ">
-            <Card>
-              <AQIChart
-                envirolocation={envirolocation}
-                enviroDate={envirodate}
-                envirotime={envirotime}
-                enviroPM25={enviropm25}
-                enviroPM10={enviropm10}
-                enviroSO2={enviropm25}
-                enviroNO2={enviroNO2}
-                enviroco2={enviroco2}
-                enviroAQI={enviroAQI}
-                selectedLocation={selectedLocation}
-                startDate={startDate}
-              />
-            </Card>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="flex align-items-center justify-content-between flex-row mt-2">
-            <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
-              <Card className="h-15rem">
-                <PollutantChart
-                  envirolocation={envirolocation}
-                  envirodate={envirodate}
-                  envirotime={envirotime}
-                  pollutantData={enviropm25}
-                  selectedLocation={selectedLocation}
-                  pollutantName="PM2.5"
-                  baseChartColor="#FF5722"
-                  drilldownChartColor="#FFC107"
-                  height={200}
-                  width={500}
-                  safeLimit={60}
-                />
-              </Card>
-              <Card className="h-15rem">
-                <PollutantChart
-                  envirolocation={envirolocation}
-                  envirodate={envirodate}
-                  envirotime={envirotime}
-                  pollutantData={enviropm10}
-                  selectedLocation={selectedLocation}
-                  pollutantName="PM10"
-                  baseChartColor="#4DB6AC"
-                  drilldownChartColor="#80CBC4"
-                  height={200}
-                  width={500}
-                  safeLimit={100}
-                />
-              </Card>
-            </div>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="flex align-items-center justify-content-between flex-row  w-full ">
-            <div className=" flex align-items-center justify-content-center flex-row gap-1 ">
-              <Card className="h-15rem">
-                <PollutantChart
-                  envirolocation={envirolocation}
-                  envirodate={envirodate}
-                  envirotime={envirotime}
-                  pollutantData={enviroNO2}
-                  selectedLocation={selectedLocation}
-                  pollutantName="NO2"
-                  baseChartColor="#F44336"
-                  drilldownChartColor="#E57373"
-                  height={200}
-                  width={500}
-                  safeLimit={80}
-                />
-              </Card>
-              <Card className="h-15rem">
-                <PollutantChart
-                  envirolocation={envirolocation}
-                  envirodate={envirodate}
-                  envirotime={envirotime}
-                  pollutantData={enviroso2}
-                  selectedLocation={selectedLocation}
-                  pollutantName="SO2"
-                  baseChartColor="#FFEB3B"
-                  drilldownChartColor="#FFF176"
-                  height={200}
-                  width={500}
-                  safeLimit={80}
-                />
-              </Card>
-            </div>
-          </div>
-        </Panel>
+          <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
+        </Card>
+      </Card>
 
-        {/* {show && (
+      <Card className="w-full">
+        <AQIChart
+          envirolocation={envirolocation}
+          enviroDate={envirodate}
+          envirotime={envirotime}
+          enviroPM25={enviropm25}
+          enviroPM10={enviropm10}
+          enviroSO2={enviropm25}
+          enviroNO2={enviroNO2}
+          enviroco2={enviroco2}
+          enviroAQI={enviroAQI}
+          selectedLocation={selectedLocation}
+          startDate={startDate}
+        />
+      </Card>
+
+      <Card className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-1">
+        <Card>
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviropm25}
+            selectedLocation={selectedLocation}
+            pollutantName="PM2.5"
+            baseChartColor="#FF5722"
+            drilldownChartColor="#FFC107"
+            height={200}
+            width={500}
+            safeLimit={60}
+          />
+        </Card>
+        <Card>
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviropm10}
+            selectedLocation={selectedLocation}
+            pollutantName="PM10"
+            baseChartColor="#4DB6AC"
+            drilldownChartColor="#80CBC4"
+            height={200}
+            width={500}
+            safeLimit={100}
+          />
+        </Card>
+      </Card>
+      <Card className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-1">
+        <Card>
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviroNO2}
+            selectedLocation={selectedLocation}
+            pollutantName="NO2"
+            baseChartColor="#F44336"
+            drilldownChartColor="#E57373"
+            height={200}
+            width={500}
+            safeLimit={80}
+          />
+        </Card>
+        <Card>
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviroso2}
+            selectedLocation={selectedLocation}
+            pollutantName="SO2"
+            baseChartColor="#FFEB3B"
+            drilldownChartColor="#FFF176"
+            height={200}
+            width={500}
+            safeLimit={80}
+          />
+        </Card>
+      </Card>
+
+      {/* {show && (
             <>
-              <div className="flex align-items-center justify-content-start flex-row mt-2">
+              <div className="flex align-items-center justify-content-start flex-row flex-wrap md:flex-nowrap mt-2">
                 <Card className="h-15rem w-6">
                   <CustomBarChart
                     title="Human Loss by Age Group and Gender"
@@ -624,7 +606,6 @@ const AqiDashboard = ({
               </div>
             </>
           )} */}
-      </>
     </div>
   );
 };

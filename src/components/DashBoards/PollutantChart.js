@@ -9,7 +9,7 @@ const PollutantChart = ({
   envirotime,
   pollutantData,
   pollutantName,
-  width, // Default width
+  width = "100%", // Default width
   height, // Default height
   baseChartColor = "lightblue", // Default base chart color
   drilldownChartColor = "lightgreen", // Default drilldown chart color
@@ -98,8 +98,7 @@ const PollutantChart = ({
             },
           ],
         },
-        height: height,
-        width: width,
+
         data: [
           {
             type: "area",
@@ -146,8 +145,7 @@ const PollutantChart = ({
             },
           ],
         },
-        height: height,
-        width: width,
+
         data: [
           {
             type: "area",
@@ -172,14 +170,13 @@ const PollutantChart = ({
   }, [isDrilldown, selectedDate, envirodate, pollutantData]);
 
   return (
-    <div className="main-graph-pollutant">
-      {isDrilldown && (
-        <button onClick={handleBackButtonClick}>
-          Back
-        </button>
-      )}
-      <CanvasJSChart options={chartOptions} />
-    </div>
+    <>
+      {isDrilldown && <button onClick={handleBackButtonClick}>Back</button>}
+      <CanvasJSChart
+        options={chartOptions}
+        containerProps={{ height: height, width: width }}
+      />
+    </>
   );
 };
 

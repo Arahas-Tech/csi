@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
 * {
-  box-sizing: border-box;
-  font-family: "DM Sans", sans-serif ;
+  font-family: "DM Sans", sans-serif;
 }
 
 body {
@@ -15,8 +14,8 @@ body {
 .react-tel-input .form-control {
   width: 100% !important;
 }
-@media print{
-  .print-container{
+@media print {
+  .print-container {
     padding: 0.5rem;
   }
 }
