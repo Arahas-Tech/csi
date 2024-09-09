@@ -1,5 +1,3 @@
-/* CustomTooltip.css */
-
 .custom-tooltip-container {
     position: relative;
     display: inline-block; /* Ensure the container is inline-block for proper positioning */
@@ -7,19 +5,25 @@
 
 .custom-tooltip-content {
     visibility: hidden;
-    display: none; /* Hide the tooltip by default */
+    opacity: 0; /* Ensure smooth fade-in effect */
+    transition: opacity 0.3s ease; /* Smooth transition for tooltip visibility */
     position: absolute;
-    top: -100%; /* Position it below the container */
-    left: -30%;
-    transform: translateX(-10%); /* Center the tooltip horizontally */
-     margin-top: 8px; /* Add space between the card and the tooltip */
-     background-color: white; /* Background color for the tooltip */
-     border: 1px solid #ccc; /* Optional border */
-     padding: 8px; /* Padding inside the tooltip */
-     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    bottom: 80%; /* Position the tooltip above the element */
+    left: 80%; /* Center the tooltip horizontally relative to the parent */
+    transform: translateX(-80%); /* Center the tooltip horizontally */
+    /*margin-bottom: 8px; /* Space between the card and the tooltip */
+   /* background-color: white; /* Background color for the tooltip */
+    /*border: 1px solid #ccc; /* Optional border */
+    /*padding: 8px; /* Padding inside the tooltip */
+    /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
     z-index: 1000; /* Ensure it is above other elements */
+    white-space: normal;
+    /*width: auto; /* Adjust width based on content */
+    max-width: 200px; /* Optional: prevent the tooltip from becoming too wide */
+    height: auto;
 }
 
 .custom-tooltip-container:hover .custom-tooltip-content {
-    display: block; /* Show the tooltip on hover */
+    visibility: visible;
+    opacity: 1; /* Make the tooltip visible on hover */
 }
