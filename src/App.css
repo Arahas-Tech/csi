@@ -61,7 +61,6 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  flex-wrap: nowrap;
   width: "100%";
 }
 

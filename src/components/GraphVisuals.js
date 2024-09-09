@@ -11,11 +11,12 @@ const colors = [
   "rgb(184, 184, 184)",
   "#A9F3E0",
   "grey",
-  "#1abc9c",
-  "#FFC300",
-  "#C70039",
-  "#581845",
-  "#9b59b6",
+  "#41B3A2",
+  "#BDE8CA",
+  "#C4DAD2",
+  "#9CDBA6",
+  "#95D2B3",
+  "#729762",
 ];
 export const DonutChart = ({ title, labels, series, height }) => {
   const options = {
@@ -74,7 +75,7 @@ export const GroupedBarChart = ({
         title: {
           text: title,
           fontSize: 12,
-          fontFamily: titleOptions.fontFamily || "Arial",
+          fontFamily: "DM Sans",
           fontWeight: titleOptions.fontWeight || "bold",
           color: titleOptions.color || "#333",
           horizontalAlign: titleOptions.align || "center",

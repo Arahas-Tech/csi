@@ -30,7 +30,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
           type: "splineArea",
           showInLegend: true,
           dataPoints: totalBusesDataPoints,
-          color: "#FFA38F",
+          color: "#BDE8CA",
           markerSize: 5,
         },
         {
@@ -53,7 +53,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
     height: 300,
     title: {
       text: "Buses Trend Over the Past Decade",
-      fontSize: 15,
+      fontSize: 12,
       fontFamily: "DM Sans",
       fontWeight: "800",
     },
@@ -70,7 +70,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,
-      title: "Number of Buses",
+      title: "",
     },
     data: chartData["BaseChart"] || [],
     toolTip: {
