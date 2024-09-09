@@ -68,7 +68,7 @@ const TransportDashboard = () => {
         </div>
       </Panel>
 
-      <div className="mt-1">{activeComponent}</div>
+      <div className="mt-2">{activeComponent}</div>
     </>
   );
 };
