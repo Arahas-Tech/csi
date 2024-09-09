@@ -1,0 +1,25 @@
+/* CustomTooltip.css */
+
+.custom-tooltip-container {
+    position: relative;
+    display: inline-block; /* Ensure the container is inline-block for proper positioning */
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    display: none; /* Hide the tooltip by default */
+    position: absolute;
+    top: -100%; /* Position it below the container */
+    left: -30%;
+    transform: translateX(-10%); /* Center the tooltip horizontally */
+     margin-top: 8px; /* Add space between the card and the tooltip */
+     background-color: white; /* Background color for the tooltip */
+     border: 1px solid #ccc; /* Optional border */
+     padding: 8px; /* Padding inside the tooltip */
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.custom-tooltip-container:hover .custom-tooltip-content {
+    display: block; /* Show the tooltip on hover */
+}
