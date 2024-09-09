@@ -77,7 +77,7 @@
 }
 
 .canvasjs-chart-canvas {
-  position: relative !important;
+  /* position: relative !important; */
 }
 
 .card-uniform {

@@ -196,10 +196,13 @@ const Waste = () => {
           {cardData.slice(0, 7).map((card, index) => (
             <Card key={card.value} className="card-dummy">
               <div className="card-content">
-              <p className="p-card-title">{card.title}</p>
-                <img src={card.icon} alt={card.title} className="card-icon-size" />
+                <p className="p-card-title">{card.title}</p>
+                <img
+                  src={card.icon}
+                  alt={card.title}
+                  className="card-icon-size"
+                />
                 <p className="card-value">{card.value}</p>
-              
               </div>
             </Card>
           ))}
@@ -208,10 +211,7 @@ const Waste = () => {
 
       <Panel className="mb-0 p-2 w-full">
         <div className="flex gap-3 w-full">
-          <Card
-            title="Common Toilets & Public Toilets "
-            className="card-uniform"
-          >
+          <Card title="Common Toilets & Public Toilets " className="w-full">
             <div className="flex align-items-center justify-content-center flex-column">
               <div className="flex align-items-center justify-content-center flex-row">
                 <img
@@ -236,7 +236,7 @@ const Waste = () => {
 
               <div></div>
             </div>
-            <Divider/>
+            <Divider />
             <div className="flex align-items-center justify-content-center flex-column">
               <div className="flex align-items-center justify-content-center flex-row">
                 <img
@@ -249,7 +249,9 @@ const Waste = () => {
               <div className="flex align-items-center justify-content-center flex-row gap-6">
                 <div className="flex align-items-center justify-content-center flex-column">
                   <h1 className="text-sm p-0 m-0">223</h1>
-                  <h1 className="text-xs p-0 m-0 text-green-300">Under Construction</h1>
+                  <h1 className="text-xs p-0 m-0 text-green-300">
+                    Under Construction
+                  </h1>
                 </div>
               </div>
 
@@ -257,7 +259,7 @@ const Waste = () => {
             </div>
           </Card>
 
-          <Card className="card-uniform">
+          <Card className="w-full">
             <BarChart
               categories={barChart1Categories}
               series={barChart1Data}
@@ -268,7 +270,7 @@ const Waste = () => {
             />
           </Card>
 
-          <Card className="card-uniform">
+          <Card className="w-full">
             <GroupedBarChart
               categories={barChartCategories}
               series={barChartData}
@@ -281,24 +283,29 @@ const Waste = () => {
         </div>
       </Panel>
 
-      <Panel className="mb-0 p-2 w-full">
+      <Panel className="w-full">
         <div className="flex gap-3 w-full">
-          <Card className="card-uniform">
+          <Card className="w-full">
             <BarChart
               categories={barChart2Categories}
               series={barChart2Data}
               height={245}
-              width={320}
               title="Garbage Free City"
               colors={colors.slice(0, 4)}
             />
           </Card>
-          <Card className="card-uniform">
-            <CanvasJSChart options={options} />
+          <Card className="w-full">
+            <CanvasJSChart
+              options={options}
+              containerProps={{ height: 200, width: "100%" }}
+            />
           </Card>
 
-          <Card className="card-uniform">
-            <CanvasJSChart options={pieOptions} />
+          <Card className="w-full">
+            <CanvasJSChart
+              options={pieOptions}
+              containerProps={{ height: 200, width: "100%" }}
+            />
           </Card>
         </div>
       </Panel>

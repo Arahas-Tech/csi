@@ -149,11 +149,7 @@ function CityHeaderNew({ pageName }) {
                   <Waste />
                 </>
               )}
-              {selectedParameter === "land" && (
-                <>
-                  <Land />
-                </>
-              )}
+              {selectedParameter === "land" && <Land />}
               {selectedParameter === "transport" && (
                 <>
                   <TransportDashboard />

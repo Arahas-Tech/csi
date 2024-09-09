@@ -17,7 +17,7 @@ const colors = [
   "#581845",
   "#9b59b6",
 ];
-export const DonutChart = ({ title, labels, series, height, width }) => {
+export const DonutChart = ({ title, labels, series, height }) => {
   const options = {
     animationEnabled: true,
     title: {
@@ -26,9 +26,6 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
       fontFamily: "DM Sans",
       fontWeight: "800",
     },
-    height: height,
-    width: width,
-
     data: [
       {
         type: "doughnut",
@@ -48,9 +45,13 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
   };
 
   return (
-    <div className="main-graph-pollutant">
-      <CanvasJSChart options={options} />
-    </div>
+    <CanvasJSChart
+      options={options}
+      containerProps={{
+        width: "100%",
+        height: height,
+      }}
+    />
   );
 };
 
@@ -67,50 +68,47 @@ export const GroupedBarChart = ({
   labelFontSize = 8,
 }) => {
   return (
-    <div className="z-index-low">
-      <CanvasJSChart
-        options={{
-          animationEnabled: true,
-          title: {
-            text: title,
-            fontSize: 12,
-            fontFamily: titleOptions.fontFamily || "Arial",
-            fontWeight: titleOptions.fontWeight || "bold",
-            color: titleOptions.color || "#333",
-            horizontalAlign: titleOptions.align || "center",
-            padding: titleOptions.padding || { bottom: 10 },
-          },
-          height: height,
-          width: width,
-          axisX: {
-            title: xtitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize,
-          },
-          axisY: {
-            title: ytitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize,
-          },
-          height: height,
-          width: width,
-          data: series.map((data, index) => ({
-            type: "column",
-            name: categories[index],
-            showInLegend: false,
-            dataPoints: data.map((value, i) => ({
-              y: value,
-              label: categories[i],
-              indexLabel: `{y}`, // Show value on each bar
-              indexLabelFontSize: 10, // Font size for the value
-              indexLabelPlacement: "outside", // Position the value inside the bar
-              color: colors[i % colors.length], // Assign color to each bar
-            })),
-            color: colors[index % colors.length],
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        title: {
+          text: title,
+          fontSize: 12,
+          fontFamily: titleOptions.fontFamily || "Arial",
+          fontWeight: titleOptions.fontWeight || "bold",
+          color: titleOptions.color || "#333",
+          horizontalAlign: titleOptions.align || "center",
+          padding: titleOptions.padding || { bottom: 10 },
+        },
+        axisX: {
+          title: xtitle,
+          gridThickness: 0,
+          labelFontSize: labelFontSize,
+        },
+        axisY: {
+          title: ytitle,
+          gridThickness: 0,
+          labelFontSize: labelFontSize,
+        },
+        height: height,
+        width: width,
+        data: series.map((data, index) => ({
+          type: "column",
+          name: categories[index],
+          showInLegend: false,
+          dataPoints: data.map((value, i) => ({
+            y: value,
+            label: categories[i],
+            indexLabel: `{y}`, // Show value on each bar
+            indexLabelFontSize: 10, // Font size for the value
+            indexLabelPlacement: "outside", // Position the value inside the bar
+            color: colors[i % colors.length], // Assign color to each bar
           })),
-        }}
-      />
-    </div>
+          color: colors[index % colors.length],
+        })),
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
   );
 };
 
@@ -127,48 +125,45 @@ export const BarChart = ({
   labelFontSize = 8, // Add a prop for font size
 }) => {
   return (
-    <div className="z-index-low">
-      <CanvasJSChart
-        options={{
-          animationEnabled: true,
-          title: {
-            text: title,
-            fontSize: 12,
-            fontFamily: titleOptions.fontFamily || "Arial",
-            fontWeight: titleOptions.fontWeight || "bold",
-            color: titleOptions.color || "#333",
-            horizontalAlign: titleOptions.align || "center",
-            padding: titleOptions.padding || { bottom: 10 },
-          },
-          axisX: {
-            title: xtitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize, // Set the font size for category labels
-          },
-          height: height,
-          width: width,
-          axisY: {
-            title: ytitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize,
-          },
-          data: series.map((data, index) => ({
-            type: "bar",
-            name: categories[index],
-            showInLegend: false,
-            dataPoints: data.map((value, i) => ({
-              y: value,
-              label: categories[i],
-              indexLabel: `{y}`, // Show value on each bar
-              indexLabelFontSize: 10, // Font size for the value
-              indexLabelPlacement: "outside", // Position the value outside the bar
-              color: colors[i % colors.length], // Assign color to each bar
-            })),
-            color: colors[index % colors.length],
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        title: {
+          text: title,
+          fontSize: 12,
+          fontFamily: titleOptions.fontFamily || "Arial",
+          fontWeight: titleOptions.fontWeight || "bold",
+          color: titleOptions.color || "#333",
+          horizontalAlign: titleOptions.align || "center",
+          padding: titleOptions.padding || { bottom: 10 },
+        },
+        axisX: {
+          title: xtitle,
+          gridThickness: 0,
+          labelFontSize: labelFontSize, // Set the font size for category labels
+        },
+        axisY: {
+          title: ytitle,
+          gridThickness: 0,
+          labelFontSize: labelFontSize,
+        },
+        data: series.map((data, index) => ({
+          type: "bar",
+          name: categories[index],
+          showInLegend: false,
+          dataPoints: data.map((value, i) => ({
+            y: value,
+            label: categories[i],
+            indexLabel: `{y}`, // Show value on each bar
+            indexLabelFontSize: 10, // Font size for the value
+            indexLabelPlacement: "outside", // Position the value outside the bar
+            color: colors[i % colors.length], // Assign color to each bar
           })),
-        }}
-      />
-    </div>
+          color: colors[index % colors.length],
+        })),
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
   );
 };
 

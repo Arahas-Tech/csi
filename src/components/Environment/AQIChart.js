@@ -233,24 +233,16 @@ const AQIChart = ({
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          {chartData.length > 0 && (
-            <>
-              <DailyTrend
-                selectedDate={selectedDate}
-                dailyAverage={dailyAverage}
-                dailyData={dailyData}
-                setSelectedDate={setSelectedDate}
-                fifteenDaysData={fifteenDaysData}
-                startDate={startDate}
-              />
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+    chartData.length > 0 && (
+      <DailyTrend
+        selectedDate={selectedDate}
+        dailyAverage={dailyAverage}
+        dailyData={dailyData}
+        setSelectedDate={setSelectedDate}
+        fifteenDaysData={fifteenDaysData}
+        startDate={startDate}
+      />
+    )
   );
 };
 
