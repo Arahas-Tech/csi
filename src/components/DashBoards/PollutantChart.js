@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../Environment/AqiReport.css";
+import { Button } from "primereact/button";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -170,13 +171,17 @@ const PollutantChart = ({
   }, [isDrilldown, selectedDate, envirodate, pollutantData]);
 
   return (
-    <>
-      {isDrilldown && <button onClick={handleBackButtonClick}>Back</button>}
+    <div className="flex align-items-center justify-content-center flex-column gap-1">
+      {isDrilldown && (
+        <Button onClick={handleBackButtonClick} className="pt-1 pb-1 pl-3 pr-3">
+          Back
+        </Button>
+      )}
       <CanvasJSChart
         options={chartOptions}
         containerProps={{ height: height, width: width }}
       />
-    </>
+    </div>
   );
 };
 

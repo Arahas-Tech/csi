@@ -4,12 +4,11 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const StackedBarChart = () => {
-  // Sample data for the chart
   const colors = [
-    "#00A269",
-    "rgb(184, 184, 184)",
-    "#A9F3E0",
-    "grey",
+    "#557C56",
+    "#90D26D",
+    "#6A9C89",
+    "#B5C18E",
     "#41B3A2",
     "#BDE8CA",
     "#C4DAD2",
@@ -59,7 +58,7 @@ const StackedBarChart = () => {
         name: "Disabled-Friendly Buses",
         showInLegend: true,
         yValueFormatString: "#,###",
-        color: "#00A269",
+        color: "#557C56",
         dataPoints: data.map((entry) => ({
           label: entry.year,
           y: entry.disabledFriendly,
@@ -69,7 +68,7 @@ const StackedBarChart = () => {
         type: "stackedColumn",
         name: "Other Buses",
         showInLegend: true,
-        color: "#C4DAD2",
+        color: "#90D26D",
         yValueFormatString: "#,###",
         dataPoints: data.map((entry) => ({
           label: entry.year,

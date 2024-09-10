@@ -55,6 +55,47 @@ export const DonutChart = ({ title, labels, series, height }) => {
     />
   );
 };
+export const Doughnut = ({ title, labels, series, height }) => {
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: title,
+      fontSize: 12,
+      fontFamily: "DM Sans",
+      fontWeight: "800",
+    },
+    data: [
+      {
+        type: "doughnut",
+        startAngle: 20,
+        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
+        showInLegend: false,
+        color: colors,
+        indexLabel: "{label} - #percent%",
+        indexLabelFontSize: 10,
+        indexLabelFontFamily: "DM Sans",
+        indexLabelFontWeight: 700,
+        dataPoints: series.map((value, index) => ({
+          y: value,
+          label: labels[index],
+          color: colors[index % colors.length],
+        })),
+      },
+    ],
+    legend: {
+      fontSize: 10,
+      horizontalAlign: "center",
+      verticalAlign: "bottom",
+    },
+  };
+
+  return (
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
 
 export const GroupedBarChart = ({
   title,
