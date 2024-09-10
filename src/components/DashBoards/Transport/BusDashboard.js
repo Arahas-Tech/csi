@@ -9,12 +9,23 @@ import "primereact/resources/primereact.min.css"; // Core PrimeReact styles
 import "primeflex/primeflex.css"; // PrimeFlex CSS
 import CustomTooltip from "./CustomTooltip";
 import CanvasJSReact from "@canvasjs/react-charts";
- 
+
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
- 
-const Doughnut = ({ title, labels, series, height, width }) => {
-  const colors = ["#00A269", "#B8B8B8", "#A9F3E0", "grey"];
- 
+
+const Doughnut = ({ title, labels, series, height }) => {
+  const colors = [
+    "#557C56",
+    "#90D26D",
+    "#6A9C89",
+    "#B5C18E",
+    "#41B3A2",
+    "#BDE8CA",
+    "#C4DAD2",
+    "#9CDBA6",
+    "#95D2B3",
+    "#729762",
+  ];
+
   const options = {
     animationEnabled: true,
     title: {
@@ -23,8 +34,6 @@ const Doughnut = ({ title, labels, series, height, width }) => {
       fontFamily: "DM Sans",
       fontWeight: "800",
     },
-    height,
-    width,
     data: [
       {
         type: "doughnut",
@@ -33,7 +42,9 @@ const Doughnut = ({ title, labels, series, height, width }) => {
         showInLegend: false,
         color: colors,
         indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 8,
+        indexLabelFontSize: 10,
+        indexLabelFontFamily: "DM Sans",
+        indexLabelFontWeight: 700,
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
@@ -47,10 +58,15 @@ const Doughnut = ({ title, labels, series, height, width }) => {
       verticalAlign: "bottom",
     },
   };
- 
-  return <CanvasJSChart options={options} />;
+
+  return (
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
 };
- 
+
 const BusDashboard = () => {
   const totalBusesData = [
     { year: 2014, count: 1500 },
@@ -64,7 +80,7 @@ const BusDashboard = () => {
     { year: 2022, count: 1900 },
     { year: 2023, count: 1950 },
   ];
- 
+
   const electricBusesData = [
     { year: 2014, count: 100 },
     { year: 2015, count: 130 },
@@ -95,138 +111,108 @@ const BusDashboard = () => {
   const deaths = deathData.map((item) => item.deaths);
   const busLabels = ["Diesel", "Electric", "Hybrid"];
   const busSeries = [126, 82, 95];
- 
- 
+
   const passengerLabels = ["Cash", "Contactless"];
   const passengerSeries = [74657, 98340];
- 
-  const commonCardProps = {
-    className: "p-shadow-4",
-    style: { width: "200px", height: "100px", backgroundColor: "#f2f2f2" },
-  };
- 
+
   return (
     <div className="flex gap-1 flex-column">
-      <div className="flex flex-row justify-content-center flex gap-3 mb-2">
-        {/* First Card with Custom Tooltip */}
-        <CustomTooltip
-          content={
-            <div className="flex justify-content-center align-items-center h-full w-full">
-              <Doughnut
-                title="Total Running buses"
-                labels={busLabels}
-                series={busSeries}
-                height={150}
-                width={190}
-              />
-            </div>
-          }
-        >
-          <Card
-            {...commonCardProps}
-            className="flex flex-column align-items-center justify-content-center"
-          >
-            <p className="m-0 text-xs text-900 font-bold">
-              Total Running buses
-            </p>
-            <p className="m-0 text-xs text-900">303</p>
+      <Panel>
+        <div className="flex flex-row w-full gap-3">
+          <Card>
+            <CustomTooltip
+              content={
+                <Doughnut
+                  title="Total Running buses"
+                  labels={busLabels}
+                  series={busSeries}
+                  height={150}
+                />
+              }
+            >
+              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">303</p>
+                <p className="m-1 mt-3 text-xs font-semibold">
+                  Total Running buses
+                </p>
+              </div>
+            </CustomTooltip>
           </Card>
-        </CustomTooltip>
-    <div className="flex flex-row justify-content-center flex gap-3">
- 
-        {/* Second Card with Custom Tooltip */}
-        <CustomTooltip
-          content={
-            <Card className="flex h-full w-full">
-              <p className="m-0 text-xs">Total buses on any day</p>
-              <p className="m-0 text-xs">Average capacity of a bus</p>
-              <p className="m-0 text-xs">Total population</p>
-            </Card>
-          }
-        >
-          <Card
-            {...commonCardProps}
-            className="flex flex-column align-items-center justify-content-center"
-          >
-            <p className="m-0 text-xs text-900 font-bold">
-              Average availability on a day
-            </p>
-            <p className="m-0 text-xs text-900">
-              = Total buses on any day / Total population
-            </p>
+          <Card>
+            <CustomTooltip
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
+                  <p className="m-0 text-xs">Total buses on any day : 562</p>
+                  <p className="m-0 text-xs">Average capacity of a bus : 60</p>
+                  <p className="m-0 text-xs">Total population : 298706</p>
+                </div>
+              }
+            >
+              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">0.11</p>
+                <p className=" mt-3 text-xs  font-semibold text-center">
+                  Average availability on a day (seats / person)
+                </p>
+              </div>
+            </CustomTooltip>
           </Card>
-        </CustomTooltip>
-   
-        {/* Third Card with Custom Tooltip */}
-        <CustomTooltip
-          content={
-            <Card className="flex h-full w-full">
-              <p className="m-0 text-xs">Maintained buses</p>
-              <p className="m-0 text-xs">Total buses</p>
-            </Card>
-          }
-        >
-          <Card
-            {...commonCardProps}
-            className="flex flex-column align-items-center justify-content-center"
-          >
-            <p className="m-0 text-xs text-900 font-bold">
-              Percentage that goes under maintenance checks
-            </p>
-            <p className="m-0 text-xs text-900">
-              = Maintained buses / Total buses
-            </p>
+          <Card>
+            <CustomTooltip
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
+                  <p className="m-0 text-xs">Maintained Buses : 32</p>
+                  <p className="m-0 text-xs">Total buses : 562</p>
+                </div>
+              }
+            >
+              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">5.69 %</p>
+                <p className=" mt-3 text-xs  font-semibold text-center">
+                  Percentage that goes under maintenance checks
+                </p>
+              </div>
+            </CustomTooltip>
           </Card>
-        </CustomTooltip>
- 
-        {/* Fourth Card with Custom Tooltip */}
-        <CustomTooltip
-          content={
-            <div className="flex justify-content-center align-items-center h-full w-full">
-              <DonutChart
-                title="Total passenger count"
-                labels={passengerLabels}
-                series={passengerSeries}
-                height={150}
-                width={200}
-              />
-            </div>
-          }
-        >
-          <Card
-            {...commonCardProps}
-            className="flex flex-column align-items-center justify-content-center"
-          >
-            <p className="m-0 text-xs text-900 font-bold">
-              Total passenger count
-            </p>
-            <p className="m-0 text-xs text-900">= Cash + Contactless</p>
+          <Card>
+            <CustomTooltip
+              content={
+                <Doughnut
+                  title="Total passenger count"
+                  labels={passengerLabels}
+                  series={passengerSeries}
+                  height={150}
+                />
+              }
+            >
+              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">
+                  1,72,997
+                </p>
+                <p className=" mt-3 text-xs  font-semibold text-center">
+                  Total passenger Count
+                </p>
+              </div>
+            </CustomTooltip>
           </Card>
-        </CustomTooltip>
- 
-        {/* Fifth Card with Custom Tooltip */}
-        <CustomTooltip
-          content={
-            <Card className="flex h-full w-full">
-              <p className="m-0 text-xs">Total signals with CCTVs</p>
-              <p className="m-0 text-xs">Total signals</p>
-            </Card>
-          }
-        >
-          <Card
-            {...commonCardProps}
-            className="flex flex-column align-items-center justify-content-center"
-          >
-            <p className="m-0 text-xs text-900 font-bold">
-              Percentage availability of Traffic surveillance
-            </p>
-            <p className="m-0 text-xs text-900">
-              = Total signals with CCTVs / Total signals
-            </p>
+          <Card>
+            <CustomTooltip
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
+                  <p className="m-0 text-xs">Total signals with CCTVs : 990</p>
+                  <p className="m-0 text-xs">Total signals: 1789 </p>
+                </div>
+              }
+            >
+              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">55.33 %</p>
+                <p className=" mt-3 text-xs  font-semibold text-center">
+                  Percentage availability of Traffic surveillance
+                </p>
+              </div>
+            </CustomTooltip>
           </Card>
-        </CustomTooltip>
-      </div>
-      </div>
+        </div>
+      </Panel>
       <Panel>
         <TransportTrend
           totalBusesData={totalBusesData}
@@ -235,6 +221,17 @@ const BusDashboard = () => {
       </Panel>
       <Panel>
         <div className="flex fle-row gap-1 ">
+          <Card className="w-full h-17rem">
+            <StackedBarChart />
+          </Card>
+          <Card className="w-full h-17rem">
+            <Doughnut
+              title="Revenue Generated Gender-wise"
+              labels={labels}
+              series={series}
+              height={200}
+            />
+          </Card>
           <Card className="w-full h-17rem">
             <BarChart
               title="Number of Deaths Over the Past Decade"
@@ -246,21 +243,9 @@ const BusDashboard = () => {
               labelFontSize={10}
             />
           </Card>
-          <Card className="w-full h-17rem">
-            <StackedBarChart />
-          </Card>
-          <Card className="w-full h-17rem">
-            <DonutChart
-              title={"Revenue Generated Gender-wise"}
-              labels={labels}
-              series={series}
-              height={200}
-            />
-          </Card>
         </div>
       </Panel>
     </div>
-   
   );
 };
 export default BusDashboard;

@@ -7,10 +7,10 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#00A269",
-  "rgb(184, 184, 184)",
-  "#A9F3E0",
-  "grey",
+  "#557C56",
+  "#90D26D",
+  "#6A9C89",
+  "#B5C18E",
   "#41B3A2",
   "#BDE8CA",
   "#C4DAD2",
