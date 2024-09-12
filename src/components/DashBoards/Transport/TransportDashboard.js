@@ -7,6 +7,8 @@ import BusDashboard from "./BusDashboard";
 import RailDashboard from "./RailDashborad";
 import Infrastructure from "./Infrastructure";
 import { color } from "framer-motion";
+import Frequency from "./Frequency";
+import Accessibility from "./Accesibility";
 
 const RoadComponent = () => (
   <Card title="Road Component">This is the Road component.</Card>
@@ -18,8 +20,12 @@ const TransportDashboard = () => {
       <Panel toggleable header="Infrastructure Quality">
         <Infrastructure />
       </Panel>
-      <Panel toggleable header="Accessibility-Mode of Transport"></Panel>
-      <Panel toggleable header="Frequency of Service"></Panel>
+      <Panel toggleable header="Accessibility-Mode of Transport">
+        <Accessibility />
+      </Panel>
+      <Panel toggleable header="Frequency of Service">
+        <Frequency />
+      </Panel>
       <Panel toggleable header="Transport Renewable Energy Enabled"></Panel>
       <Panel toggleable header="Private Vehicles in Public Transport"></Panel>
       <Panel toggleable header="Capacity and Passenger Load"></Panel>

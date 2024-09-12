@@ -8,8 +8,8 @@
   opacity: 0; /* Ensure smooth fade-in effect */
   transition: opacity 0.3s ease; /* Smooth transition for tooltip visibility */
   position: absolute;
-  bottom: 100%; /* Position the tooltip above the element */
-  right: 90%; /* Center the tooltip horizontally relative to the parent */
+  bottom: 0%; /* Position the tooltip above the element */
+  right: 0%; /* Center the tooltip horizontally relative to the parent */
   transform: translateX(-80%); /* Center the tooltip horizontally */
   /*margin-bottom: 8px; /* Space between the card and the tooltip */
   /* background-color: white; /* Background color for the tooltip */
