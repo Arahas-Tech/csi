@@ -132,8 +132,7 @@ export const GroupedBarChart = ({
           gridThickness: 0,
           labelFontSize: labelFontSize,
         },
-        height: height,
-        width: width,
+
         data: series.map((data, index) => ({
           type: "column",
           name: categories[index],

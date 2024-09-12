@@ -67,7 +67,7 @@ const Doughnut = ({ title, labels, series, height }) => {
   );
 };
 
-const BusDashboard = () => {
+const RailDashboard = () => {
   const totalBusesData = [
     { year: 2014, count: 1500 },
     { year: 2015, count: 1550 },
@@ -109,8 +109,8 @@ const BusDashboard = () => {
   const series = [60, 35, 5];
   const years = deathData.map((item) => item.year);
   const deaths = deathData.map((item) => item.deaths);
-  const busLabels = ["Diesel", "Electric", "Hybrid"];
-  const busSeries = [126, 82, 95];
+  const trainLabels = ["Passenger", "Goods"];
+  const trainSeries = [12, 26];
 
   const passengerLabels = ["Cash", "Contactless"];
   const passengerSeries = [74657, 98340];
@@ -123,17 +123,17 @@ const BusDashboard = () => {
             <CustomTooltip
               content={
                 <Doughnut
-                  title="Total Running buses"
-                  labels={busLabels}
-                  series={busSeries}
+                  title="Total Running Trains"
+                  labels={trainLabels}
+                  series={trainSeries}
                   height={150}
                 />
               }
             >
               <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">303</p>
+                <p className="m-0 text-2xl text-green-500 font-bold">38</p>
                 <p className="m-1 mt-3 text-xs font-semibold">
-                  Total Running Buses
+                  Total Running Trains
                 </p>
               </div>
             </CustomTooltip>
@@ -142,14 +142,16 @@ const BusDashboard = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-                  <p className="m-0 text-xs">Total buses on any day : 562</p>
-                  <p className="m-0 text-xs">Average capacity of a bus : 60</p>
+                  <p className="m-0 text-xs">Total Trains on any day : 13</p>
+                  <p className="m-0 text-xs">
+                    Average capacity of a Train : 1000
+                  </p>
                   <p className="m-0 text-xs">Total population : 298706</p>
                 </div>
               }
             >
               <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">0.11</p>
+                <p className="m-0 text-2xl text-green-500 font-bold">0.0435</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Average availability on a day (seats / person)
                 </p>
@@ -160,13 +162,13 @@ const BusDashboard = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-                  <p className="m-0 text-xs">Maintained Buses : 32</p>
-                  <p className="m-0 text-xs">Total buses : 562</p>
+                  <p className="m-0 text-xs">Maintained Trains : 18</p>
+                  <p className="m-0 text-xs">Total buses : 38</p>
                 </div>
               }
             >
               <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">5.69 %</p>
+                <p className="m-0 text-2xl text-green-500 font-bold">47.36 %</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Percentage that goes under maintenance checks
                 </p>
@@ -186,27 +188,29 @@ const BusDashboard = () => {
             >
               <div className="flex align-items-center justiy-content-center flex-column w-11rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">
-                  1,72,997
+                  2,997 kms
                 </p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
-                  Total passenger Count
+                  Total Track Length
                 </p>
               </div>
             </CustomTooltip>
           </Card>
           <Card>
             <CustomTooltip
-              content={
-                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-                  <p className="m-0 text-xs">Total signals with CCTVs : 990</p>
-                  <p className="m-0 text-xs">Total signals: 1789 </p>
-                </div>
-              }
+            //   content={
+            //     <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
+            //       <p className="m-0 text-xs">Total signals with CCTVs : 990</p>
+            //       <p className="m-0 text-xs">Total signals: 1789 </p>
+            //     </div>
+            //   }
             >
               <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">55.33 %</p>
+                <p className="m-0 text-2xl text-green-500 font-bold">
+                  68 minutes
+                </p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
-                  Percentage availability of Traffic surveillance
+                  Average Passenger waiting time
                 </p>
               </div>
             </CustomTooltip>
@@ -248,4 +252,4 @@ const BusDashboard = () => {
     </div>
   );
 };
-export default BusDashboard;
+export default RailDashboard;
