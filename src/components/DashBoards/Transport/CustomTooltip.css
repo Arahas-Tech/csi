@@ -8,9 +8,9 @@
   opacity: 0; /* Ensure smooth fade-in effect */
   transition: opacity 0.3s ease; /* Smooth transition for tooltip visibility */
   position: absolute;
-  bottom: 0%; /* Position the tooltip above the element */
-  right: 0%; /* Center the tooltip horizontally relative to the parent */
-  transform: translateX(-80%); /* Center the tooltip horizontally */
+  bottom: 80%; /* Position the tooltip above the element */
+  left: 30%; /* Center the tooltip horizontally relative to the parent */
+  transform: translateX(-90%); /* Center the tooltip horizontally */
   /*margin-bottom: 8px; /* Space between the card and the tooltip */
   /* background-color: white; /* Background color for the tooltip */
   /*border: 1px solid #ccc; /* Optional border */
@@ -18,6 +18,7 @@
   /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
   z-index: 1000; /* Ensure it is above other elements */
   white-space: normal;
+  padding: 1rem;
   /*width: auto; /* Adjust width based on content */
   /* Optional: prevent the tooltip from becoming too wide */
 }

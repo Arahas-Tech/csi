@@ -72,7 +72,7 @@ export const Doughnut = ({ title, labels, series, height }) => {
         showInLegend: false,
         color: colors,
         indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 10,
+        indexLabelFontSize: 9,
         indexLabelFontFamily: "DM Sans",
         indexLabelFontWeight: 700,
         dataPoints: series.map((value, index) => ({

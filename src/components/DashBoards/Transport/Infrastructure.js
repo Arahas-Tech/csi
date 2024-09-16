@@ -52,7 +52,7 @@ const Infrastructure = () => {
         color: "#557C56",
         name: "Roadways",
 
-        showInLegend: true,
+        showInLegend: false,
         indexLabel: "Roadways: {y}",
         indexLabelPlacement: "inside",
         indexLabelFontColor: "white",
@@ -71,7 +71,7 @@ const Infrastructure = () => {
         indexLabelPlacement: "inside",
         indexLabelFontColor: "white",
         indexLabelFontSize: 10,
-        showInLegend: true,
+        showInLegend: false,
         toolTipContent: "{name}: {y}", // Custom tooltip format
         dataPoints: categories.map((year, index) => ({
           label: year,
@@ -82,7 +82,7 @@ const Infrastructure = () => {
         type: "bar",
         name: "Airways",
         color: "#6A9C89",
-        showInLegend: true,
+        showInLegend: false,
         indexLabelPlacement: "inside",
         indexLabelFontColor: "white",
         indexLabelFontSize: 10,
@@ -97,7 +97,7 @@ const Infrastructure = () => {
         type: "bar",
         color: "#95D2B3",
         name: "Waterways",
-        showInLegend: true,
+        showInLegend: false,
         indexLabelFontSize: 10,
         indexLabelPlacement: "inside",
         indexLabelFontColor: "white",
@@ -232,11 +232,13 @@ const Infrastructure = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                  <p className="m-0 text-xs">
-                    Maintained Roadways In Current Year: 70%
+                  <p className="m-0 text-base text-green-500 font-bold"> 90%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Roadways In Current Year
                   </p>
-                  <p className="m-0 text-xs">
-                    Maintained Roadways In Previous Year: 90%
+                  <p className="m-0 text-base text-green-500 font-bold"> 70%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Roadways In Previous Year
                   </p>
                 </div>
               }

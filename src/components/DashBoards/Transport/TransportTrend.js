@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const TransportTrend = ({ totalBusesData, electricBusesData }) => {
+const TransportTrend = ({ totalBusesData, electricBusesData, height }) => {
   const [chartData, setChartData] = useState({
     BaseChart: [],
   });
@@ -26,7 +26,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
     const newChartData = {
       BaseChart: [
         {
-          name: "Total Buses",
+          name: "Total Public Transport",
           type: "splineArea",
           showInLegend: true,
           dataPoints: totalBusesDataPoints,
@@ -34,7 +34,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
           markerSize: 5,
         },
         {
-          name: "Electric Buses",
+          name: "Public Transport Using Renewable Energy",
           type: "line",
           showInLegend: true,
           dataPoints: electricBusesDataPoints,
@@ -50,9 +50,8 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
   const baseChartOptions = {
     animationEnabled: true,
     theme: "light2",
-    height: 300,
     title: {
-      text: "Buses Trend Over the Past Decade",
+      text: "Transportion Trend Over the Past Decade",
       fontSize: 12,
       fontFamily: "DM Sans",
       fontWeight: "800",
@@ -75,7 +74,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
     data: chartData["BaseChart"] || [],
     toolTip: {
       shared: true, // Allows shared tooltip for comparing data points
-      content: "{name}: {y} buses",
+      content: "{name}: {y}",
     },
   };
 
@@ -83,7 +82,7 @@ const TransportTrend = ({ totalBusesData, electricBusesData }) => {
     <div className="transport-trend-chart">
       <CanvasJSChart
         options={baseChartOptions}
-        containerProps={{ width: "100%", height: "300px" }}
+        containerProps={{ width: "100%", height: height }}
       />
     </div>
   );

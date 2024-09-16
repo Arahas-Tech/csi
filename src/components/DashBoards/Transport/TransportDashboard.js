@@ -9,6 +9,10 @@ import Infrastructure from "./Infrastructure";
 import { color } from "framer-motion";
 import Frequency from "./Frequency";
 import Accessibility from "./Accesibility";
+import Renewable from "./Renewable";
+import Passenger from "./Passenger";
+import PrivateVehicle from "./PrivateVehicle";
+import Cleanliness from "./Cleanliness";
 
 const RoadComponent = () => (
   <Card title="Road Component">This is the Road component.</Card>
@@ -26,11 +30,19 @@ const TransportDashboard = () => {
       <Panel toggleable header="Frequency of Service">
         <Frequency />
       </Panel>
-      <Panel toggleable header="Transport Renewable Energy Enabled"></Panel>
-      <Panel toggleable header="Private Vehicles in Public Transport"></Panel>
-      <Panel toggleable header="Capacity and Passenger Load"></Panel>
-      <Panel toggleable header="Cost and Fare Structure"></Panel>
-      <Panel toggleable header="Cleanliness and Maintenance"></Panel>
+      <Panel toggleable header="Transport Renewable Energy Enabled">
+        <Renewable />
+      </Panel>
+      <Panel toggleable header="Private Vehicles in Public Transport">
+        <PrivateVehicle />
+      </Panel>
+      <Panel toggleable header="Capacity and Passenger Load">
+        <Passenger />
+      </Panel>
+      {/* <Panel toggleable header="Cost and Fare Structure"></Panel> */}
+      <Panel toggleable header="Cleanliness and Maintenance">
+        <Cleanliness />
+      </Panel>
     </>
   );
 };
