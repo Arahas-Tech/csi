@@ -11,6 +11,7 @@ import {
   KeyboardDoubleArrowRight,
   Spa,
 } from "@mui/icons-material";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
 import MovingIcon from "@mui/icons-material/Moving";
 import "./CityHeader.css";
@@ -50,6 +51,7 @@ import LandRecommendations from "../LandRecommendations";
 import GenerateWasteReport from "../GenerateWasteReport";
 import GenerateLandReport from "../GenerateLandReport";
 import TransportDashboard from "../components/DashBoards/Transport/TransportDashboard";
+import Healthcare from "./DashBoards/Healthcare/Healthcare";
 function CityHeaderNew({ pageName }) {
   const [expandedSection, setExpandedSection] = useState(null); // State to track expanded section
   const [activeSubTab, setActiveSubTab] = useState(""); // State to track active sub-tab
@@ -153,6 +155,11 @@ function CityHeaderNew({ pageName }) {
               {selectedParameter === "transport" && (
                 <>
                   <TransportDashboard />
+                </>
+              )}
+              {selectedParameter === "health" && (
+                <>
+                  <Healthcare />
                 </>
               )}
             </TabPanel>
@@ -489,17 +496,30 @@ function CityHeaderNew({ pageName }) {
               </div>
             )}
             {expandedSection === "social" && (
-              <div className="sub-items">
-                <div
-                  className={`link ${
-                    activeSubTab === "transport" ? "sub-active" : ""
-                  }`}
-                  onClick={() => handleTabClick("report", "transport")}
-                >
-                  <EmojiTransportationIcon className="icon-sub" />
-                  <span>Transport</span>
+              <>
+                <div className="sub-items">
+                  <div
+                    className={`link ${
+                      activeSubTab === "transport" ? "sub-active" : ""
+                    }`}
+                    onClick={() => handleTabClick("report", "transport")}
+                  >
+                    <EmojiTransportationIcon className="icon-sub" />
+                    <span>Transport</span>
+                  </div>
                 </div>
-              </div>
+                <div className="sub-items">
+                  <div
+                    className={`link ${
+                      activeSubTab === "transport" ? "sub-active" : ""
+                    }`}
+                    onClick={() => handleTabClick("report", "health")}
+                  >
+                    <HealthAndSafetyIcon className="icon-sub" />
+                    <span>Healthcare</span>
+                  </div>
+                </div>
+              </>
             )}
             {expandedSection === "administration" && (
               <div className="sub-items">

@@ -16,6 +16,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
+import { width } from "@mui/system";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -48,15 +49,15 @@ const Infrastructure = () => {
     },
     data: [
       {
-        type: "bar",
+        type: "column",
         color: "#557C56",
         name: "Roadways",
 
         showInLegend: false,
         indexLabel: "Roadways: {y}",
-        indexLabelPlacement: "inside",
-        indexLabelFontColor: "white",
-        indexLabelFontSize: 10,
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "black",
+        indexLabelFontSize: 8,
         toolTipContent: "{name}: {y}", // Custom tooltip format
         dataPoints: categories.map((year, index) => ({
           label: year,
@@ -64,13 +65,14 @@ const Infrastructure = () => {
         })),
       },
       {
-        type: "bar",
+        type: "column",
         name: "Railways",
         color: "#90D26D",
+
         indexLabel: "Railways: {y}",
-        indexLabelPlacement: "inside",
-        indexLabelFontColor: "white",
-        indexLabelFontSize: 10,
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "black",
+        indexLabelFontSize: 8,
         showInLegend: false,
         toolTipContent: "{name}: {y}", // Custom tooltip format
         dataPoints: categories.map((year, index) => ({
@@ -79,13 +81,13 @@ const Infrastructure = () => {
         })),
       },
       {
-        type: "bar",
+        type: "column",
         name: "Airways",
         color: "#6A9C89",
         showInLegend: false,
-        indexLabelPlacement: "inside",
-        indexLabelFontColor: "white",
-        indexLabelFontSize: 10,
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "black",
+        indexLabelFontSize: 8,
         toolTipContent: "{name}: {y}",
         indexLabel: "Airways: {y}", // Custom tooltip format
         dataPoints: categories.map((year, index) => ({
@@ -94,13 +96,13 @@ const Infrastructure = () => {
         })),
       },
       {
-        type: "bar",
+        type: "column",
         color: "#95D2B3",
         name: "Waterways",
         showInLegend: false,
-        indexLabelFontSize: 10,
-        indexLabelPlacement: "inside",
-        indexLabelFontColor: "white",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "black",
+        indexLabelFontSize: 8,
         indexLabel: "Waterways: {y}",
         toolTipContent: "{name}: {y}", // Custom tooltip format
         dataPoints: categories.map((year, index) => ({
@@ -110,6 +112,18 @@ const Infrastructure = () => {
       },
     ],
   };
+  const colors = [
+    "#557C56",
+    "#90D26D",
+    "#6A9C89",
+    "#B5C18E",
+    "#41B3A2",
+    "#BDE8CA",
+    "#C4DAD2",
+    "#9CDBA6",
+    "#95D2B3",
+    "#729762",
+  ];
 
   const Doughnut = ({ title, labels, series, height }) => {
     const colors = [
@@ -302,11 +316,13 @@ const Infrastructure = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                  <p className="m-0 text-xs">
-                    Maintained Railways In Current Year: 60%
+                  <p className="m-0 text-base text-green-500 font-bold"> 60%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Railways In Current Year
                   </p>
-                  <p className="m-0 text-xs">
-                    Maintained Railways In Previous Year: 70%
+                  <p className="m-0 text-base text-green-500 font-bold"> 70%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Railways In Previous Year
                   </p>
                 </div>
               }
@@ -365,11 +381,13 @@ const Infrastructure = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                  <p className="m-0 text-xs">
-                    Maintained Airways In Current Year: 70%
+                  <p className="m-0 text-base text-green-500 font-bold"> 70%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Airways In Current Year
                   </p>
-                  <p className="m-0 text-xs">
-                    Maintained Airways In Previous Year: 60%
+                  <p className="m-0 text-base text-green-500 font-bold"> 60%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Airways In Previous Year
                   </p>
                 </div>
               }
@@ -427,11 +445,13 @@ const Infrastructure = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                  <p className="m-0 text-xs">
-                    Maintained Waterways In Current Year: 80%
+                  <p className="m-0 text-base text-green-500 font-bold"> 80%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Waterways In Current Year
                   </p>
-                  <p className="m-0 text-xs">
-                    Maintained Waterways In Previous Year: 70%
+                  <p className="m-0 text-base text-green-500 font-bold"> 70%</p>
+                  <p className="m-0 text-xs font-semibold">
+                    Maintained Waterways In Previous Year
                   </p>
                 </div>
               }
@@ -479,7 +499,10 @@ const Infrastructure = () => {
       </div> */}
       <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
         <Card className="w-full">
-          <CanvasJSChart options={options} />
+          <CanvasJSChart
+            options={options}
+            containerProps={{ height: "300px", width: "100%" }}
+          />
         </Card>
       </div>
     </div>

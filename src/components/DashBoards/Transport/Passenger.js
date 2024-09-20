@@ -50,7 +50,7 @@ const options = {
       name: "Roadways",
 
       showInLegend: false,
-      indexLabel: "Roadways: {y} Times Higher",
+      indexLabel: "Roadways: {y}X Passenger",
       indexLabelPlacement: "outside",
       indexLabelFontColor: "green",
       indexLabelFontSize: 10,
@@ -65,7 +65,7 @@ const options = {
       type: "bar",
       name: "Railways",
       color: "#90D26D",
-      indexLabel: "Railways: {y} Times Higher",
+      indexLabel: "Railways: {y}X Passenger",
       indexLabelPlacement: "inside",
       indexLabelFontColor: "white",
       indexLabelFontSize: 10,

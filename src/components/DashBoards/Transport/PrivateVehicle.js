@@ -10,6 +10,7 @@ import CustomTooltip from "./CustomTooltip";
 import increase from "./TransportUtils/Images/increase.png";
 import decrease from "./TransportUtils/Images/decrease.png";
 import CanvasJSReact from "@canvasjs/react-charts";
+import { width } from "@mui/system";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -112,13 +113,13 @@ const PrivateVehicle = () => {
     <>
       <div className="flex align-items-center justify-content-between flex-row gap-3">
         {/* Card 1: Number of Private Vehicles */}
-        <div className="flex align-items-center justify-content-between flex-column gap-3">
+        <div className="flex align-items-center justify-content-between flex-column gap-1">
           <Card className="flex align-items-center justify-content-between">
             <h1 className="m-0 p-0 text-xl">3000</h1>
             <h1 className="m-0 p-0 text-xs text-center">
               Number of private vehicles contributing to public transport
             </h1>
-            <div className="flex align-items-start justify-content-between flex-row w-full mt-2">
+            <div className="flex align-items-start justify-content-between flex-row w-full">
               <div className="flex align-items-start justify-content-start flex-row">
                 <img
                   src={increase}
@@ -157,17 +158,17 @@ const PrivateVehicle = () => {
 
           {/* Card 2: Transport Mode Usage by Percentage */}
           <Card className="flex align-items-center justify-content-between">
-            <div className="flex align-items-center justify-content-center flex-row w-full mt-2">
+            <div className="flex align-items-center justify-content-center flex-row w-full">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               />
-              <h1 className="m-0 p-1 text-xl">15%</h1>
+              <h1 className="m-0 p-0 text-xl">15%</h1>
             </div>
 
             {/* <div className="flex align-items-center justify-content-center flex-row"> */}
-            <h1 className="m-0 text-xs text-center">
+            <h1 className="m-0 p-0 text-xs text-center">
               Percentage increase in private vehicles contributing to public
               transport
             </h1>
@@ -196,14 +197,17 @@ const PrivateVehicle = () => {
           </Card>
         </div>
         {/* Card 3: Private-public partnerships */}
-        <Card className="w-full p-0">
+        <Card className="w-full">
           {/* <ParetoChart
             title="Private-public partnerships over the last 5 years"
             categories={categories}
             data={partnershipSeries}
             height={200}
           /> */}
-          <CanvasJSChart options={options} />
+          <CanvasJSChart
+            options={options}
+            containerProps={{ height: "270px", width: "100%" }}
+          />
         </Card>
       </div>
     </>
